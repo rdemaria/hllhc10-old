@@ -1,0 +1,932 @@
+!! S. Fartoukh March 2011, Saving the actual optics for V6.503.
+!!    Merging from SLHC3.0 and ATS_V6.503 save_optics.madx
+!! 2011/11/10 Riccardo De Maria
+!!    adding layout variables
+!!    adding flags for sextupole scheme and thin lens
+!!    adding new crossing scheme for crabs
+
+set,format=28.16g;
+
+
+if (on_check <> 0)
+{
+exec check_opt(b1);
+exec check_opt(b2);
+};
+
+on_x1aux=on_x1;on_sep1aux=on_sep1;
+on_x2aux=on_x2;on_sep2aux=on_sep2;on_aliceaux=on_alice;
+on_x5aux=on_x1;on_sep5aux=on_sep5;
+on_x8aux=on_x2;on_sep8aux=on_sep8;on_lhcbaux=on_lhcb;
+on_dispaux=on_disp;
+on_sol_atlasaux=on_sol_atlas;on_sol_aliceaux=on_sol_alice;on_sol_cmsaux=on_sol_cms;
+
+on_x1:=1;on_sep1:=1;
+on_x2:=1;on_sep2:=1;on_alice:=1;
+on_x5:=1;on_sep5:=1;
+on_x8:=1;on_sep8:=1;on_lhcb:=-1;
+on_disp:=1;
+on_sol_atlas=0;on_sol_alice=0;on_sol_cms=0;
+
+
+system,"rm temp/optics.res";
+option,-echo, -info ;assign, echo=temp/optics.res;
+
+!Status of the squeeze for IR2/4/6/8
+value,arc_squeeze;!only affect the QT and MS cabling
+value,on_check;   !check the optics or not
+value,on_knob;    !create Q,Q',c- knob and a2/a3/pre-setting
+
+
+! Layout
+value, l.MQXL,l.MQX;
+value, dq1q2a,dq1aq1b,dq2aq2b,dq2bq3;
+value, deltaposD2;
+value, deltaposQ4;
+value, deltaposQ5;
+value, deltaposQ6;
+value, on_cutMS.10;
+value, on_cutMS.14;
+value, is_thin;
+
+!betx/y in IR1 and IR5
+value,betxIP1b1,betyIP1b1,betxIP5b1,betyIP5b1;
+value,betx0_IP1,bety0_IP1,betx0_IP5,bety0_IP5;
+
+!Default crossing scheme orientation in IR1 and IR5
+value,phi_IR1,phi_IR5;
+
+!IR1 optics
+value, KQX1.L1;
+value, KQX2a.L1;
+value, KQX2b.L1;
+value, KQX3.L1;
+value, KQ4.L1B1;
+value, KQ4.R1B1;
+value, KQ5.L1B1;
+value, KQ5.R1B1;
+value, KQ6.L1B1;
+value, KQ6.R1B1;
+value, KQ7.L1B1;
+value, KQ7.R1B1;
+value, KQ8.L1B1;
+value, KQ8.R1B1;
+value, KQ9.L1B1;
+value, KQ9.R1B1;
+value, KQ10.L1B1;
+value, KQ10.R1B1;
+value, KQTL11.L1B1;
+value, KQTL11.R1B1;
+value, KQT12.L1B1;
+value, KQT12.R1B1;
+value, KQT13.L1B1;
+value, KQT13.R1B1;
+value, KQ4.L1B2;
+value, KQ4.R1B2;
+value, KQ5.L1B2;
+value, KQ5.R1B2;
+value, KQ6.L1B2;
+value, KQ6.R1B2;
+value, KQ7.L1B2;
+value, KQ7.R1B2;
+value, KQ8.L1B2;
+value, KQ8.R1B2;
+value, KQ9.L1B2;
+value, KQ9.R1B2;
+value, KQ10.L1B2;
+value, KQ10.R1B2;
+value, KQTL11.L1B2;
+value, KQTL11.R1B2;
+value, KQT12.L1B2;
+value, KQT12.R1B2;
+value, KQT13.L1B2;
+value, KQT13.R1B2;
+
+value,ACBXV1.L1x,ACBXV1.L1s;
+value,ACBXV1.R1x,ACBXV1.R1s;
+value,ACBXH1.L1x,ACBXH1.L1s;
+value,ACBXH1.R1x,ACBXH1.R1s;
+value,ACBXV2.L1x,ACBXV2.L1s;
+value,ACBXV2.R1x,ACBXV2.R1s;
+value,ACBXH2.L1x,ACBXH2.L1s;
+value,ACBXH2.R1x,ACBXH2.R1s;
+value,ACBXV3.L1x,ACBXV3.L1s;
+value,ACBXV3.R1x,ACBXV3.R1s;
+value,ACBXH3.L1x,ACBXH3.L1s;
+value,ACBXH3.R1x,ACBXH3.R1s;
+
+value,ACBrdV4.L1B1x,ACBrdV4.L1B1s;
+value,ACBrdV4.R1B1x,ACBrdV4.R1B1s;
+value,ACBYVS4.L1B1x,ACBYVS4.L1B1s;
+value,ACBYVS4.R1B1x,ACBYVS4.R1B1s;
+value,ACBCV5.L1B1x,ACBCV5.L1B1s;
+value,ACBCV6.R1B1x,ACBCV6.R1B1s;
+value,ACBrdH4.L1B1x,ACBrdH4.L1B1s;
+value,ACBrdH4.R1B1x,ACBrdH4.R1B1s;
+value,ACBYHS4.L1B1x,ACBYHS4.L1B1s;
+value,ACBYHS4.R1B1x,ACBYHS4.R1B1s;
+value,ACBCH6.L1B1x,ACBCH6.L1B1s;
+value,ACBCH5.R1B1x,ACBCH5.R1B1s;
+
+value,ACBrdV4.L1B2x,ACBrdV4.L1B2s;
+value,ACBrdV4.R1B2x,ACBrdV4.R1B2s;
+value,ACBYVS4.L1B2x,ACBYVS4.L1B2s;
+value,ACBYVS4.R1B2x,ACBYVS4.R1B2s;
+value,ACBCV6.L1B2x,ACBCV6.L1B2s;
+value,ACBCV5.R1B2x,ACBCV5.R1B2s;
+value,ACBrdH4.L1B2x,ACBrdH4.L1B2s;
+value,ACBrdH4.R1B2x,ACBrdH4.R1B2s;
+value,ACBYHS4.L1B2x,ACBYHS4.L1B2s;
+value,ACBYHS4.R1B2x,ACBYHS4.R1B2s;
+value,ACBCH5.L1B2x,ACBCH5.L1B2s;
+value,ACBCH6.R1B2x,ACBCH6.R1B2s;
+value,ahcrab_l1b1;
+value,ahcrab_r1b1;
+value,ahcrab_l1b2;
+value,ahcrab_r1b2;
+value,avcrab_l1b1;
+value,avcrab_r1b1;
+value,avcrab_l1b2;
+value,avcrab_r1b2;
+
+
+
+!IR5 optics
+value, KQX1.L5;
+value, KQX2a.L5;
+value, KQX2b.L5;
+value, KQX3.L5;
+value, KQ4.L5B1;
+value, KQ4.R5B1;
+value, KQ5.L5B1;
+value, KQ5.R5B1;
+value, KQ6.L5B1;
+value, KQ6.R5B1;
+value, KQ7.L5B1;
+value, KQ7.R5B1;
+value, KQ8.L5B1;
+value, KQ8.R5B1;
+value, KQ9.L5B1;
+value, KQ9.R5B1;
+value, KQ10.L5B1;
+value, KQ10.R5B1;
+value, KQTL11.L5B1;
+value, KQTL11.R5B1;
+value, KQT12.L5B1;
+value, KQT12.R5B1;
+value, KQT13.L5B1;
+value, KQT13.R5B1;
+value, KQ4.L5B2;
+value, KQ4.R5B2;
+value, KQ5.L5B2;
+value, KQ5.R5B2;
+value, KQ6.L5B2;
+value, KQ6.R5B2;
+value, KQ7.L5B2;
+value, KQ7.R5B2;
+value, KQ8.L5B2;
+value, KQ8.R5B2;
+value, KQ9.L5B2;
+value, KQ9.R5B2;
+value, KQ10.L5B2;
+value, KQ10.R5B2;
+value, KQTL11.L5B2;
+value, KQTL11.R5B2;
+value, KQT12.L5B2;
+value, KQT12.R5B2;
+value, KQT13.L5B2;
+value, KQT13.R5B2;
+
+value,ACBXV1.L5x,ACBXV1.L5s;
+value,ACBXV1.R5x,ACBXV1.R5s;
+value,ACBXH1.L5x,ACBXH1.L5s;
+value,ACBXH1.R5x,ACBXH1.R5s;
+value,ACBXV2.L5x,ACBXV2.L5s;
+value,ACBXV2.R5x,ACBXV2.R5s;
+value,ACBXH2.L5x,ACBXH2.L5s;
+value,ACBXH2.R5x,ACBXH2.R5s;
+value,ACBXV3.L5x,ACBXV3.L5s;
+value,ACBXV3.R5x,ACBXV3.R5s;
+value,ACBXH3.L5x,ACBXH3.L5s;
+value,ACBXH3.R5x,ACBXH3.R5s;
+
+value,ACBrdV4.L5B1x,ACBrdV4.L5B1s;
+value,ACBrdV4.R5B1x,ACBrdV4.R5B1s;
+value,ACBYVS4.L5B1x,ACBYVS4.L5B1s;
+value,ACBYVS4.R5B1x,ACBYVS4.R5B1s;
+value,ACBCV5.L5B1x,ACBCV5.L5B1s;
+value,ACBCV6.R5B1x,ACBCV6.R5B1s;
+value,ACBrdH4.L5B1x,ACBrdH4.L5B1s;
+value,ACBrdH4.R5B1x,ACBrdH4.R5B1s;
+value,ACBYHS4.L5B1x,ACBYHS4.L5B1s;
+value,ACBYHS4.R5B1x,ACBYHS4.R5B1s;
+value,ACBCH6.L5B1x,ACBCH6.L5B1s;
+value,ACBCH5.R5B1x,ACBCH5.R5B1s;
+
+value,ACBrdV4.L5B2x,ACBrdV4.L5B2s;
+value,ACBrdV4.R5B2x,ACBrdV4.R5B2s;
+value,ACBYVS4.L5B2x,ACBYVS4.L5B2s;
+value,ACBYVS4.R5B2x,ACBYVS4.R5B2s;
+value,ACBCV6.L5B2x,ACBCV6.L5B2s;
+value,ACBCV5.R5B2x,ACBCV5.R5B2s;
+value,ACBrdH4.L5B2x,ACBrdH4.L5B2s;
+value,ACBrdH4.R5B2x,ACBrdH4.R5B2s;
+value,ACBYHS4.L5B2x,ACBYHS4.L5B2s;
+value,ACBYHS4.R5B2x,ACBYHS4.R5B2s;
+value,ACBCH5.L5B2x,ACBCH5.L5B2s;
+value,ACBCH6.R5B2x,ACBCH6.R5B2s;
+value,ahcrab_l5b1;
+value,ahcrab_r5b1;
+value,ahcrab_l5b2;
+value,ahcrab_r5b2;
+value,avcrab_l5b1;
+value,avcrab_r5b1;
+value,avcrab_l5b2;
+value,avcrab_r5b2;
+
+!IR2 optics
+value, KQX.L2;
+value, KTQX1.L2;
+value, KTQX2.L2;
+value, KQ4.L2B1;
+value, KQ4.R2B1;
+value, KQ5.L2B1;
+value, KQ5.R2B1;
+value, KQ6.L2B1;
+value, KQ6.R2B1;
+value, KQ7.L2B1;
+value, KQ7.R2B1;
+value, KQ8.L2B1;
+value, KQ8.R2B1;
+value, KQ9.L2B1;
+value, KQ9.R2B1;
+value, KQ10.L2B1;
+value, KQ10.R2B1;
+value, KQTL11.L2B1;
+value, KQTL11.R2B1;
+value, KQT12.L2B1;
+value, KQT12.R2B1;
+value, KQT13.L2B1;
+value, KQT13.R2B1;
+value, KQ4.L2B2;
+value, KQ4.R2B2;
+value, KQ5.L2B2;
+value, KQ5.R2B2;
+value, KQ6.L2B2;
+value, KQ6.R2B2;
+value, KQ7.L2B2;
+value, KQ7.R2B2;
+value, KQ8.L2B2;
+value, KQ8.R2B2;
+value, KQ9.L2B2;
+value, KQ9.R2B2;
+value, KQ10.L2B2;
+value, KQ10.R2B2;
+value, KQTL11.L2B2;
+value, KQTL11.R2B2;
+value, KQT12.L2B2;
+value, KQT12.R2B2;
+value, KQT13.L2B2;
+value, KQT13.R2B2;
+
+value,ACBXV1.L2;
+value,ACBXV1.R2;
+value,ACBXH1.L2;
+value,ACBXH1.R2;
+value,ACBXV2.L2;
+value,ACBXV2.R2;
+value,ACBXH2.L2;
+value,ACBXH2.R2;
+value,ACBXV3.L2;
+value,ACBXV3.R2;
+value,ACBXH3.L2;
+value,ACBXH3.R2;
+
+value,ACBYVS4.L2B1;
+value,ACBYVS4.R2B1;
+value,ACBYVS5.L2B1;
+value,ACBCVS5.R2B1;
+value,ACBYHS4.L2B1;
+value,ACBYHS4.R2B1;
+value,ACBYHS5.L2B1;
+value,ACBCHS5.R2B1;
+
+value,ACBYVS4.L2B2;
+value,ACBYVS4.R2B2;
+value,ACBYVS5.L2B2;
+value,ACBCVS5.R2B2;
+value,ACBYHS4.L2B2;
+value,ACBYHS4.R2B2;
+value,ACBYHS5.L2B2;
+value,ACBCHS5.R2B2;
+
+!IR8 optics
+value, KQX.L8;
+value, KTQX1.L8;
+value, KTQX2.L8;
+value, KQ4.L8B1;
+value, KQ4.R8B1;
+value, KQ5.L8B1;
+value, KQ5.R8B1;
+value, KQ6.L8B1;
+value, KQ6.R8B1;
+value, KQ7.L8B1;
+value, KQ7.R8B1;
+value, KQ8.L8B1;
+value, KQ8.R8B1;
+value, KQ9.L8B1;
+value, KQ9.R8B1;
+value, KQ10.L8B1;
+value, KQ10.R8B1;
+value, KQTL11.L8B1;
+value, KQTL11.R8B1;
+value, KQT12.L8B1;
+value, KQT12.R8B1;
+value, KQT13.L8B1;
+value, KQT13.R8B1;
+value, KQ4.L8B2;
+value, KQ4.R8B2;
+value, KQ5.L8B2;
+value, KQ5.R8B2;
+value, KQ6.L8B2;
+value, KQ6.R8B2;
+value, KQ7.L8B2;
+value, KQ7.R8B2;
+value, KQ8.L8B2;
+value, KQ8.R8B2;
+value, KQ9.L8B2;
+value, KQ9.R8B2;
+value, KQ10.L8B2;
+value, KQ10.R8B2;
+value, KQTL11.L8B2;
+value, KQTL11.R8B2;
+value, KQT12.L8B2;
+value, KQT12.R8B2;
+value, KQT13.L8B2;
+value, KQT13.R8B2;
+
+value,ACBXV1.L8;
+value,ACBXV1.R8;
+value,ACBXH1.L8;
+value,ACBXH1.R8;
+value,ACBXV2.L8;
+value,ACBXV2.R8;
+value,ACBXH2.L8;
+value,ACBXH2.R8;
+value,ACBXV3.L8;
+value,ACBXV3.R8;
+value,ACBXH3.L8;
+value,ACBXH3.R8;
+
+value,ACBYVS4.L8B1;
+value,ACBYVS4.R8B1;
+value,ACBCVS5.L8B1;
+value,ACBYVS5.R8B1;
+value,ACBYHS4.L8B1;
+value,ACBYHS4.R8B1;
+value,ACBWH5.L8B1;
+vaLue,ACBCH5.L8B1;
+value,ACBCHS5.L8B1;
+value,ACBYHS5.R8B1;
+
+value,ACBYVS4.L8B2;
+value,ACBYVS4.R8B2;
+value,ACBCVS5.L8B2;
+value,ACBYVS5.R8B2;
+value,ACBYHS4.L8B2;
+value,ACBYHS4.R8B2;
+value,ACBCHS5.L8B2;
+value,ACBYHS5.R8B2;
+
+!IR4 optics
+value, KQ5.L4B1;
+value, KQ5.R4B1;
+value, KQ6.L4B1;
+value, KQ6.R4B1;
+value, KQ7.L4B1;
+value, KQ7.R4B1;
+value, KQ8.L4B1;
+value, KQ8.R4B1;
+value, KQ9.L4B1;
+value, KQ9.R4B1;
+value, KQ10.L4B1;
+value, KQ10.R4B1;
+value, KQTL11.L4B1;
+value, KQTL11.R4B1;
+value, KQT12.L4B1;
+value, KQT12.R4B1;
+value, KQT13.L4B1;
+value, KQT13.R4B1;
+value, KQ5.L4B2;
+value, KQ5.R4B2;
+value, KQ6.L4B2;
+value, KQ6.R4B2;
+value, KQ7.L4B2;
+value, KQ7.R4B2;
+value, KQ8.L4B2;
+value, KQ8.R4B2;
+value, KQ9.L4B2;
+value, KQ9.R4B2;
+value, KQ10.L4B2;
+value, KQ10.R4B2;
+value, KQTL11.L4B2;
+value, KQTL11.R4B2;
+value, KQT12.L4B2;
+value, KQT12.R4B2;
+value, KQT13.L4B2;
+value, KQT13.R4B2;
+
+!IR6 optics
+value, KQ4.L6B1;
+value, KQ4.R6B1;
+value, KQ5.L6B1;
+value, KQ5.R6B1;
+value, KQ8.L6B1;
+value, KQ8.R6B1;
+value, KQ9.L6B1;
+value, KQ9.R6B1;
+value, KQ10.L6B1;
+value, KQ10.R6B1;
+value, KQTL11.L6B1;
+value, KQTL11.R6B1;
+value, KQT12.L6B1;
+value, KQT12.R6B1;
+value, KQT13.L6B1;
+value, KQT13.R6B1;
+value, KQ4.L6B2;
+value, KQ4.R6B2;
+value, KQ5.L6B2;
+value, KQ5.R6B2;
+value, KQ8.L6B2;
+value, KQ8.R6B2;
+value, KQ9.L6B2;
+value, KQ9.R6B2;
+value, KQ10.L6B2;
+value, KQ10.R6B2;
+value, KQTL11.L6B2;
+value, KQTL11.R6B2;
+value, KQT12.L6B2;
+value, KQT12.R6B2;
+value, KQT13.L6B2;
+value, KQT13.R6B2;
+
+!IR3 optics
+value,KQ4.LR3;
+value,KQT4.L3;
+value,KQT4.R3;
+value,KQ5.LR3;
+value,KQT5.L3;
+value,KQT5.R3;
+value, KQ6.L3B1;
+value, KQ6.R3B1;
+value, KQTL7.L3B1;
+value, KQTL7.R3B1;
+value, KQTL8.L3B1;
+value, KQTL8.R3B1;
+value, KQTL9.L3B1;
+value, KQTL9.R3B1;
+value, KQTL10.L3B1;
+value, KQTL10.R3B1;
+value, KQTL11.L3B1;
+value, KQTL11.R3B1;
+value, KQT12.L3B1;
+value, KQT12.R3B1;
+value, KQT13.L3B1;
+value, KQT13.R3B1;
+value, KQ6.L3B2;
+value, KQ6.R3B2;
+value, KQTL7.L3B2;
+value, KQTL7.R3B2;
+value, KQTL8.L3B2;
+value, KQTL8.R3B2;
+value, KQTL9.L3B2;
+value, KQTL9.R3B2;
+value, KQTL10.L3B2;
+value, KQTL10.R3B2;
+value, KQTL11.L3B2;
+value, KQTL11.R3B2;
+value, KQT12.L3B2;
+value, KQT12.R3B2;
+value, KQT13.L3B2;
+value, KQT13.R3B2;
+
+!IR7 optics
+value,KQ4.LR7;
+value,KQT4.L7;
+value,KQT4.R7;
+value,KQ5.LR7;
+value,KQT5.L7;
+value,KQT5.R7;
+value, KQ6.L7B1;
+value, KQ6.R7B1;
+value, KQTL7.L7B1;
+value, KQTL7.R7B1;
+value, KQTL8.L7B1;
+value, KQTL8.R7B1;
+value, KQTL9.L7B1;
+value, KQTL9.R7B1;
+value, KQTL10.L7B1;
+value, KQTL10.R7B1;
+value, KQTL11.L7B1;
+value, KQTL11.R7B1;
+value, KQT12.L7B1;
+value, KQT12.R7B1;
+value, KQT13.L7B1;
+value, KQT13.R7B1;
+value, KQ6.L7B2;
+value, KQ6.R7B2;
+value, KQTL7.L7B2;
+value, KQTL7.R7B2;
+value, KQTL8.L7B2;
+value, KQTL8.R7B2;
+value, KQTL9.L7B2;
+value, KQTL9.R7B2;
+value, KQTL10.L7B2;
+value, KQTL10.R7B2;
+value, KQTL11.L7B2;
+value, KQTL11.R7B2;
+value, KQT12.L7B2;
+value, KQT12.R7B2;
+value, KQT13.L7B2;
+value, KQT13.R7B2;
+
+!Arc optics
+
+!QF/QD
+value,kqf.a81;
+value,kqf.a12;
+value,kqf.a45;
+value,kqf.a56;
+value,kqd.a81;
+value,kqd.a12;
+value,kqd.a45;
+value,kqd.a56;
+value,kqf.a78;
+value,kqf.a23;
+value,kqf.a34;
+value,kqf.a67;
+value,kqd.a78;
+value,kqd.a23;
+value,kqd.a34;
+value,kqd.a67;
+
+!!QTF/QTD
+!beam1
+value,kqtf.a81b1,kqtf.a81b1x1,kqtf.a81b1y1,kqtf.a81b1x2,kqtf.a81b1y2;
+value,kqtf.a12b1,kqtf.a12b1x1,kqtf.a12b1y1,kqtf.a12b1x2,kqtf.a12b1y2;
+value,kqtf.a45b1,kqtf.a45b1x1,kqtf.a45b1y1,kqtf.a45b1x2,kqtf.a45b1y2;
+value,kqtf.a56b1,kqtf.a56b1x1,kqtf.a56b1y1,kqtf.a56b1x2,kqtf.a56b1y2;
+value,kqtd.a81b1,kqtd.a81b1x1,kqtd.a81b1y1,kqtd.a81b1x2,kqtd.a81b1y2;
+value,kqtd.a12b1,kqtd.a12b1x1,kqtd.a12b1y1,kqtd.a12b1x2,kqtd.a12b1y2;
+value,kqtd.a45b1,kqtd.a45b1x1,kqtd.a45b1y1,kqtd.a45b1x2,kqtd.a45b1y2;
+value,kqtd.a56b1,kqtd.a56b1x1,kqtd.a56b1y1,kqtd.a56b1x2,kqtd.a56b1y2;
+value,kqtf.a78b1,kqtf.a78b1x1,kqtf.a78b1y1,kqtf.a78b1x2,kqtf.a78b1y2;
+value,kqtf.a23b1,kqtf.a23b1x1,kqtf.a23b1y1,kqtf.a23b1x2,kqtf.a23b1y2;
+value,kqtf.a34b1,kqtf.a34b1x1,kqtf.a34b1y1,kqtf.a34b1x2,kqtf.a34b1y2;
+value,kqtf.a67b1,kqtf.a67b1x1,kqtf.a67b1y1,kqtf.a67b1x2,kqtf.a67b1y2;
+value,kqtd.a78b1,kqtd.a78b1x1,kqtd.a78b1y1,kqtd.a78b1x2,kqtd.a78b1y2;
+value,kqtd.a23b1,kqtd.a23b1x1,kqtd.a23b1y1,kqtd.a23b1x2,kqtd.a23b1y2;
+value,kqtd.a34b1,kqtd.a34b1x1,kqtd.a34b1y1,kqtd.a34b1x2,kqtd.a34b1y2;
+value,kqtd.a67b1,kqtd.a67b1x1,kqtd.a67b1y1,kqtd.a67b1x2,kqtd.a67b1y2;
+
+!beam2
+value,kqtf.a81b2,kqtf.a81b2x1,kqtf.a81b2y1,kqtf.a81b2x2,kqtf.a81b2y2;
+value,kqtf.a12b2,kqtf.a12b2x1,kqtf.a12b2y1,kqtf.a12b2x2,kqtf.a12b2y2;
+value,kqtf.a45b2,kqtf.a45b2x1,kqtf.a45b2y1,kqtf.a45b2x2,kqtf.a45b2y2;
+value,kqtf.a56b2,kqtf.a56b2x1,kqtf.a56b2y1,kqtf.a56b2x2,kqtf.a56b2y2;
+value,kqtd.a81b2,kqtd.a81b2x1,kqtd.a81b2y1,kqtd.a81b2x2,kqtd.a81b2y2;
+value,kqtd.a12b2,kqtd.a12b2x1,kqtd.a12b2y1,kqtd.a12b2x2,kqtd.a12b2y2;
+value,kqtd.a45b2,kqtd.a45b2x1,kqtd.a45b2y1,kqtd.a45b2x2,kqtd.a45b2y2;
+value,kqtd.a56b2,kqtd.a56b2x1,kqtd.a56b2y1,kqtd.a56b2x2,kqtd.a56b2y2;
+value,kqtf.a78b2,kqtf.a78b2x1,kqtf.a78b2y1,kqtf.a78b2x2,kqtf.a78b2y2;
+value,kqtf.a23b2,kqtf.a23b2x1,kqtf.a23b2y1,kqtf.a23b2x2,kqtf.a23b2y2;
+value,kqtf.a34b2,kqtf.a34b2x1,kqtf.a34b2y1,kqtf.a34b2x2,kqtf.a34b2y2;
+value,kqtf.a67b2,kqtf.a67b2x1,kqtf.a67b2y1,kqtf.a67b2x2,kqtf.a67b2y2;
+value,kqtd.a78b2,kqtd.a78b2x1,kqtd.a78b2y1,kqtd.a78b2x2,kqtd.a78b2y2;
+value,kqtd.a23b2,kqtd.a23b2x1,kqtd.a23b2y1,kqtd.a23b2x2,kqtd.a23b2y2;
+value,kqtd.a34b2,kqtd.a34b2x1,kqtd.a34b2y1,kqtd.a34b2x2,kqtd.a34b2y2;
+value,kqtd.a67b2,kqtd.a67b2x1,kqtd.a67b2y1,kqtd.a67b2x2,kqtd.a67b2y2;
+
+!!!MS
+!!Beam1
+!strong MS of "strong sectors" 
+value,ksf1.a81b1,ksf1.a81b1x1,ksf1.a81b1y1,ksf1.a81b1x2,ksf1.a81b1y2;
+value,ksf1.a12b1,ksf1.a12b1x1,ksf1.a12b1y1,ksf1.a12b1x2,ksf1.a12b1y2;
+value,ksf1.a45b1,ksf1.a45b1x1,ksf1.a45b1y1,ksf1.a45b1x2,ksf1.a45b1y2;
+value,ksf1.a56b1,ksf1.a56b1x1,ksf1.a56b1y1,ksf1.a56b1x2,ksf1.a56b1y2;
+value,ksd2.a81b1,ksd2.a81b1x1,ksd2.a81b1y1,ksd2.a81b1x2,ksd2.a81b1y2;
+value,ksd2.a12b1,ksd2.a12b1x1,ksd2.a12b1y1,ksd2.a12b1x2,ksd2.a12b1y2;
+value,ksd2.a45b1,ksd2.a45b1x1,ksd2.a45b1y1,ksd2.a45b1x2,ksd2.a45b1y2;
+value,ksd2.a56b1,ksd2.a56b1x1,ksd2.a56b1y1,ksd2.a56b1x2,ksd2.a56b1y2;
+!weak MS of "strong sectors" 81/12/45/56
+value,ksf2.a81b1,ksf2.a81b1x1,ksf2.a81b1y1,ksf2.a81b1x2,ksf2.a81b1y2;
+value,ksf2.a12b1,ksf2.a12b1x1,ksf2.a12b1y1,ksf2.a12b1x2,ksf2.a12b1y2;
+value,ksf2.a45b1,ksf2.a45b1x1,ksf2.a45b1y1,ksf2.a45b1x2,ksf2.a45b1y2;
+value,ksf2.a56b1,ksf2.a56b1x1,ksf2.a56b1y1,ksf2.a56b1x2,ksf2.a56b1y2;
+value,ksd1.a81b1,ksd1.a81b1x1,ksd1.a81b1y1,ksd1.a81b1x2,ksd1.a81b1y2;
+value,ksd1.a12b1,ksd1.a12b1x1,ksd1.a12b1y1,ksd1.a12b1x2,ksd1.a12b1y2;
+value,ksd1.a45b1,ksd1.a45b1x1,ksd1.a45b1y1,ksd1.a45b1x2,ksd1.a45b1y2;
+value,ksd1.a56b1,ksd1.a56b1x1,ksd1.a56b1y1,ksd1.a56b1x2,ksd1.a56b1y2;
+!Sextupole of "weak sectors" 78/23/34/67
+value,ksf1.a78b1,ksf1.a78b1x1,ksf1.a78b1y1,ksf1.a78b1x2,ksf1.a78b1y2;
+value,ksf2.a78b1,ksf2.a78b1x1,ksf2.a78b1y1,ksf2.a78b1x2,ksf2.a78b1y2;
+value,ksf1.a23b1,ksf1.a23b1x1,ksf1.a23b1y1,ksf1.a23b1x2,ksf1.a23b1y2;
+value,ksf2.a23b1,ksf2.a23b1x1,ksf2.a23b1y1,ksf2.a23b1x2,ksf2.a23b1y2;
+value,ksf1.a34b1,ksf1.a34b1x1,ksf1.a34b1y1,ksf1.a34b1x2,ksf1.a34b1y2;
+value,ksf2.a34b1,ksf2.a34b1x1,ksf2.a34b1y1,ksf2.a34b1x2,ksf2.a34b1y2;
+value,ksf1.a67b1,ksf1.a67b1x1,ksf1.a67b1y1,ksf1.a67b1x2,ksf1.a67b1y2;
+value,ksf2.a67b1,ksf2.a67b1x1,ksf2.a67b1y1,ksf2.a67b1x2,ksf2.a67b1y2;
+value,ksd1.a78b1,ksd1.a78b1x1,ksd1.a78b1y1,ksd1.a78b1x2,ksd1.a78b1y2;
+value,ksd2.a78b1,ksd2.a78b1x1,ksd2.a78b1y1,ksd2.a78b1x2,ksd2.a78b1y2;
+value,ksd1.a23b1,ksd1.a23b1x1,ksd1.a23b1y1,ksd1.a23b1x2,ksd1.a23b1y2;
+value,ksd2.a23b1,ksd2.a23b1x1,ksd2.a23b1y1,ksd2.a23b1x2,ksd2.a23b1y2;
+value,ksd1.a34b1,ksd1.a34b1x1,ksd1.a34b1y1,ksd1.a34b1x2,ksd1.a34b1y2;
+value,ksd2.a34b1,ksd2.a34b1x1,ksd2.a34b1y1,ksd2.a34b1x2,ksd2.a34b1y2;
+value,ksd1.a67b1,ksd1.a67b1x1,ksd1.a67b1y1,ksd1.a67b1x2,ksd1.a67b1y2;
+value,ksd2.a67b1,ksd2.a67b1x1,ksd2.a67b1y1,ksd2.a67b1x2,ksd2.a67b1y2;
+
+!!Beam2
+!strong MS of "strong sectors" 
+value,ksf2.a81b2,ksf2.a81b2x1,ksf2.a81b2y1,ksf2.a81b2x2,ksf2.a81b2y2;
+value,ksf2.a12b2,ksf2.a12b2x1,ksf2.a12b2y1,ksf2.a12b2x2,ksf2.a12b2y2;
+value,ksf2.a45b2,ksf2.a45b2x1,ksf2.a45b2y1,ksf2.a45b2x2,ksf2.a45b2y2;
+value,ksf2.a56b2,ksf2.a56b2x1,ksf2.a56b2y1,ksf2.a56b2x2,ksf2.a56b2y2;
+value,ksd1.a81b2,ksd1.a81b2x1,ksd1.a81b2y1,ksd1.a81b2x2,ksd1.a81b2y2;
+value,ksd1.a12b2,ksd1.a12b2x1,ksd1.a12b2y1,ksd1.a12b2x2,ksd1.a12b2y2;
+value,ksd1.a45b2,ksd1.a45b2x1,ksd1.a45b2y1,ksd1.a45b2x2,ksd1.a45b2y2;
+value,ksd1.a56b2,ksd1.a56b2x1,ksd1.a56b2y1,ksd1.a56b2x2,ksd1.a56b2y2;
+!weak MS of "strong sectors" 81/12/45/56
+value,ksf1.a81b2,ksf1.a81b2x1,ksf1.a81b2y1,ksf1.a81b2x2,ksf1.a81b2y2;
+value,ksf1.a12b2,ksf1.a12b2x1,ksf1.a12b2y1,ksf1.a12b2x2,ksf1.a12b2y2;
+value,ksf1.a45b2,ksf1.a45b2x1,ksf1.a45b2y1,ksf1.a45b2x2,ksf1.a45b2y2;
+value,ksf1.a56b2,ksf1.a56b2x1,ksf1.a56b2y1,ksf1.a56b2x2,ksf1.a56b2y2;
+value,ksd2.a81b2,ksd2.a81b2x1,ksd2.a81b2y1,ksd2.a81b2x2,ksd2.a81b2y2;
+value,ksd2.a12b2,ksd2.a12b2x1,ksd2.a12b2y1,ksd2.a12b2x2,ksd2.a12b2y2;
+value,ksd2.a45b2,ksd2.a45b2x1,ksd2.a45b2y1,ksd2.a45b2x2,ksd2.a45b2y2;
+value,ksd2.a56b2,ksd2.a56b2x1,ksd2.a56b2y1,ksd2.a56b2x2,ksd2.a56b2y2;
+!Sextupole of "weak sectors" 78/23/34/67
+value,ksf1.a78b2,ksf1.a78b2x1,ksf1.a78b2y1,ksf1.a78b2x2,ksf1.a78b2y2;
+value,ksf2.a78b2,ksf2.a78b2x1,ksf2.a78b2y1,ksf2.a78b2x2,ksf2.a78b2y2;
+value,ksf1.a23b2,ksf1.a23b2x1,ksf1.a23b2y1,ksf1.a23b2x2,ksf1.a23b2y2;
+value,ksf2.a23b2,ksf2.a23b2x1,ksf2.a23b2y1,ksf2.a23b2x2,ksf2.a23b2y2;
+value,ksf1.a34b2,ksf1.a34b2x1,ksf1.a34b2y1,ksf1.a34b2x2,ksf1.a34b2y2;
+value,ksf2.a34b2,ksf2.a34b2x1,ksf2.a34b2y1,ksf2.a34b2x2,ksf2.a34b2y2;
+value,ksf1.a67b2,ksf1.a67b2x1,ksf1.a67b2y1,ksf1.a67b2x2,ksf1.a67b2y2;
+value,ksf2.a67b2,ksf2.a67b2x1,ksf2.a67b2y1,ksf2.a67b2x2,ksf2.a67b2y2;
+value,ksd1.a78b2,ksd1.a78b2x1,ksd1.a78b2y1,ksd1.a78b2x2,ksd1.a78b2y2;
+value,ksd2.a78b2,ksd2.a78b2x1,ksd2.a78b2y1,ksd2.a78b2x2,ksd2.a78b2y2;
+value,ksd1.a23b2,ksd1.a23b2x1,ksd1.a23b2y1,ksd1.a23b2x2,ksd1.a23b2y2;
+value,ksd2.a23b2,ksd2.a23b2x1,ksd2.a23b2y1,ksd2.a23b2x2,ksd2.a23b2y2;
+value,ksd1.a34b2,ksd1.a34b2x1,ksd1.a34b2y1,ksd1.a34b2x2,ksd1.a34b2y2;
+value,ksd2.a34b2,ksd2.a34b2x1,ksd2.a34b2y1,ksd2.a34b2x2,ksd2.a34b2y2;
+value,ksd1.a67b2,ksd1.a67b2x1,ksd1.a67b2y1,ksd1.a67b2x2,ksd1.a67b2y2;
+value,ksd2.a67b2,ksd2.a67b2x1,ksd2.a67b2y1,ksd2.a67b2x2,ksd2.a67b2y2;
+
+!!MQS
+!beam1
+value, KQS.R1B1_0, KQS.R1B1x1, KQS.R1B1y1, KQS.R1B1x2, KQS.R1B1y2;
+value, KQS.L2B1_0, KQS.L2B1x1, KQS.L2B1y1, KQS.L2B1x2, KQS.L2B1y2;
+value,KQS.A23B1_0,KQS.A23B1x1,KQS.A23B1y1,KQS.A23B1x2,KQS.A23B1y2;
+value, KQS.R3B1_0, KQS.R3B1x1, KQS.R3B1y1, KQS.R3B1x2, KQS.R3B1y2;
+value, KQS.L4B1_0, KQS.L4B1x1, KQS.L4B1y1, KQS.L4B1x2, KQS.L4B1y2;
+value,KQS.A45B1_0,KQS.A45B1x1,KQS.A45B1y1,KQS.A45B1x2,KQS.A45B1y2;
+value, KQS.R5B1_0, KQS.R5B1x1, KQS.R5B1y1, KQS.R5B1x2, KQS.R5B1y2;
+value, KQS.L6B1_0, KQS.L6B1x1, KQS.L6B1y1, KQS.L6B1x2, KQS.L6B1y2;
+value,KQS.A67B1_0,KQS.A67B1x1,KQS.A67B1y1,KQS.A67B1x2,KQS.A67B1y2;
+value, KQS.R7B1_0, KQS.R7B1x1, KQS.R7B1y1, KQS.R7B1x2, KQS.R7B1y2;
+value, KQS.L8B1_0, KQS.L8B1x1, KQS.L8B1y1, KQS.L8B1x2, KQS.L8B1y2;
+value,KQS.A81B1_0,KQS.A81B1x1,KQS.A81B1y1,KQS.A81B1x2,KQS.A81B1y2;
+
+!beam2
+value,KQS.A12B2_0,KQS.A12B2x1,KQS.A12B2y1,KQS.A12B2x2,KQS.A12B2y2;
+value, KQS.R2B2_0, KQS.R2B2x1, KQS.R2B2y1, KQS.R2B2x2, KQS.R2B2y2;
+value, KQS.L3B2_0, KQS.L3B2x1, KQS.L3B2y1, KQS.L3B2x2, KQS.L3B2y2;
+value,KQS.A34B2_0,KQS.A34B2x1,KQS.A34B2y1,KQS.A34B2x2,KQS.A34B2y2;
+value, KQS.R4B2_0, KQS.R4B2x1, KQS.R4B2y1, KQS.R4B2x2, KQS.R4B2y2;
+value, KQS.L5B2_0, KQS.L5B2x1, KQS.L5B2y1, KQS.L5B2x2, KQS.L5B2y2;
+value,KQS.A56B2_0,KQS.A56B2x1,KQS.A56B2y1,KQS.A56B2x2,KQS.A56B2y2;
+value, KQS.R6B2_0, KQS.R6B2x1, KQS.R6B2y1, KQS.R6B2x2, KQS.R6B2y2;
+value, KQS.L7B2_0, KQS.L7B2x1, KQS.L7B2y1, KQS.L7B2x2, KQS.L7B2y2;
+value,KQS.A78B2_0,KQS.A78B2x1,KQS.A78B2y1,KQS.A78B2x2,KQS.A78B2y2;
+value, KQS.R8B2_0, KQS.R8B2x1, KQS.R8B2y1, KQS.R8B2x2, KQS.R8B2y2;
+value, KQS.L1B2_0, KQS.L1B2x1, KQS.L1B2y1, KQS.L1B2x2, KQS.L1B2y2;
+
+!!MSS
+!beam1
+value,KSS.a12B1_0;
+value,KSS.a23B1_0;
+value,KSS.a34B1_0;
+value,KSS.a45B1_0;
+value,KSS.a56B1_0;
+value,KSS.a67B1_0;
+value,KSS.a78B1_0;
+value,KSS.a81B1_0;
+
+!beam2
+value,KSS.a12B2_0;
+value,KSS.a23B2_0;
+value,KSS.a34B2_0;
+value,KSS.a45B2_0;
+value,KSS.a56B2_0;
+value,KSS.a67B2_0;
+value,KSS.a78B2_0;
+value,KSS.a81B2_0;
+
+
+!!Octupoles
+!Beam1
+value,kof.a12b1;
+value,kof.a23b1;
+value,kof.a34b1;
+value,kof.a45b1;
+value,kof.a56b1;
+value,kof.a67b1;
+value,kof.a78b1;
+value,kof.a81b1;
+value,kod.a12b1;
+value,kod.a23b1;
+value,kod.a34b1;
+value,kod.a45b1;
+value,kod.a56b1;
+value,kod.a67b1;
+value,kod.a78b1;
+value,kod.a81b1;
+!Beam1
+value,kof.a12b2;
+value,kof.a23b2;
+value,kof.a34b2;
+value,kof.a45b2;
+value,kof.a56b2;
+value,kof.a67b2;
+value,kof.a78b2;
+value,kof.a81b2;
+value,kod.a12b2;
+value,kod.a23b2;
+value,kod.a34b2;
+value,kod.a45b2;
+value,kod.a56b2;
+value,kod.a67b2;
+value,kod.a78b2;
+value,kod.a81b2;
+
+
+!!Correction of spurious dispersion: MCB in arcs 81/12/45/56
+!IR1-H-B1
+value,acbh14.r8b1x,acbh14.r8b1s;
+value,acbh16.r8b1x,acbh16.r8b1s;
+value,acbh14.l1b1x,acbh14.l1b1s;
+value,acbh12.l1b1x,acbh12.l1b1s;
+value,acbh13.r1b1x,acbh13.r1b1s;
+value,acbh15.r1b1x,acbh15.r1b1s;
+value,acbh15.l2b1x,acbh15.l2b1s;
+value,acbh13.l2b1x,acbh13.l2b1s;
+!IR1-V-B1
+value,acbv13.r8b1x,acbv13.r8b1s;
+value,acbv15.r8b1x,acbv15.r8b1s;
+value,acbv15.l1b1x,acbv15.l1b1s;
+value,acbv13.l1b1x,acbv13.l1b1s;
+value,acbv12.r1b1x,acbv12.r1b1s;
+value,acbv14.r1b1x,acbv14.r1b1s;
+value,acbv16.l2b1x,acbv16.l2b1s;
+value,acbv14.l2b1x,acbv14.l2b1s;
+!IR5-H-B1
+value,acbh14.r4b1x,acbh14.r4b1s;
+value,acbh16.r4b1x,acbh16.r4b1s;
+value,acbh14.l5b1x,acbh14.l5b1s;
+value,acbh12.l5b1x,acbh12.l5b1s;
+value,acbh13.r5b1x,acbh13.r5b1s;
+value,acbh15.r5b1x,acbh15.r5b1s;
+value,acbh15.l6b1x,acbh15.l6b1s;
+value,acbh13.l6b1x,acbh13.l6b1s;
+!IR5-V-B1
+value,acbv13.r4b1x,acbv13.r4b1s;
+value,acbv15.r4b1x,acbv15.r4b1s;
+value,acbv15.l5b1x,acbv15.l5b1s;
+value,acbv13.l5b1x,acbv13.l5b1s;
+value,acbv12.r5b1x,acbv12.r5b1s;
+value,acbv14.r5b1x,acbv14.r5b1s;
+value,acbv16.l6b1x,acbv16.l6b1s;
+value,acbv14.l6b1x,acbv14.l6b1s;
+!IR1-H-B2
+value,acbh13.r8b2x,acbh13.r8b2s;
+value,acbh15.r8b2x,acbh15.r8b2s;
+value,acbh15.l1b2x,acbh15.l1b2s;
+value,acbh13.l1b2x,acbh13.l1b2s;
+value,acbh12.r1b2x,acbh12.r1b2s;
+value,acbh14.r1b2x,acbh14.r1b2s;
+value,acbh16.l2b2x,acbh16.l2b2s;
+value,acbh14.l2b2x,acbh14.l2b2s;
+!IR1-V-B2
+value,acbv14.r8b2x,acbv14.r8b2s;
+value,acbv16.r8b2x,acbv16.r8b2s;
+value,acbv14.l1b2x,acbv14.l1b2s;
+value,acbv12.l1b2x,acbv12.l1b2s;
+value,acbv13.r1b2x,acbv13.r1b2s;
+value,acbv15.r1b2x,acbv15.r1b2s;
+value,acbv15.l2b2x,acbv15.l2b2s;
+value,acbv13.l2b2x,acbv13.l2b2s;
+!IR5-H-B2
+value,acbh13.r4b2x,acbh13.r4b2s;
+value,acbh15.r4b2x,acbh15.r4b2s;
+value,acbh15.l5b2x,acbh15.l5b2s;
+value,acbh13.l5b2x,acbh13.l5b2s;
+value,acbh12.r5b2x,acbh12.r5b2s;
+value,acbh14.r5b2x,acbh14.r5b2s;
+value,acbh16.l6b2x,acbh16.l6b2s;
+value,acbh14.l6b2x,acbh14.l6b2s;
+!IR5-V-B2
+value,acbv14.r4b2x,acbv14.r4b2s;
+value,acbv16.r4b2x,acbv16.r4b2s;
+value,acbv14.l5b2x,acbv14.l5b2s;
+value,acbv12.l5b2x,acbv12.l5b2s;
+value,acbv13.r5b2x,acbv13.r5b2s;
+value,acbv15.r5b2x,acbv15.r5b2s;
+value,acbv15.l6b2x,acbv15.l6b2s;
+value,acbv13.l6b2x,acbv13.l6b2s;
+
+if (on_check <> 0)
+{
+
+!Optics summary (tune and chroma)
+value,Qxb1,Qyb1,Qpxb1,Qpyb1;
+value,Qxb2,Qyb2,Qpxb2,Qpyb2;
+
+!IR optics summary
+!Phase advance,twiss parameters and dispersion
+value,muxIP1b1,muyIP1b1,muxIP1b1_L,muyIP1b1_L,muxIP1b1_R,muyIP1b1_R,betxIP1b1,betyIP1b1,alfxIP1b1,alfyIP1b1,dxIP1b1,dpxIP1b1;
+value,muxIP1b2,muyIP1b2,muxIP1b2_L,muyIP1b2_L,muxIP1b2_R,muyIP1b2_R,betxIP1b2,betyIP1b2,alfxIP1b2,alfyIP1b2,dxIP1b2,dpxIP1b2;
+value,muxIP5b1,muyIP5b1,muxIP5b1_L,muyIP5b1_L,muxIP5b1_R,muyIP5b1_R,betxIP5b1,betyIP5b1,alfxIP5b1,alfyIP5b1,dxIP5b1,dpxIP5b1;
+value,muxIP5b2,muyIP5b2,muxIP5b2_L,muyIP5b2_L,muxIP5b2_R,muyIP5b2_R,betxIP5b2,betyIP5b2,alfxIP5b2,alfyIP5b2,dxIP5b2,dpxIP5b2;
+
+value,muxIP2b1,muyIP2b1,betxIP2b1,betyIP2b1,alfxIP2b1,alfyIP2b1,dxIP2b1,dpxIP2b1;
+value,muxIP2b2,muyIP2b2,betxIP2b2,betyIP2b2,alfxIP2b2,alfyIP2b2,dxIP2b2,dpxIP2b2;
+
+value,muxIP8b1,muyIP8b1,betxIP8b1,betyIP8b1,alfxIP8b1,alfyIP8b1,dxIP8b1,dpxIP8b1;
+value,muxIP8b2,muyIP8b2,betxIP8b2,betyIP8b2,alfxIP8b2,alfyIP8b2,dxIP8b2,dpxIP8b2;
+
+value,muxIP4b1,muyIP4b1,betxIP4b1,betyIP4b1,alfxIP4b1,alfyIP4b1,dxIP4b1,dpxIP4b1;
+value,muxIP4b2,muyIP4b2,betxIP4b2,betyIP4b2,alfxIP4b2,alfyIP4b2,dxIP4b2,dpxIP4b2;
+
+value,muxIP6b1,muyIP6b1,betxIP6b1,betyIP6b1,alfxIP6b1,alfyIP6b1,dxIP6b1,dpxIP6b1;
+value,muxIP6b2,muyIP6b2,betxIP6b2,betyIP6b2,alfxIP6b2,alfyIP6b2,dxIP6b2,dpxIP6b2;
+
+value,muxIP3b1,muyIP3b1,betxIP3b1,betyIP3b1,alfxIP3b1,alfyIP3b1,dxIP3b1,dpxIP3b1;
+value,muxIP3b2,muyIP3b2,betxIP3b2,betyIP3b2,alfxIP3b2,alfyIP3b2,dxIP3b2,dpxIP3b2;
+
+value,muxIP7b1,muyIP7b1,betxIP7b1,betyIP7b1,alfxIP7b1,alfyIP7b1,dxIP7b1,dpxIP7b1;
+value,muxIP7b2,muyIP7b2,betxIP7b2,betyIP7b2,alfxIP7b2,alfyIP7b2,dxIP7b2,dpxIP7b2;
+
+!IR Xscheme summary
+value,xIP1b1,yIP1b1,pxIP1b1,pyIP1b1;
+value,xIP1b2,yIP1b2,pxIP1b2,pyIP1b2;
+value,xIP2b1,yIP2b1,pxIP2b1,pyIP2b1;
+value,xIP2b2,yIP2b2,pxIP2b2,pyIP2b2;
+value,xIP5b1,yIP5b1,pxIP5b1,pyIP5b1;
+value,xIP5b2,yIP5b2,pxIP5b2,pyIP5b2;
+value,xIP8b1,yIP8b1,pxIP8b1,pyIP8b1;
+value,xIP8b2,yIP8b2,pxIP8b2,pyIP8b2;
+
+!Arc optics summary
+value,muxcell81b1,muycell81b1,mux81b1,muy81b1;
+value,muxcell45b1,muycell45b1,mux45b1,muy45b1;
+value,muxcell12b2,muycell12b2,mux12b2,muy12b2;
+value,muxcell56b2,muycell56b2,mux56b2,muy56b2;
+
+value,muxcell12b1,muycell12b1,mux12b1,muy12b1;
+value,muxcell56b1,muycell56b1,mux56b1,muy56b1;
+value,muxcell81b2,muycell81b2,mux81b2,muy81b2;
+value,muxcell45b2,muycell45b2,mux45b2,muy45b2;
+
+value,muxcell23b1,muycell23b1,mux23b1,muy23b1;
+value,muxcell78b2,muycell78b2,mux78b2,muy78b2;
+
+value,muxcell34b1,muycell34b1,mux34b1,muy34b1;
+value,muxcell67b2,muycell67b2,mux67b2,muy67b2;
+
+value,muxcell67b1,muycell67b1,mux67b1,muy67b1;
+value,muxcell34b2,muycell34b2,mux34b2,muy34b2;
+
+value,muxcell78b1,muycell78b1,mux78b1,muy78b1;
+value,muxcell23b2,muycell23b2,mux23b2,muy23b2;
+
+
+
+};
+
+assign,echo=terminal ;
+system,"awk  '{print $3}'  temp/optics.res >  temp/optics.input";
+system,"slhc/toolkit/save_optics";
+option,echo;
+!call,file='temp/optics.madx';
+option,-echo;
+
+on_x1=on_x1aux;on_sep1=on_sep1aux;
+on_x2=on_x2aux;on_sep2=on_sep2aux;on_alice=on_aliceaux;
+on_x5=on_x1aux;on_sep5=on_sep5aux;
+on_x8=on_x2aux;on_sep8=on_sep8aux;on_lhcb=on_lhcbaux;
+on_disp=on_dispaux;
+on_sol_atlas=on_sol_atlasaux;on_sol_alice=on_sol_aliceaux;on_sol_cms=on_sol_cmsaux;
+
+set,format=24.12g;
+
+return;
