@@ -639,7 +639,7 @@ exec,install_ir15_cmn(DFBXI.4,   posDFBXI);
 !---------------------------------------------
 
 !  TAN TCTVA TCTH BPMWD .4055 (left)
-!  TAN TCLP       BPMWD .4055 (right)
+!  TAN TCL        BPMWD .4055 (right)
 !  {.4 D2 .4 MCBRDH .4 MCBRDV .4}
 !  B1-> 0.5 { 1.3 1.3  CRAB 2.6  CRAB 2.6  CRAB 1.3 } 2.69 | MCBYY
 !  B2<- 0.5 { 1.3 CRAB 2.6  CRAB 2.6  CRAB 1.3  1.3 } 2.69 | MCBYY
@@ -667,7 +667,7 @@ posD2  := 157.9+deltaposD2; ! from V6.503
 posTAN    := posD2 - l.MBRD/2  -  9.15;
 posTCTVA  := posD2 - l.MBRD/2  -  6.06;
 posTCTH   := posD2 - l.MBRD/2  -  4.38;
-posTCLP   := posD2 - l.MBRD/2  -  2.17;
+posTCL    := posD2 - l.MBRD/2  -  2.17;
 posBPMWD  := posD2 - l.MBRD/2  -  0.8055;
 posMCBRDH := posD2 + l.MBRD/2 + l.MCBRD/2 + 0.40;
 posMCBRDV := posMCBRDH + l.MCBRD/2 + l.MCBRD/2 + 0.40;
@@ -733,7 +733,11 @@ value, ad1.lr1,l.MBXA,ad1.lr1/l.MBXA*scale;
 value, ad2.l1,l.MBRD,ad2.l1/l.MBRD*scale;
 
 value,posTAN;
-value,posTCTH,posTCTVA,posTCLP;
+value,posTCTH,posTCTVA,posTCL;
+
+TCL.4R5.B1: TCL;
+TCL.4L5.B2: TCL;
+
 
 if(bv_aux == 1){
 seqedit,sequence=lhcb1;
@@ -751,8 +755,9 @@ install,element=TCTH.4L5.B1, at= -posTCTH,   from= IP5;
 install,element=TCTVA.4L1.B1, at= -posTCTVA, from=IP1.L1;
 install,element=TCTVA.4L5.B1, at= -posTCTVA, from=IP5;
 
-! ... TCLP
-install,element=TCLP.4R1.B1,  at= posTCLP, from=IP1;
+! ... TCL
+install,element=TCL.4R1.B1,  at= posTCL, from=IP1;
+install,element=TCL.4R5.B1,  at= posTCL, from=IP5;
 endedit;
 };
 
@@ -771,8 +776,9 @@ install,element=TCTH.4R5.B2, at=  posTCTH*bv_aux,   from= IP5;
 install,element=TCTVA.4R1.B2, at= posTCTVA*bv_aux, from=IP1;
 install,element=TCTVA.4R5.B2, at= posTCTVA*bv_aux, from=IP5;
 
-! ... TCLP
-install,element=TCLP.4L1.B2,  at= posTCLP*bv_aux, from=IP1;
+! ... TCL
+install,element=TCL.4L1.B2,  at= posTCL*bv_aux, from=IP1;
+install,element=TCL.4L5.B2,  at= posTCL*bv_aux, from=IP5;
 endedit;
 
 ! D2

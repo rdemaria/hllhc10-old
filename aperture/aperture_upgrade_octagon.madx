@@ -109,39 +109,39 @@ BPMSD.3R5.B2,  APERTYPE=RECTELLIPSE, APERTURE={ r_BPM3, r_BPM3, r_BPM3, r_BPM3},
 BPMSD.3L5.B2,  APERTYPE=RECTELLIPSE, APERTURE={ r_BPM3, r_BPM3, r_BPM3, r_BPM3}, APER_TOL = {r_tol_BPM , h_tol_BPM , v_tol_BPM };
 
 ! ... ORBIT CORRECTOR INSIDE TRIPLET
-MCBXDH.A2R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDH.A2L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDH.A2R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDH.A2L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDH.B2R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDH.B2L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDH.B2R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDH.B2L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDV.A2R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDV.A2L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDV.A2R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDV.A2L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDV.B2R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDV.B2L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDV.B2R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXDV.B2L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBH.A2R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBH.A2L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBH.A2R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBH.A2L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBH.B2R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBH.B2L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBH.B2R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBH.B2L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBV.A2R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBV.A2L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBV.A2R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBV.A2L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBV.B2R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBV.B2L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBV.B2R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFBV.B2L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
 
 ! ... corrector package
 ! ... MCBXV
-MCBXCV.3R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXCV.3L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXCV.3R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXCV.3L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFAV.3R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFAV.3L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFAV.3R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFAV.3L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
 ! ... MCBXH
-MCBXCH.3R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXCH.3L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXCH.3R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MCBXCH.3L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-! ... MQSX
-MQSX.3R1,    APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MQSX.3L1,    APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MQSX.3R5,    APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
-MQSX.3L5,    APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFAH.3R1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFAH.3L1,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFAH.3R5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCBXFAH.3L5,   APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+! ... MCSX.3L1
+MCQSX.3R1,    APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCQSX.3L1,    APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCQSX.3R5,    APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
+MCQSX.3L5,    APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
 ! ... MCSX
 MCSX.3R1,    APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };
 MCSX.3L1,    APERTYPE="Q2Q3_APERTURE", APER_TOL ={r_tol_IT , h_tol_IT , v_tol_IT };

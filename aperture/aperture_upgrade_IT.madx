@@ -218,7 +218,7 @@ if (bs_type == REGOCTA)
 ap_mqx=150;
 EL_T =1.5; ! helium thichness
 CB_T =5; ! cold bore thickness !it was (120-110.6)/2*1.25=5.875
-CB_BS=2.0; ! cold bore to beam screen
+CB_BS=1.5; ! cold bore to beam screen
 BS_T =2.0; ! beam screen thickness
 W_T  =6.0; ! tungsten thichness
 !K_T  =0.99727; ! P506 thermal contraction factor (293K -> 5K) = 0.99727
