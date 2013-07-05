@@ -17,7 +17,7 @@ call,   file="db5/aperture/aper_tol.b2.madx";
 Option, -echo,warn,-info,no_fatal_stop;
 
 call,file="slhc/hllhc_sequence.madx";
-bs_type=5; ap_mqx=150;
+bs_type=4; ap_mqx=150;
 
 call,   file="slhc/aperture/aperture_upgrade_IT.madx";
 call,   file="slhc/aperture/aperture_upgrade_MS.madx";
