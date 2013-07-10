@@ -141,7 +141,7 @@ install,element=marks.r5,class=removemarker,at= posmarks*bv_aux,from=IP5;
 endedit;
 
 
-
+if(bv_aux == 1){
 seqedit, sequence=lhcb2;
 select, flag=seqedit, clear;
 select, flag=seqedit, range=marks.l1/marke.l1;
@@ -150,6 +150,17 @@ select, flag=seqedit, range=marks.l5/marke.l5;
 select, flag=seqedit, range=marke.r5/marks.r5;
 remove, element=selected;
 endedit;
+} else {
+seqedit, sequence=lhcb2;
+select, flag=seqedit, clear;
+select, flag=seqedit, range=marke.l1/marks.l1;
+select, flag=seqedit, range=marks.r1/marke.r1;
+select, flag=seqedit, range=marke.l5/marks.l5;
+select, flag=seqedit, range=marks.r5/marke.r5;
+remove, element=selected;
+endedit;
+};
+
 
 
 seqedit, sequence=lhcb2;
@@ -735,7 +746,9 @@ value, ad2.l1,l.MBRD,ad2.l1/l.MBRD*scale;
 value,posTAN;
 value,posTCTH,posTCTVA,posTCL;
 
+TCL.4R1.B1: TCL;
 TCL.4R5.B1: TCL;
+TCL.4L1.B2: TCL;
 TCL.4L5.B2: TCL;
 
 

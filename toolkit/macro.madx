@@ -133,8 +133,8 @@ refdxipNIRBIM=table(twiss,IPNIR,dx);
 refdpxipNIRBIM=table(twiss,IPNIR,dpx);
 refmuxipNIRBIM=table(twiss,e.ds.rNIR.BIM,mux);
 refmuyipNIRBIM=table(twiss,e.ds.rNIR.BIM,muy);
-refmuxipNIRBIM_l =refmuxipNIRBIM-table(twiss,IPNIR,mux);
-refmuyipNIRBIM_l =refmuyipNIRBIM-table(twiss,IPNIR,muy);
+refmuxipNIRBIM_l =table(twiss,IPNIR,mux);
+refmuyipNIRBIM_l =table(twiss,IPNIR,muy);
 refmuxipNIRBIM_r =refmuxipNIRBIM-refmuxipNIRBIM_l;
 refmuyipNIRBIM_r =refmuyipNIRBIM-refmuyipNIRBIM_l;
 value,refbetxipNIRBIM,refbetyipNIRBIM,refalfxipNIRBIM,refalfyipNIRBIM;
@@ -240,16 +240,20 @@ twiss,beta0=birnirbim,file=temp/twiss_irnirbim.tfs;
 if(FULL==1)
 {use,sequence=lhcbim;
 select,flag=twiss,clear;
-select,flag=twiss,column=name,s,l,angle,k1l,k2l,hkick,vkick,kick,betx,bety,dx,dy,x,y,
+select,flag=twiss,column=name,s,l,angle,k1l,k2l,hkick,vkick,kick,betx,bety,dx,dy,x,y,px,py,
        range=s.ds.lnir.bim/e.ds.rnir.bim;
 twiss,file=temp/twiss_irnirbim.tfs;
 };
 
 system, "cp db5/aperture/offset.ip*b*.tfs  .";
+if (l.MQX>6) {
 system, "cp slhc/aperture/offset.ip*b*.tfs .";
+};
+
 
 select,flag=aperture,clear;
-select,flag=aperture,column=name,s,betx,bety,dx,dy,x,y,n1,apertype,Rtol,xtol,ytol;
+select,flag=aperture,column=name,s,betx,bety,dx,dy,x,y,px,py,
+n1,apertype,Rtol,xtol,ytol;
 aperture,range=s.ds.lnir.bim/e.ds.rnir.bim,
          offsetelem=./offset.IPnir.bim.tfs,
          cor=COmax, dp=dPmax, spec=SPECIF,interval=1.0,
@@ -846,7 +850,12 @@ baux1->muy=table(twiss,place2,muy)-table(twiss,place1,muy);
 
 CHECK_IP(BIM): macro = {
 exec,twiss_opt;
-use,sequence=lhcBIM;twiss,file=twiss_lhcBIM.tfs;
+use,sequence=lhcBIM;
+if (mylhcbeam<3) {
+  twiss,file=twiss_lhcBIM.tfs;
+} else {
+  twiss,file=twiss_lhcb4.tfs;
+};
 refbetxIP1BIM=table(twiss,IP1,betx);
 refbetyIP1BIM=table(twiss,IP1,bety);
 refbetxIP5BIM=table(twiss,IP5,betx);
