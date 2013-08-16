@@ -790,8 +790,8 @@ install,element=TCTVA.4R1.B2, at= posTCTVA*bv_aux, from=IP1;
 install,element=TCTVA.4R5.B2, at= posTCTVA*bv_aux, from=IP5;
 
 ! ... TCL
-install,element=TCL.4L1.B2,  at= posTCL*bv_aux, from=IP1;
-install,element=TCL.4L5.B2,  at= posTCL*bv_aux, from=IP5;
+install,element=TCL.4L1.B2,  at= -posTCL*bv_aux, from=IP1;
+install,element=TCL.4L5.B2,  at= -posTCL*bv_aux, from=IP5;
 endedit;
 
 ! D2

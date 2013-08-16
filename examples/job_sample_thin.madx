@@ -1,0 +1,32 @@
+option, warn,info;
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.0 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/V6.503 db5";
+option,-echo,-info,-warn;
+
+call,file="slhc/toolkit/macro.madx";
+
+mylhcbeam=1;
+!mylhcbeam=4;! For Beam 4
+
+Option, -echo,-warn,-info;
+REAL CONST l.TAN   = 3.7  ;REAL CONST l.TANAL = l.TAN;
+REAL CONST l.TANAR = l.TAN;REAL CONST l.TANC  = l.TAN;
+REAL CONST l.TCT   = 1.0;REAL CONST l.TCTH  = l.TCT;REAL CONST l.TCTVA = l.TCT;
+if (mylhcbeam>2){
+  call,file="hllhc_thinb4.seq";
+} else {
+  call,file="hllhc_thin.seq";
+};
+
+call,file="opt_round_thin.madx";
+exec,crossing_disable;
+exec,mk_beam(7000);
+if (mylhcbeam<=2){
+  exec,check_ip(b1); survey,file="survey_lhcb1.tfs";
+  exec,check_ip(b2); survey,file="survey_lhcb2.tfs";
+} else {
+  exec,check_ip(b2); survey,file="survey_lhcb4.tfs";
+};
+
+
+
