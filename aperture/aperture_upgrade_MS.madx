@@ -164,9 +164,8 @@ MQYY.4R5.B2,    APERTYPE=RECTELLIPSE, APERTURE={ r_Q4,g_Q4,r_Q4,r_Q4},
 
 
 !Q5  NOMINAL B.S ORIENTATION
- g_Q5=0.017650;r_Q5=0.022550; !nominal MQM b.s.
-! g_Q5=0.024000;r_Q5=0.028900; !nominal MQY beam-screen
-! g_Q5=0.024000;r_Q5=0.028900; !nominal MQY beam-screen
+! g_Q5=0.017650;r_Q5=0.022550; !nominal MQM b.s.
+ g_Q5=0.024000;r_Q5=0.028900; !nominal MQY beam-screen
 ! r_tol_Q5 =0.0006; h_tol_Q5 =0.0010; v_tol_Q5 =0.0010;
  r_tol_Q5 =0.00084; h_tol_Q5 =0.00126; v_tol_Q5 =0.0006;
 
@@ -253,22 +252,21 @@ BPMYC.5R5.B2, APERTYPE=RECTELLIPSE, APERTURE={r_BPM_Q5,r_BPM_Q5,r_BPM_Q5,r_BPM_Q
 ! New  TAN with elliptical chamber
 !a_TAN=0.0375; b_TAN=0.0335;
 a_TAN=0.0410; b_TAN=0.0370;
-!a_TAN=0.0370; b_TAN=0.0320; 95mm
+!a_TAN=0.0370; b_TAN=0.0320; !95mm
 !was a 26 mm radius circle nominally,see also offset files
 !where the aperture sep. of the TAN has been reduced from 160 mm to 155 mm
-!r_TAN_tol=0.0006;h_TAN_tol=0.001;v_TAN_tol=0.001;
-r_TAN_tol=r_D2_tol;h_TAN_tol=h_D2_tol;v_TAN_tol=v_D2_tol;
+r_tol_TAN=0.0006;h_tol_TAN=0.001;v_tol_TAN=0.001;
 
-TANAL.4L1,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,b_TAN},APER_TOL={r_TAN_tol,h_TAN_tol,v_TAN_tol};
-TANAR.4R1,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,b_TAN},APER_TOL={r_TAN_tol,h_TAN_tol,v_TAN_tol};
-TANC.4L5 ,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,b_TAN},APER_TOL={r_TAN_tol,h_TAN_tol,v_TAN_tol};
-TANC.4R5 ,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,b_TAN},APER_TOL={r_TAN_tol,h_TAN_tol,v_TAN_tol};
-
+TANAL.4L1,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,b_TAN},APER_TOL={r_tol_TAN,h_tol_TAN,v_tol_TAN};
+TANAR.4R1,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,b_TAN},APER_TOL={r_tol_TAN,h_tol_TAN,v_tol_TAN};
+TANC.4L5 ,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,b_TAN},APER_TOL={r_tol_TAN,h_tol_TAN,v_tol_TAN};
+TANC.4R5 ,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,b_TAN},APER_TOL={r_tol_TAN,h_tol_TAN,v_tol_TAN};
+!
 ! rectellipse
-!TANAL.4L1,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL={r_TAN_tol,h_TAN_tol,v_TAN_tol};
-!TANAR.4R1,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL={r_TAN_tol,h_TAN_tol,v_TAN_tol};
-!TANC.4L5 ,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL={r_TAN_tol,h_TAN_tol,v_TAN_tol};
-!TANC.4R5 ,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL={r_TAN_tol,h_TAN_tol,v_TAN_tol};
+!TANAL.4L1,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL={r_tol_TAN,h_tol_TAN,v_tol_TAN};
+!TANAR.4R1,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL={r_tol_TAN,h_tol_TAN,v_tol_TAN};
+!TANC.4L5 ,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL={r_tol_TAN,h_tol_TAN,v_tol_TAN};
+!TANC.4R5 ,  APERTYPE=RECTELLIPSE, APERTURE={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL={r_tol_TAN,h_tol_TAN,v_tol_TAN};
 
 ! Set TCT and TCL opened apertures
 a_TCT=0.05; b_TCT=0.05;

@@ -1,0 +1,70 @@
+option, warn,info;
+system,"rm -rf temp"; system,"mkdir temp";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.0 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/V6.503 db5";
+option,-echo,-info,-warn;
+
+REAL CONST l.TAN   = 0  ;REAL CONST l.TANAL = l.TAN;
+REAL CONST l.TANAR = l.TAN;REAL CONST l.TANC  = l.TAN;
+REAL CONST l.TCT   = 0;REAL CONST l.TCTH  = l.TCT;REAL CONST l.TCTVA = l.TCT;
+
+call,file="slhc/toolkit/macro.madx";
+call,file="slhc/opt_round_thin.madx";
+
+mk_plot(alignmeth,seqn): macro= {
+  exec,mk_beam(7000);
+  if (mylhcbeam==1){ exec,check_ip(b1); };
+  if (mylhcbeam==2 || mylhcbeam==4){ exec,check_ip(b2); };
+  if (alignmeth==1){
+    call,file="slhc/toolkit/align_sepdip.madx";
+    exec,align_mbx15; exec,align_mbrd15;
+    exec,align_mbxw;  exec,align_mbrc15;
+    exec,align_mbx28; exec,align_mbrc28;
+    exec,align_mbrb;  exec,align_mbrs;
+  };
+  if (alignmeth==2){
+    call,file="db5/toolkit/Align_D1234_Slices.madx";
+  };
+  select, flag=error, pattern=mbxw.[a-f]4[rl][15];
+  select, flag=error, pattern=mbx[ab].4[rl][15]\..*;
+  select, flag=error, pattern=mbx.4[rl][28]\..*;
+  select, flag=error, pattern=mbr[bdcs].4[rl][15248].b[12]\..*;
+  esave; select,flag=efield,column=name,dx;
+  set,format=12.9f;
+  if (mylhcbeam==1){ write,table=efield,file=efield_sseqn_malignmeth_b1.tfs;};
+  if (mylhcbeam==2){ write,table=efield,file=efield_sseqn_malignmeth_b2.tfs;};
+  if (mylhcbeam==4){ write,table=efield,file=efield_sseqn_malignmeth_b4.tfs;};
+  select, flag=error, clear;
+};
+
+
+Option, -echo,-warn,-info;
+call,file="slhc/hllhc_thin.seq";
+call,file="slhc/opt_round_thin.madx";
+Option, -echo,warn,-info;
+mylhcbeam=1;exec,mk_plot(1,10); exec,mk_plot(2,10);
+mylhcbeam=2;exec,mk_plot(1,10); exec,mk_plot(2,10);
+
+
+Option, -echo,-warn,-info;
+call,file="slhc/hllhc_thinb4.seq";
+call,file="slhc/opt_round_thin.madx";
+Option, -echo,warn,-info;
+mylhcbeam=4;exec,mk_plot(1,10); exec,mk_plot(2,10);
+
+
+
+Option, -echo,-warn,-info;
+ call,   file="db5/V6.5.thin.seq";
+ call,   file="db5/V6.5.thin.inj.str";
+Option, -echo,warn,-info;
+mylhcbeam=1;exec,mk_plot(1,6503); exec,mk_plot(2,6503);
+mylhcbeam=2;exec,mk_plot(1,6503); exec,mk_plot(2,6503);
+
+Option, -echo,-warn,-info;
+call, file="db5/beam_four.thin.seq";
+call,   file="db5/V6.5.thin.inj.str";
+Option, -echo,warn,-info;
+mylhcbeam=4;exec,mk_plot(1,6503); exec,mk_plot(2,6503);
+
+return;

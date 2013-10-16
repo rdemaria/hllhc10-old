@@ -224,8 +224,10 @@ if (apbbeat==0){ apbbeat=1.1;};
 if (halor==0){ halor=8.4;};
 if (halox==0){ halox=7.3;};
 if (haloy==0){ haloy=7.3;};
+if (DParcx==0){DParcx=0.273;};
+if (DParcy==0){DParcy=0.273;};
 
-value,NRJ,COmax,dPmax,emittance_norm,apbbeat,halor,halox,haloy;
+value,NRJ,COmax,dPmax,emittance_norm,apbbeat,halor,halox,haloy,DParcx,DParcy;
 exec,adjsector(nir);
 exec,select(nir,$sec1,$sec2,bim);
 
@@ -240,7 +242,7 @@ twiss,beta0=birnirbim,file=temp/twiss_irnirbim.tfs;
 if(FULL==1)
 {use,sequence=lhcbim;
 select,flag=twiss,clear;
-select,flag=twiss,column=name,s,l,angle,k1l,k2l,hkick,vkick,kick,betx,bety,dx,dy,x,y,px,py,
+select,flag=twiss,column=name,s,l,angle,k1l,k2l,hkick,vkick,kick,betx,bety,dx,dy,x,y,px,py,apertype,aper_1,aper_2,aper_3,aper_4,rtol,xtol,ytol,
        range=s.ds.lnir.bim/e.ds.rnir.bim;
 twiss,file=temp/twiss_irnirbim.tfs;
 };
@@ -252,13 +254,13 @@ system, "cp slhc/aperture/offset.ip*b*.tfs .";
 
 
 select,flag=aperture,clear;
-select,flag=aperture,column=name,s,betx,bety,dx,dy,x,y,px,py,
-n1,apertype,Rtol,xtol,ytol;
+select,flag=aperture,column=name,s,betx,bety,dx,dy,x,y,px,py,n1,apertype,Rtol,xtol,ytol,k1l,k1sl,k2l,k2sl,k3l,k3sl;
 aperture,range=s.ds.lnir.bim/e.ds.rnir.bim,
          offsetelem=./offset.IPnir.bim.tfs,
          cor=COmax, dp=dPmax, spec=SPECIF,interval=1.0,
          exn=emittance_norm,eyn=emittance_norm,
          halo={6,halor,halox,haloy},bbeat=apbbeat,
+         dparx=DParcx,dpary=DParcy,
          file=temp/ap_irnirbim.tfs;
 system, "rm offset.ip*b*.tfs";
 
@@ -1768,15 +1770,15 @@ ACBXH1.R1:=ACBXH1.R1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBXH1.R1s*sin(twopi*PHI_I
 ACBXV1.L1:=ACBXV1.L1x*sin(twopi*PHI_IR1/360.)*on_x1 + ACBXV1.L1s*cos(twopi*PHI_IR1/360.)*on_sep1;
 ACBXV1.R1:=ACBXV1.R1x*sin(twopi*PHI_IR1/360.)*on_x1 + ACBXV1.R1s*cos(twopi*PHI_IR1/360.)*on_sep1;
 
-!ACBXH2.L1:=ACBXH2.L1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBXH2.L1s*sin(twopi*PHI_IR1/360.)*on_sep1;
-!ACBXH2.R1:=ACBXH2.R1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBXH2.R1s*sin(twopi*PHI_IR1/360.)*on_sep1;
-!ACBXV2.L1:=ACBXV2.L1x*sin(twopi*PHI_IR1/360.)*on_x1 + ACBXV2.L1s*cos(twopi*PHI_IR1/360.)*on_sep1;
-!ACBXV2.R1:=ACBXV2.R1x*sin(twopi*PHI_IR1/360.)*on_x1 + ACBXV2.R1s*cos(twopi*PHI_IR1/360.)*on_sep1;
+ACBXH2.L1:=ACBXH2.L1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBXH2.L1s*sin(twopi*PHI_IR1/360.)*on_sep1;
+ACBXH2.R1:=ACBXH2.R1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBXH2.R1s*sin(twopi*PHI_IR1/360.)*on_sep1;
+ACBXV2.L1:=ACBXV2.L1x*sin(twopi*PHI_IR1/360.)*on_x1 + ACBXV2.L1s*cos(twopi*PHI_IR1/360.)*on_sep1;
+ACBXV2.R1:=ACBXV2.R1x*sin(twopi*PHI_IR1/360.)*on_x1 + ACBXV2.R1s*cos(twopi*PHI_IR1/360.)*on_sep1;
 
-!ACBXH3.L1:=ACBXH3.L1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBXH3.L1s*sin(twopi*PHI_IR1/360.)*on_sep1;
-!ACBXH3.R1:=ACBXH3.R1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBXH3.R1s*sin(twopi*PHI_IR1/360.)*on_sep1;
-!ACBXV3.L1:=ACBXV3.L1x*sin(twopi*PHI_IR1/360.)*on_x1 + ACBXV3.L1s*cos(twopi*PHI_IR1/360.)*on_sep1;
-!ACBXV3.R1:=ACBXV3.R1x*sin(twopi*PHI_IR1/360.)*on_x1 + ACBXV3.R1s*cos(twopi*PHI_IR1/360.)*on_sep1;
+ACBXH3.L1:=ACBXH3.L1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBXH3.L1s*sin(twopi*PHI_IR1/360.)*on_sep1;
+ACBXH3.R1:=ACBXH3.R1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBXH3.R1s*sin(twopi*PHI_IR1/360.)*on_sep1;
+ACBXV3.L1:=ACBXV3.L1x*sin(twopi*PHI_IR1/360.)*on_x1 + ACBXV3.L1s*cos(twopi*PHI_IR1/360.)*on_sep1;
+ACBXV3.R1:=ACBXV3.R1x*sin(twopi*PHI_IR1/360.)*on_x1 + ACBXV3.R1s*cos(twopi*PHI_IR1/360.)*on_sep1;
 
 ACBYHS4.L1B1:=ACBYHS4.L1B1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBYHS4.L1B1s*sin(twopi*PHI_IR1/360.)*on_sep1;
 ACBYHS4.R1B1:=ACBYHS4.R1B1x*cos(twopi*PHI_IR1/360.)*on_x1 + ACBYHS4.R1B1s*sin(twopi*PHI_IR1/360.)*on_sep1;
@@ -1807,15 +1809,15 @@ ACBXH1.R5:=ACBXH1.R5x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBXH1.R5s*sin(twopi*PHI_I
 ACBXV1.L5:=ACBXV1.L5x*sin(twopi*PHI_IR5/360.)*on_x5 + ACBXV1.L5s*cos(twopi*PHI_IR5/360.)*on_sep5;
 ACBXV1.R5:=ACBXV1.R5x*sin(twopi*PHI_IR5/360.)*on_x5 + ACBXV1.R5s*cos(twopi*PHI_IR5/360.)*on_sep5;
 
-!ACBXH2.L5:=ACBXH2.L5x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBXH2.L5s*sin(twopi*PHI_IR5/360.)*on_sep5;
-!ACBXH2.R5:=ACBXH2.R5x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBXH2.R5s*sin(twopi*PHI_IR5/360.)*on_sep5;
-!ACBXV2.L5:=ACBXV2.L5x*sin(twopi*PHI_IR5/360.)*on_x5 + ACBXV2.L5s*cos(twopi*PHI_IR5/360.)*on_sep5;
-!ACBXV2.R5:=ACBXV2.R5x*sin(twopi*PHI_IR5/360.)*on_x5 + ACBXV2.R5s*cos(twopi*PHI_IR5/360.)*on_sep5;
+ACBXH2.L5:=ACBXH2.L5x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBXH2.L5s*sin(twopi*PHI_IR5/360.)*on_sep5;
+ACBXH2.R5:=ACBXH2.R5x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBXH2.R5s*sin(twopi*PHI_IR5/360.)*on_sep5;
+ACBXV2.L5:=ACBXV2.L5x*sin(twopi*PHI_IR5/360.)*on_x5 + ACBXV2.L5s*cos(twopi*PHI_IR5/360.)*on_sep5;
+ACBXV2.R5:=ACBXV2.R5x*sin(twopi*PHI_IR5/360.)*on_x5 + ACBXV2.R5s*cos(twopi*PHI_IR5/360.)*on_sep5;
 
-!ACBXH3.L5:=ACBXH3.L5x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBXH3.L5s*sin(twopi*PHI_IR5/360.)*on_sep5;
-!ACBXH3.R5:=ACBXH3.R5x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBXH3.R5s*sin(twopi*PHI_IR5/360.)*on_sep5;
-!ACBXV3.L5:=ACBXV3.L5x*sin(twopi*PHI_IR5/360.)*on_x5 + ACBXV3.L5s*cos(twopi*PHI_IR5/360.)*on_sep5;
-!ACBXV3.R5:=ACBXV3.R5x*sin(twopi*PHI_IR5/360.)*on_x5 + ACBXV3.R5s*cos(twopi*PHI_IR5/360.)*on_sep5;
+ACBXH3.L5:=ACBXH3.L5x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBXH3.L5s*sin(twopi*PHI_IR5/360.)*on_sep5;
+ACBXH3.R5:=ACBXH3.R5x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBXH3.R5s*sin(twopi*PHI_IR5/360.)*on_sep5;
+ACBXV3.L5:=ACBXV3.L5x*sin(twopi*PHI_IR5/360.)*on_x5 + ACBXV3.L5s*cos(twopi*PHI_IR5/360.)*on_sep5;
+ACBXV3.R5:=ACBXV3.R5x*sin(twopi*PHI_IR5/360.)*on_x5 + ACBXV3.R5s*cos(twopi*PHI_IR5/360.)*on_sep5;
 
 ACBYHS4.L5B1:=ACBYHS4.L5B1x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBYHS4.L5B1s*sin(twopi*PHI_IR5/360.)*on_sep5;
 ACBYHS4.R5B1:=ACBYHS4.R5B1x*cos(twopi*PHI_IR5/360.)*on_x5 + ACBYHS4.R5B1s*sin(twopi*PHI_IR5/360.)*on_sep5;
