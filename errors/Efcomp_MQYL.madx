@@ -1,0 +1,37 @@
+! S. Fartoukh March 2012
+! Error generation for the new Q5 (MQYL) in IR1, IR5 and IR6. 
+! The orientation for Q5 left or right is NLE-BODY-LE in IR1 and LE-BODY-NLE in IR5 and IR6
+
+exec new_magnetfamily_MQ(MQYL);
+
+!Q5L1
+select,flag=error,clear;select,flag=error,pattern="^MQYL\.5L1.*$";
+if(mylhcbeam==1) {iap=1;};if(mylhcbeam==2) {iap=2;};
+exec new_magnetindividual(MQYL,iap);exec errorgenerate_quad_inv(MQYL);
+
+!Q5R1
+select,flag=error,clear;select,flag=error,pattern="^MQYL\.5R1.*$";
+if(mylhcbeam==1) {iap=2;};if(mylhcbeam==2) {iap=1;};
+exec new_magnetindividual(MQYL,iap);exec errorgenerate_quad_inv(MQYL);
+
+!Q5L5
+select,flag=error,clear;select,flag=error,pattern="^MQYL\.5L5.*$";
+if(mylhcbeam==1) {iap=2;};if(mylhcbeam==2) {iap=1;};
+exec new_magnetindividual(MQYL,iap);exec errorgenerate_quad(MQYL);
+
+!Q5R5
+select,flag=error,clear;select,flag=error,pattern="^MQYL\.5R5.*$";
+if(mylhcbeam==1) {iap=1;};if(mylhcbeam==2) {iap=2;};
+exec new_magnetindividual(MQYL,iap);exec errorgenerate_quad(MQYL);
+
+!Q5L6
+select,flag=error,clear;select,flag=error,pattern="^MQYL\.5L6.*$";
+if(mylhcbeam==1) {iap=1;};if(mylhcbeam==2) {iap=2;};
+exec new_magnetindividual(MQYL,iap);exec errorgenerate_quad(MQYL);
+
+!Q5R6
+select,flag=error,clear;select,flag=error,pattern="^MQYL\.5R6.*$";
+if(mylhcbeam==1) {iap=1;};if(mylhcbeam==2) {iap=2;};
+exec new_magnetindividual(MQYL,iap);exec errorgenerate_quad(MQYL);
+
+return;
