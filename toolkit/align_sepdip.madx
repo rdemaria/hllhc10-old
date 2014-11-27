@@ -176,6 +176,6 @@ survey;
 
 mbrc_mech_sep=188;
 mbrd_mech_sep=186;
-mbrs_mech_sep=194;
-mbrb_mech_sep=210;
+mbrs_mech_sep=420-414;
+mbrb_mech_sep=420-194;
 value,mbrc_mech_sep,mbrd_mech_sep,mbrs_mech_sep,mbrb_mech_sep;

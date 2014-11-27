@@ -7,7 +7,8 @@ qtlimit4   := 1.0*125.0/scale;
 qtlimit5   := 1.0*120.0/scale;
 qtlimit6   := 1.0*90.0/scale;
 
-if(on_holdselect==0){ exec,select(4,34,45,b1); };
+if(bir4b1->betx==0){ exec,select(4,34,45,b1); };
+
 if(on_fixedip==1){
 muxip4b1=2.1600 ;betxip4b1 = 172.807960 ;alfxip4b1 =  0.580679 ;
 muyip4b1=1.7200 ;betyip4b1 = 230.297901 ;alfyip4b1 = -0.325498 ;
@@ -16,7 +17,7 @@ dxip4b1 = 0.0000 ;dpxip4b1 = 0.0000 ;
 value,muxip4b1,betxip4b1,alfxip4b1,muyip4b1,betyip4b1,alfyip4b1,dxip4b1,dpxip4b1;
 
 use,period=lhcb1,range=s.ds.l4.b1/e.ds.r4.b1;
-match,    , beta0=bir4b1;
+match, sequence=lhcb1, beta0=bir4b1;
 constraint,sequence=lhcb1,range=ip4,dpx =dpxip4b1, dx=dxip4b1;
 constraint,sequence=lhcb1,range=ip4,betx=betxip4b1;
 constraint,sequence=lhcb1,range=ip4,bety=betyip4b1;
@@ -27,7 +28,7 @@ constraint,sequence=lhcb1,range=e.ds.r4.b1,dx=eir4b1->dx,dpx=eir4b1->dpx;
 constraint,sequence=lhcb1,range=e.ds.r4.b1,muy=muyip4b1+eir4b1->muy;
 constraint,sequence=lhcb1,range=e.ds.r4.b1,mux=muxip4b1+eir4b1->mux;
 if(match_on_aperture==1){
-constraint,sequence=lhcb1, range=mq.12l4.b1,bety<182.5-2.0;
+constraint,sequence=lhcb1, range=mq.12l4.b1,bety<182.5-2.0+2.0;
 constraint,sequence=lhcb1, range=mqml.10l4.b1,bety<178.5;
 constraint,sequence=lhcb1, range=mqml.8l4.b1,bety<178.5-0.5;
 constraint,sequence=lhcb1, range=mqy.6l4.b1,bety<600;

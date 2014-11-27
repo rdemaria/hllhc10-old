@@ -1,0 +1,27 @@
+! Usage
+!  mux_ip15=31.5; !31.0996151227458
+!  muy_ip15=29.5; !29.9471198309731
+! call,file=make_ip15phase_tm.madx;
+! exec,check_ip(b1);
+exec,REMOVE_PHASESHIFT(IP3,b1);
+exec,REMOVE_PHASESHIFT(IP7,b1);
+
+exec,check_ip(b1);
+dphix15=table(twiss,IP1,mux)-table(twiss,IP5,mux);
+dphiy15=table(twiss,IP1,muy)-table(twiss,IP5,muy);
+
+if (dphix15<0){ dphix15=dphix15+refqxb1;};
+if (dphiy15<0){ dphiy15=dphiy15+refqyb1;};
+
+dphix15=dphix15-mux_ip15;
+dphiy15=dphiy15-muy_ip15;
+
+
+value,dphix15,dphiy15;
+
+dphix51=-dphix15;dphiy51=-dphiy15;
+
+exec,PHASESHIFT(IP3,dphix15,dphiy15,b1);
+exec,PHASESHIFT(IP7,dphix51,dphiy51,b1);
+
+

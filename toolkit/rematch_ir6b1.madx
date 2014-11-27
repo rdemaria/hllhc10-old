@@ -48,7 +48,7 @@ constraint,range=MQY.4R6.B1,betx<552;
 constraint,range=MQYL.5R6.B1,bety<600;
 constraint,range=mqm.9r6.b1,bety< 180;
 constraint,range=mqml.10r6.b1,betx< 180.+7.3;
-constraint,range=mq.11r6.b1,bety< 178.+2.0;
+constraint,range=mq.11r6.b1,bety< 178.+2.0+0.3;
 };
  vary,name=kqt13.l6b1,  step=1.0E-6, lower=-qtlimit5, upper= qtlimit5;
  vary,name=kqt12.l6b1,  step=1.0E-6, lower=-qtlimit5, upper= qtlimit5;

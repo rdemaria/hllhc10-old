@@ -42,7 +42,7 @@ if(match_on_aperture==1){
  constraint, sequence=lhcb2, range=mqy.5l4.b2,bety<533+0.1+epsap;
  constraint, sequence=lhcb2, range=mqy.5r4.b2,betx<450+0.0+epsap;
  constraint, sequence=lhcb2, range=mqy.6r4.b2,bety<552+1+epsap;
- constraint, sequence=lhcb2, range=mqml.8r4.b2,bety<177.5-6+epsap;
+ constraint, sequence=lhcb2, range=mqml.8r4.b2,bety<177.5-4+epsap;
  constraint, sequence=lhcb2, range=mqml.10r4.b2,bety<177.5+2.2+epsap;
  constraint, sequence=lhcb2, range=mq.11r4.b2,betx<181.5-1.6+epsap,dx<2.35;
 };

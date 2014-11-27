@@ -268,7 +268,7 @@ system,"slhc/aperture/check_aperture.py temp/ap_irnirbim.tfs";
 };
 
 mk_aparc(NARC1,NARC2,BIM,NRJ) : macro ={
-exec,mk_beam(NRJ);
+!exec,mk_beam(NRJ);
 
 use,sequence=lhcBIM;
 select,flag=twiss,clear;
@@ -2699,7 +2699,7 @@ epsy:=emittance_norm /gamma_rel;
 if (mylhcbeam>2){ bv_aux=-1; } else { bv_aux=1; };
 Beam,particle=proton,sequence=lhcb1,energy=NRJ,NPART=1.15E11,sige=4.5e-4*sqrt(450./NRJ),ex:=epsx,ey:=epsy,sigt:=bunch_len;
 Beam,particle=proton,sequence=lhcb2,energy=NRJ,bv = -bv_aux,NPART=1.15E11,sige=4.5e-4*sqrt(450./NRJ),ex:=epsx,ey:=epsy,sigt:=bunch_len;
-}
+};
 
 
 make_squeeze(filename):macro = {

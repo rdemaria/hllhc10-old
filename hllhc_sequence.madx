@@ -338,7 +338,7 @@ posMCBXFBb  := posQ2b     +(l.MQX + l.MCBXFB   )/2. +0.5;
 MCBXFBH: HKICKER,    Lrad := l.MCBXFB;  ! nested corrector
 MCBXFBV: VKICKER,    Lrad := l.MCBXFB;  ! nested corrector
 
-Kmax_MCBXFB := 1.8000 / l.MCBXFB; ! 1.8Tm integrated strength
+Kmax_MCBXFB := 2.5000 / l.MCBXFB; ! 2.5Tm integrated strength
 Kmin_MCBXFB := -Kmax_MCBXFB ;
 value, Kmax_MCBXFB;
 
@@ -478,15 +478,15 @@ MCSSX3  : MULTIPOLE , Lrad := l.MCSSX3  ; ! (a3)
 
 Kmax_MCBXFA:= 4.5000 / l.MCBXFA               ;!4.5000Tm@50mm
 Rref_mpcorr = 0.05; !50mm reference radius for multipole correctors
-Kmax_MCQSX3:= 1.0000 / l.MCQSX3/Rref_mpcorr         ;!0.6000Tm@50mm
-Kmax_MCTX3 := 0.1200 / l.MCTX3 /Rref_mpcorr^5 * 120.;!0.0700Tm@50mm
-Kmax_MCTSX3:= 0.0200 / l.MCTSX3/Rref_mpcorr^5 * 120.;!0.0700Tm@50mm
-Kmax_MCDX3 := 0.0400 / l.MCDX3 /Rref_mpcorr^4 *  24.;!0.0300Tm@50mm
-Kmax_MCDSX3:= 0.0400 / l.MCDSX3/Rref_mpcorr^4 *  24.;!0.0300Tm@50mm
-Kmax_MCOX3 := 0.0400 / l.MCOX3 /Rref_mpcorr^3 *   6.;!0.0300Tm@50mm
-Kmax_MCOSX3:= 0.0400 / l.MCOSX3/Rref_mpcorr^3 *   6.;!0.0300Tm@50mm
-Kmax_MCSX3 := 0.0600 / l.MCSX3 /Rref_mpcorr^2 *   2.;!0.0500Tm@50mm
-Kmax_MCSSX3:= 0.0600 / l.MCSSX3/Rref_mpcorr^2 *   2.;!0.0500Tm@50mm
+Kmax_MCQSX3:= 1.0000 / l.MCQSX3/Rref_mpcorr         ;!1.0000Tm@50mm
+Kmax_MCTXF := 0.0860 / l.MCTXF /Rref_mpcorr^5 * 120.;!0.0860Tm@50mm
+Kmax_MCTSXF:= 0.0170 / l.MCTSXF/Rref_mpcorr^5 * 120.;!0.0170Tm@50mm
+Kmax_MCDXF := 0.0250 / l.MCDXF /Rref_mpcorr^4 *  24.;!0.0250Tm@50mm
+Kmax_MCDSXF:= 0.0250 / l.MCDSXF/Rref_mpcorr^4 *  24.;!0.0250Tm@50mm
+Kmax_MCOXF := 0.0460 / l.MCOXF /Rref_mpcorr^3 *   6.;!0.0460Tm@50mm
+Kmax_MCOSXF:= 0.0460 / l.MCOSXF/Rref_mpcorr^3 *   6.;!0.0460Tm@50mm
+Kmax_MCSXF := 0.0630 / l.MCSXF /Rref_mpcorr^2 *   2.;!0.0630Tm@50mm
+Kmax_MCSSXF:= 0.0630 / l.MCSSXF/Rref_mpcorr^2 *   2.;!0.0630Tm@50mm
 
 
 Kmin_MCBXFA := -Kmax_MCBXFA ;
@@ -825,8 +825,8 @@ MCBYYH : HKICKER,   L := l.MCBYY ; ! for orbit correction separate
 MCBYYV : VKICKER,   L := l.MCBYY ; ! for orbit correction separate
 BPMYY : MONITOR,    L := l.BPMYY ; ! bpm in Q4
 
-Kmax_MCBYYH=2.5; !Copied from MCBY  2.5T at 4.5k
-Kmax_MCBYYV=2.5;
+Kmax_MCBYYH=3.0; !Copied from MCBY V6.5 , 3.0T at 1.9k
+Kmax_MCBYYV=3.0;
 
 
 
