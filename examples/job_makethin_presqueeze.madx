@@ -36,7 +36,7 @@ system,"cp temp/optics.madx opt_presqueeze_thin.madx";
 saveopt(bbbb): macro={
 is_thin=1;call,file="toolkit/rebuild_presqueeze.madx";
 arc_squeeze=0.5;on_check=1;call,file="slhc/toolkit/save_optics.madx";
-system,"cp temp/optics.madx opt_presqueezebbbb_thin.madx";
+system,"cp temp/optics.madx opt_presqueeze_bbbb_thin.madx";
 };
 
 
