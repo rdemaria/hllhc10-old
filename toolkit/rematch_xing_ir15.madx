@@ -167,7 +167,17 @@ acbrdh4.rIRNb2:=acbrdh4.rIRNb2x*on_xIRN*xcosirIRN +
 
 
 
-
+!----- matchXscheme -------
+!rotation in wrong direction
+!change to (see HLLHCV1.1/toolkit/rematch_xing_ir15.madx
+! constraint, sequence=lhcb1,range=IPIRN, x  = -Psep*xsinirIRN,
+!                                         y  =  Psep*xcosirIRN,
+!                                         py =  Xang*xsinirIRN,
+!                                         px =  Xang*xcosirIRN;
+! constraint, sequence=lhcb2,range=IPIRN, x  =  Psep*xsinirIRN,
+!                                         y  = -Psep*xcosirIRN,
+!                                         py = -Xang*xsinirIRN,
+!                                         px = -Xang*xcosirIRN;
 matchXscheme(IRN,VAR1,VAR2,VPHI): macro={
   auxon_xIRN  =on_xIRN  ;
   auxon_sepIRN=on_sepIRN;
