@@ -1,0 +1,33 @@
+option, warn,info;
+system,"rm -rf temp"; system,"mkdir temp";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.0 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/V6.503 db5";
+option,-echo,-info,-warn;
+
+call,file="slhc/toolkit/macro.madx";
+call,file="slhc/hllhc_thin.seq";
+
+NRJ=450; exec,mk_beam(NRJ);
+call,file="slhc/opt_inj.madx";
+exec,crossing_disable;
+
+
+jac_calls_aux=15; is_thin=1;
+call,file="toolkit/rebuild_inj.madx";
+arc_squeeze=0;on_check=1;call,file="slhc/toolkit/save_optics.madx";
+system,"cp temp/optics.madx opt_inj_thin.madx";
+
+
+return;
+
+! do not work at rematch disp
+NRJ=7000; exec,mk_beam(NRJ);
+
+call,file="slhc/opt_presqueeze.madx";
+exec,check_ip(b1); exec,check_ip(b2);
+
+jac_calls_aux=15; is_thin=1;
+call,file=hllhc_build.madx;
+arc_squeeze=0;on_check=1;call,file="slhc/toolkit/save_optics.madx";
+system,"cp temp/optics.madx opt_presqueeze_thin.madx";
+

@@ -1,0 +1,260 @@
+!--------------------------------------------------
+! Retune arcs
+!--------------------------------------------------
+
+if (ARC_SQUEEZE == 0 ){
+Qx0=62.28;Qy0=60.31; ! setting target
+} else {
+Qx0=62.31;Qy0=60.32; ! setting target
+};
+value,Qx0,Qy0;
+! compute reference phase advances from a matched optics
+
+exec,check_phasearc(b1);exec,check_phasearc(b2);
+
+dqxb1=Qx0-(mux12b1+mux23b1+mux34b1+mux45b1+mux56b1+mux67b1+mux78b1+mux81b1+
+    muxip1b1+muxip2b1+muxip3b1+muxip4b1+muxip5b1+muxip6b1+muxip7b1+muxip8b1);
+dqxb2=Qx0-(mux12b2+mux23b2+mux34b2+mux45b2+mux56b2+mux67b2+mux78b2+mux81b2+
+    muxip1b2+muxip2b2+muxip3b2+muxip4b2+muxip5b2+muxip6b2+muxip7b2+muxip8b2);
+dqyb1=Qy0-(muy12b1+muy23b1+muy34b1+muy45b1+muy56b1+muy67b1+muy78b1+muy81b1+
+    muyip1b1+muyip2b1+muyip3b1+muyip4b1+muyip5b1+muyip6b1+muyip7b1+muyip8b1);
+dqyb2=Qy0-(muy12b2+muy23b2+muy34b2+muy45b2+muy56b2+muy67b2+muy78b2+muy81b2+
+    muyip1b2+muyip2b2+muyip3b2+muyip4b2+muyip5b2+muyip6b2+muyip7b2+muyip8b2);
+value,dqxb1,dqxb2,dqyb1,dqyb2;
+dqx=(dqxb1+dqxb2)*0.5;dqy=(dqyb1+dqyb2)*0.5;
+value,dqx,dqy;
+exec,shiftphasesectorweak(b1,dqx,dqy);
+
+
+!--------------------------------------------------
+! Rematch IR1-5
+!--------------------------------------------------
+
+!exec,load_optics(ir5hl,6911); exec,copyir5to1;
+!exec,load_load_lastoptics(ir5);
+!call,file="slhc/hllhc_sequence.madx";
+
+exec,selectIR15(5,45,56,b1); exec,selectIR15(5,45,56,b2);
+exec,mk_irtwiss(5,b1); exec,mk_irtwiss(5,b2);
+
+!!! recompute triplets
+!call,file="toolkit/mktripletv5.madx";
+!exec,get_boundary(120,0.60,0.60); value,betx_marke, bety_marke;
+!grad=140;
+!exec,mk_triplet(0.60,0.60,grad,120,betx_marke,bety_marke);
+
+grad=140;
+scl=0.13; sch=0.90;sc79=0.995;bmaxds=500;imb=1.30;
+match_on_triplet=0; match_on_tripletconst=0;ir5q4sym=1;
+ir5q5sym=1; if (NRJ==450){ir5q5sym=0;};
+match_inj_tunes=0;match_on_aperture=0;
+if (NRJ==450){ match_inj_tunes=1;};
+if (NRJ==450 && is_thin==0){ match_on_aperture=1};
+apq789=280; apq56=0; apq4=0; apq1011=0;
+jac_calls=jac_calls_aux; bisec=3; tol=1e-16;
+call,file="slhc/toolkit/rematch_ir15_b12.madx";
+exec,copyir5to1;
+
+
+!if (tar<1e-10){exec,store_optics(ir5hl);};
+
+
+
+
+!--------------------------------------------------
+! Rematch IR2
+!--------------------------------------------------
+
+if (ARC_SQUEEZE<=0.5){
+  !exec,load_optics(ir2,57); !3m new phase
+  exec,select(2,12,23,b1); exec,select(2,12,23,b2);
+  exec,mk_irtwiss(2,b1); exec,mk_irtwiss(2,b2);
+  on_holdselect=1; on_fixedip=0;
+  match_inj_tunes=0; match_on_aperture=0;
+  apq6=0;apq8=0;match_on_aperture=0;
+  if (NRJ==450){ match_inj_tunes=1;};
+  if (NRJ==450 && is_thin==0){ match_on_aperture=1;};
+  if (NRJ>450) {apq6=199; apq8=apq6; match_on_aperture=0;};
+  jac_calls=jac_calls_aux; bisec=3; tol=1e-23;
+  call,file="slhc/toolkit/rematch_ir2b12.madx";
+!  apq6=200; jac_calls=jac_calls_aux; apq8=apq6;
+!  call,file="slhc/toolkit/rematch_ir2b12.madx";
+  !call,file="slhc/toolkit/rematch_ir2b1.madx";
+  !call,file="slhc/toolkit/rematch_ir2b2.madx";
+  !if (tar<1e-10){exec,store_optics(ir2);};
+};
+
+!--------------------------------------------------
+! Rematch IR8
+!--------------------------------------------------
+
+if (ARC_SQUEEZE<=0.5){
+  !exec,load_optics(ir8,529); !3m new phase
+  exec,select(8,78,81,b1); exec,select(8,78,81,b2);
+  exec,mk_irtwiss(8,b1); exec,mk_irtwiss(8,b2);
+  apq6=0;apq8=0;apq7=0;match_on_aperture=0;
+  if (NRJ==450){ match_inj_tunes=1;};
+  if (NRJ==450 && is_thin==0){ match_on_aperture=1;};
+  if (NRJ>450) {apq6=199; apq8=apq6;  apq7=apq6; match_on_aperture=0;};
+  jac_calls=jac_calls_aux; bisec=3; tol=1e-23;
+  call,file="slhc/toolkit/rematch_ir8b12.madx";
+  !if (tar<1e-10){exec,store_optics(ir8);};
+};
+
+
+
+
+!--------------------------------------------------
+! Rematch IR4
+!--------------------------------------------------
+
+if (ARC_SQUEEZE<=0.5){
+  !exec,load_optics(ir4,1);  !3.1b
+  !exec,load_optics(ir4,11); !new arcs 6.92 in B2
+  !exec,load_optics(ir4,13); !better still 6.92 in Q5,
+                             !cannot compromise Q11 more
+  !exec,load_optics(ir4,15); !better in Q12 left for full=1 q8rb2
+  exec,select(4,34,45,b1); exec,select(4,34,45,b2);
+  match_on_aperture=0;on_fixedip=0;
+  if (NRJ==450 && is_thin==0){ match_on_aperture=1;};
+  jac_calls=jac_calls_aux; bisec=3; tol=1e-23;
+  call,file="slhc/toolkit/rematch_ir4b1.madx";
+  call,file="slhc/toolkit/rematch_ir4b2.madx";
+  !if (tar<1e-10){exec,store_optics(ir4);};
+};
+
+
+!--------------------------------------------------
+! Rematch IR6
+!--------------------------------------------------
+
+if (ARC_SQUEEZE<=0.5){
+  !exec,load_optics(ir6,1); !3.1b
+  !exec,load_optics(ir6,11); !troubles in MQYL Q6 maybe new IP values???
+  exec,select(6,56,67,b1); exec,select(6,56,67,b2);
+  exec,mk_irtwiss(6,b1); exec,mk_irtwiss(6,b2);
+  match_on_aperture=0;on_fixedip=0;
+  if (NRJ==450 && is_thin==0){ match_on_aperture=1;};
+  jac_calls=jac_calls_aux; bisec=3; tol=1e-23;
+  call,file="slhc/toolkit/rematch_ir6b1.madx";
+  call,file="slhc/toolkit/rematch_ir6b2.madx";
+  !if (tar<1e-10){exec,store_optics(ir6);};
+};
+
+!--------------------------------------------------
+! Rematch IR3
+!--------------------------------------------------
+
+  !exec,load_optics(ir3,1); !3.1b
+  !exec,load_optics(ir3,2); !new arcs inj constraints
+  !exec,load_optics(ir3,3); !inj constraints
+  !exec,load_optics(ir3,4); !better inj for b1 touching Q11,
+                            !on b2 degradation q12 due to q13??
+  !exec,load_optics(ir3,5); ! as 4
+  exec,select(3,23,34,b1); exec,select(3,23,34,b2);
+  exec,mk_irtwiss(3,b1); exec,mk_irtwiss(3,b2);
+  match_on_aperture=0;on_fixedip=0;
+  if (NRJ==450 && is_thin==0){ match_on_aperture=1;};
+  jac_calls=jac_calls_aux; bisec=3; tol=1e-23;
+  call,file="slhc/toolkit/rematch_ir3b1.madx";
+  call,file="slhc/toolkit/rematch_ir3b2.madx";
+  !if (tar<1e-10){exec,store_optics(ir3);};
+
+!--------------------------------------------------
+! Rematch IR7
+!--------------------------------------------------
+
+exec,select(7,67,78,b1); exec,select(7,67,78,b2);
+exec,mk_irtwiss(7,b1); exec,mk_irtwiss(7,b2);
+!exec,load_optics(ir7,1); !3.1b
+!exec,load_optics(ir7,2); !new arcs inj constraints
+!exec,load_optics(ir7,3); !as 2
+!exec,load_optics(ir7,6); !better in b2 12r7 but at the cost of MQ.8l7.b2
+match_on_aperture=0;on_fixedip=0;
+if (NRJ==450 && is_thin==0){ match_on_aperture=1;};
+jac_calls=jac_calls_aux; bisec=3; tol=1e-23;
+call,file="slhc/toolkit/rematch_ir7b1.madx";
+call,file="slhc/toolkit/rematch_ir7b2.madx";
+
+
+!--------------------------------------------------
+! Rematch chroma
+!--------------------------------------------------
+
+if (ARC_SQUEEZE<=0.5){
+  ksf.b1          =      0.600E-01;
+  ksd.b1          =     -0.990E-01;
+  ksf.b2          =      0.600E-01;
+  ksd.b2          =     -0.990E-01;
+  exec,set_sext_all(ksf.b1,ksd.b1,ksf.b2,ksd.b2);
+  !call,file="slhc/toolkit/rematch_betabeat.madx";
+  exec,CORCHROMA_WEAK(2,b1);
+  exec,CORCHROMA_WEAK(2,b2);
+};
+
+
+value, tarir5b1,tarir5b2, tarir2b1,tarir2b2, tarir8b1,tarir8b2,
+tarir4b1,tarir4b2, tarir6b1,tarir6b2, tarir3b1,tarir3b2, tarir7b1,tarir7b2;
+
+tar_irmatch= tarir5b1+tarir5b2+ tarir2b1+tarir2b2+ tarir8b1+tarir8b2+
+tarir4b1+tarir4b2+ tarir6b1+tarir6b2+ tarir3b1+tarir3b2+ tarir7b1+tarir7b2;
+value,tar_irmatch;
+
+if (tar_irmathc>1e-18) {stop;};
+
+
+
+!--------------------------------------------------
+! Rematch crossing angle
+!--------------------------------------------------
+
+if (ARC_SQUEEZE==0.5){ Xang=295e-6;Psep=0.75e-3; };
+if (NRJ==450){ Xang=295e-6;Psep=2e-3; };
+call,file="slhc/toolkit/rematch_xing_ir15.madx";
+value,tarir1xing90,tarir1xing0,tarir5xing90,tarir5xing0;
+
+
+call,file="slhc/toolkit/xing.IP28.madx";
+value,tarir2b1xing,tarir2b2xing,tarir2b1xing,tarir2b2xing;
+
+if (ARC_SQUEEZE>=0.5){
+call,file="slhc/toolkit/rematch_disp.madx";
+};
+value,tardispip1b1l,tardispip1b1r,tardispip1b2l,tardispip1b2r,
+      tardispip5b1l,tardispip5b1r,tardispip5b2l,tardispip5b2r;
+
+tar_xing=tardispip1b1l+tardispip1b1r+tardispip1b2l+tardispip1b2r+
+         tardispip5b1l+tardispip5b1r+tardispip5b2l+tardispip5b2r;
+
+value,tar_xing;
+
+if (tar_xing>1e-18){ stop;};
+
+
+!--------------------------------------------------
+! Rematch Squeeze
+!--------------------------------------------------
+
+if (ARC_SQUEEZE==1){
+scxir1=betx_IP1/betx0_IP1; scyir1=bety_IP1/bety0_IP1;
+scxir5=betx_IP5/betx0_IP5; scyir5=betx_IP5/betx0_IP5;
+
+Xang=pxIP5b1;Psep=yIP5b1;
+call,file="slhc/toolkit/makesqueeze.madx";
+};
+
+
+!--------------------------------------------------
+!Save optics
+!--------------------------------------------------
+
+on_check=1;call,file="slhc/toolkit/save_optics.madx";
+
+
+value,tardispip1b1l,tardispip1b1r,tardispip1b2l,tardispip1b2r,
+      tardispip5b1l,tardispip5b1r,tardispip5b2l,tardispip5b2r;
+value,tarir1xing90,tarir1xing0,tarir5xing90,tarir5xing0;
+value, tarir5b1,tarir5b2, tarir2b1,tarir2b2, tarir8b1,tarir8b2,
+tarir4b1,tarir4b2, tarir6b1,tarir6b2, tarir3b1,tarir3b2, tarir7b1,tarir7b2;
+value,tar_irmatch;
+value,tar_xing;

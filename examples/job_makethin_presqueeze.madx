@@ -1,0 +1,53 @@
+option, warn,info;
+system,"rm -rf temp"; system,"mkdir temp";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.0 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/V6.503 db5";
+option,-echo,-info,-warn;
+
+call,file="slhc/toolkit/macro.madx";
+
+Option, -echo,-warn,-info;
+REAL CONST l.TAN   = 3.7  ;REAL CONST l.TANAL = l.TAN;
+REAL CONST l.TANAR = l.TAN;REAL CONST l.TANC  = l.TAN;
+REAL CONST l.TCT   = 1.0;REAL CONST l.TCTH  = l.TCT;REAL CONST l.TCTVA = l.TCT;
+call,file="db5/V6.5.seq";
+
+Option, -echo,warn,-info;
+call,file="slhc/hllhc_thin.seq";
+
+call,file="slhc/opt_round_thin.madx";
+exec,crossing_disable;
+exec,mk_beam(7000);
+exec,check_ip(b1);
+exec,check_ip(b2);
+
+
+call,file="slhc/opt_presqueeze_thin.madx";
+readmytable,table=ir5_presqueeze,file="slhc/squeeze/ir5_presqueeze.tfs";
+
+iii=1; setvars,table=ir5_presqueeze,row=iii;
+betxip5b1=round(betxip5b1*1e3)/1e3;betyip5b1=round(betyip5b1*1e3)/1e3;
+betxip5b2=betxip5b1;betyip5b2=betxip5b1;
+value,nnn,betxip5b1,betyip5b1;
+is_thin=1;call,file="toolkit/rebuild_presqueeze.madx";
+arc_squeeze=0.5;on_check=1;call,file="slhc/toolkit/save_optics.madx";
+system,"cp temp/optics.madx opt_presqueeze_thin.madx";
+
+saveopt(bbbb): macro={
+is_thin=1;call,file="toolkit/rebuild_presqueeze.madx";
+arc_squeeze=0.5;on_check=1;call,file="slhc/toolkit/save_optics.madx";
+system,"cp temp/optics.madx opt_presqueezebbbb_thin.madx";
+};
+
+
+iii=4; iiistop=table(ir5_presqueeze,tablelength);
+iii=129; iiistop=table(ir5_presqueeze,tablelength);
+while(iii<=iiistop){
+setvars,table=ir5_presqueeze,row=iii;
+betxip5b1=round(betxip5b1*1e3)/1e3;betyip5b1=round(betyip5b1*1e3)/1e3;
+betxip5b2=betxip5b1;betyip5b2=betxip5b1;
+value,nnn,betxip5b1,betyip5b1;
+bbbb=betxip5b1*1000; exec,saveopt($bbbb);
+iii=iii+5;
+};
+

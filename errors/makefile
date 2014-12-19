@@ -1,4 +1,4 @@
 %: %.f
-	gfortran -static -m32 -O3 -o $@ $<
+	gfortran -static -O3 -o $@ $< -lkernlib
 
-all: corr_tripD1_v2
+all: corr_MB_ats_v3 corr_MB_v3
