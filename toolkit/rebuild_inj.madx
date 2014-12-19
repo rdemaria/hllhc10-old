@@ -208,8 +208,8 @@ if (tar_irmathc>1e-18) {stop;};
 ! Rematch crossing angle
 !--------------------------------------------------
 
-if (ARC_SQUEEZE==0.5){ Xang=295e-6;Psep=0.75e-3; };
-if (NRJ==450){ Xang=295e-6;Psep=2e-3; };
+if (ARC_SQUEEZE==0.5){ Xang=295.0e-6;Psep=0.75e-3;phi_IR1 :=   90.000;phi_IR5 :=    0.000; };
+if (NRJ==450){ Xang=295.0e-6;Psep=2.0e-3;phi_IR1 :=   90.000;phi_IR5 :=    0.000; };
 call,file="slhc/toolkit/rematch_xing_ir15.madx";
 value,tarir1xing90,tarir1xing0,tarir5xing90,tarir5xing0;
 
