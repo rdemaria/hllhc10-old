@@ -9,6 +9,7 @@
 	    real*8 long(0:Nmax)
 	    character*12 charslice(4,0:Nmax)
 	    integer NIR1,NIR2,NIR5,NIR8
+	    real*8 NIR1AUX,NIR2AUX,NIR5AUX,NIR8AUX
 	    integer is
 	    
 	    ractwopi=sqrt(4.0d0*asin(1.0d0))
@@ -16,11 +17,15 @@
 	    call formchar(charslice)
 	    
 	    open(1,file="temp/sliceho.input")
-	    read(1,*) NIR1
-	    read(1,*) NIR2
-	    read(1,*) NIR5
-	    read(1,*) NIR8
+	    read(1,*) NIR1AUX
+	    read(1,*) NIR2AUX
+	    read(1,*) NIR5AUX
+	    read(1,*) NIR8AUX
 	    close(1)
+      NIR1=NINT(NIR1AUX)
+      NIR2=NINT(NIR2AUX)
+      NIR5=NINT(NIR5AUX)
+      NIR8=NINT(NIR8AUX)
 	    NIR1=(NIR1)/2
 	    NIR2=(NIR2)/2
 	    NIR5=(NIR5)/2
