@@ -16,6 +16,7 @@
 !!! New collision values with respect to IT_errortable_v2 based on the presentation by E. Todesco on November 6 2012
 !!! M. Giovannozzi June 2014
 !!! New collision values provided by E. Todesco (version 3 - May 20 2014)
+!!! Random b2 component added for optics studies (agreed with E. Todesco - February 2015)
 
 ! -----------------------------------------------------------------------
 ! Error type  : M - AVERAGE
@@ -31,7 +32,7 @@ Rr_MQXCD := 0.050; ! reference radius
 ! -----------------------------------------------------------------------
 !                                bn at injection
 b1M_MQXCD_inj  :=  0.0000 ; b1U_MQXCD_inj  :=  0.0000 ; b1R_MQXCD_inj  :=  0.0000 ;
-b2M_MQXCD_inj  :=  0.0000 ; b2U_MQXCD_inj  :=  0.0000 ; b2R_MQXCD_inj  :=  0.0000 ;
+b2M_MQXCD_inj  :=  0.0000 ; b2U_MQXCD_inj  :=  0.0000 ; b2R_MQXCD_inj  := 10.0000 ;
 b3M_MQXCD_inj  :=  0.0000 ; b3U_MQXCD_inj  :=  0.8200 ; b3R_MQXCD_inj  :=  0.8200 ;
 b4M_MQXCD_inj  :=  0.0000 ; b4U_MQXCD_inj  :=  0.5700 ; b4R_MQXCD_inj  :=  0.5700 ;
 b5M_MQXCD_inj  :=  0.0000 ; b5U_MQXCD_inj  :=  0.4200 ; b5R_MQXCD_inj  :=  0.4200 ;
@@ -48,7 +49,7 @@ b15M_MQXCD_inj :=  0.0000 ; b15U_MQXCD_inj :=  0.0000 ; b15R_MQXCD_inj :=  0.000
 
 !                                bn in collision
 b1M_MQXCD_col  :=  0.0000 ; b1U_MQXCD_col  :=  0.0000 ; b1R_MQXCD_col  :=  0.0000 ;
-b2M_MQXCD_col  :=  0.0000 ; b2U_MQXCD_col  :=  0.0000 ; b2R_MQXCD_col  :=  0.0000 ;
+b2M_MQXCD_col  :=  0.0000 ; b2U_MQXCD_col  :=  0.0000 ; b2R_MQXCD_col  := 10.0000 ;
 b3M_MQXCD_col  :=  0.0000 ; b3U_MQXCD_col  :=  0.8200 ; b3R_MQXCD_col  :=  0.8200 ;
 b4M_MQXCD_col  :=  0.0000 ; b4U_MQXCD_col  :=  0.5700 ; b4R_MQXCD_col  :=  0.5700 ;
 b5M_MQXCD_col  :=  0.0000 ; b5U_MQXCD_col  :=  0.4200 ; b5R_MQXCD_col  :=  0.4200 ;
