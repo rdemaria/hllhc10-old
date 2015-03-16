@@ -23,10 +23,26 @@ call,   file="slhc/aperture/aperture_upgrade_MS.madx";
 
 exec,crossing_disable;
 exec,mk_beam(7000);
-call,file="slhc/squeeze/opt_440_440.madx";
-exec,check_ip(b1); exec,check_ip(b2);
+
+! possible choices (see squeze directories)
+!... every 0.2 m
+call,file="slhc/squeeze/opt_6000_6000.madx";
+call,file="slhc/squeeze/opt_5800_5800.madx";
+call,file="slhc/squeeze/opt_5000_5000.madx";
+!... every 0.5 m
 call,file="slhc/squeeze/opt_3000_3000.madx";
-exec,check_ip(b1); exec,check_ip(b2);
-call,file="slhc/squeeze/opt_round_395_395_395_395.madx";
+call,file="slhc/squeeze/opt_1000_1000.madx";
+!... every 0.1 m
+call,file="slhc/squeeze/opt_800_800.madx";
+call,file="slhc/squeeze/opt_700_700.madx";
+call,file="slhc/squeeze/opt_600_600.madx";
+call,file="slhc/squeeze/opt_500_500.madx";
+!... every 0.01 m
+call,file="slhc/squeeze/opt_440_440.madx";
+!... every 0.005 m
+call,file="slhc/squeeze/opt_round_435_435_435_435.madx";
+call,file="slhc/squeeze/opt_round_430_430_430_430.madx";
+call,file="slhc/squeeze/opt_round_150_150_150_150.madx";
+
 exec,check_ip(b1); exec,check_ip(b2);
 
