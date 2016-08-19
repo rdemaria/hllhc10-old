@@ -1,0 +1,48 @@
+option, warn,info;
+system,"rm -rf temp"; system,"mkdir temp";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.0 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/V6.503 db5";
+option,-echo,-info,-warn;
+
+call,file="slhc/toolkit/macro.madx";
+call,file="slhc/hllhc_thin.seq";
+
+call,file="opticscheck/macro_check.madx";
+call,file="opticscheck/ref_check.madx";
+
+Option, -echo,warn,-info;
+call,file="slhc/hllhc_thin.seq";
+
+
+return;
+!---- injection -----
+NRJ=450;
+exec,mk_beam(NRJ);
+call,file="opt_inj_thin.madx";
+exec,ref_opt_inj;!get reference optics
+assign, echo=temp/check_opt;
+print,text="---- opt_inj_thin.madx ----";
+!--- collision ---
+!NRJ=7000;
+!exec,mk_beam(NRJ);
+!call,file="opt_presqueeze_thin.madx";
+!exec,ref_opt_presqueeze;!get reference optics
+!assign, echo=temp/check_opt;
+!print,text="---- opt_presqueeze_thin.madx ----";
+!call,file="opt_round_thin.madx";
+!exec,ref_opt_round;!get reference optics
+!call,file="opt_flat_thin.madx";
+!exec,ref_opt_flat;!get reference optics
+!call,file="opt_sround_thin.madx";
+!exec,ref_opt_sround;!get reference optics
+!call,file="opt_sflat_thin.madx";
+!exec,ref_opt_sflat;!get reference optics
+!call,file="opt_flathv_thin.madx";
+!exec,ref_opt_flathv;!get reference optics
+!call,file="opt_sflathv_thin.madx";
+!exec,ref_opt_sflathv;!get reference optics
+
+call,file="opticscheck/check_opt.madx";
+
+return;
+

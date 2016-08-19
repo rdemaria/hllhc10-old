@@ -26,12 +26,14 @@ ho_charge := 1.0d0;
 lr_charge := 1.0d0;
 
 !!!Define splitting of the head-on beam-beam lens
-system,"rm temp/sliceho.res";
 system,"rm temp/sliceho.input";
-option,-echo, -info ;assign, echo=temp/sliceho.res;
-value,nho_IR1,nho_IR2,nho_IR5,nho_IR8;
+option,-echo, -info ;assign, echo=temp/sliceho.input;
+printf, text="%g",value=round(nho_IR1);
+printf, text="%g",value=round(nho_IR2);
+printf, text="%g",value=round(nho_IR5);
+printf, text="%g",value=round(nho_IR8);
+
 assign,echo=terminal ;
-system,"awk  '{print $3}'  temp/sliceho.res >  temp/sliceho.input";
 system,"slhc/beambeam/headonslice";
 
 call,file="temp/sliceho.madx";

@@ -1,0 +1,88 @@
+option, warn,info;
+system,"rm -rf temp"; system,"mkdir temp";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.0 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/V6.503 db5";
+option,-echo,-info,-warn;
+
+call,file="slhc/toolkit/macro.madx";
+call,file="opticscheck/macro_check.madx";
+call,file="opticscheck/ref_check.madx";
+
+Option, -echo,-warn,-info;
+REAL CONST l.TAN   = 3.7  ;REAL CONST l.TANAL = l.TAN;
+REAL CONST l.TANAR = l.TAN;REAL CONST l.TANC  = l.TAN;
+REAL CONST l.TCT   = 1.0;REAL CONST l.TCTH  = l.TCT;REAL CONST l.TCTVA = l.TCT;
+call,file="db5/V6.5.seq";
+
+Option, -echo,warn,-info;
+call,file="slhc/hllhc_thin.seq";
+
+call,file="slhc/opt_round_thin.madx";
+exec,crossing_disable;
+exec,mk_beam(7000);
+exec,check_ip(b1);
+exec,check_ip(b2);
+
+!return;
+
+!check presqueezed optics
+call,file="new_optics/opt_presqueeze_thin.madx";
+exec, ref_opt_presqueeze;
+assign, echo=temp/check_opt;
+print,text="opt_presqueeze_thin.madx";
+call,file="opticscheck/check_opt.madx";
+if(abs(fl_qdq + fl_twiss_ip_all + fl_xing_ip_all + fl_knob_ip_all -4) <1.e-6){
+  assign,echo=temp/check_opt_ok;
+  print,text="opt_presqueeze_thin.madx";
+};
+else{
+  assign,echo=temp/check_opt_failed;
+  print,text="opt_presqueeze_thin.madx";
+};
+assign,echo=terminal ;
+
+get_opt_thin(bbbb): macro={
+  print, text="";
+  print,text="----- opt_presqueeze_bbbb_thin.madx ------";
+  call,file="new_optics/opt_presqueeze_bbbb_thin.madx";
+};
+
+!return;
+
+readmytable,table=ir5_presqueeze,file="slhc/squeeze/ir5_presqueeze.tfs";
+       
+iii=4; iiistop=table(ir5_presqueeze,tablelength);!start at iii=4; iii=129 for 3m, iii=134 for 3.1 m = first one with muir1/5lr not matched
+!get reference optics
+exec,ref_opt_presqueeze;
+while(iii<=iiistop){
+  setvars,table=ir5_presqueeze,row=iii;
+  betxip5b1=round(betxip5b1*1e3)/1e3;betyip5b1=round(betyip5b1*1e3)/1e3;
+  betxip5b2=betxip5b1;betyip5b2=betxip5b1;
+  value,nnn,betxip5b1,betyip5b1;
+  bbbb=betxip5b1*1000;
+! change reference values for beta*
+  betxip1b1ref=round(betxip5b1*1e3)/1e3;betyip1b1ref=round(betxip5b1*1e3)/1e3;
+  betxip1b2ref=round(betxip5b1*1e3)/1e3;betyip1b2ref=round(betxip5b1*1e3)/1e3;
+  betxip5b1ref=round(betxip5b1*1e3)/1e3;betyip5b1ref=round(betxip5b1*1e3)/1e3;
+  betxip5b2ref=round(betxip5b1*1e3)/1e3;betyip5b2ref=round(betxip5b1*1e3)/1e3;
+  assign, echo=temp/check_opt;
+  exec,get_opt_thin($bbbb);
+  assign,echo=terminal ;
+  call,file="opticscheck/check_opt.madx";
+!  print summary in separate file
+!  IR6 twiss parameters and IR8 dispersion change during squeeze
+!  -> check_opt_ok contains optics with IR6 twiss parameters and IR8 dispersion
+!     different from opt_flat.madx = reference (set auxfl_twiss_ip_all inserted in check_opt.madx)
+  value,fl_qdq,fl_twiss_ip_all,fl_xing_ip_all,fl_knob_ip_all;
+  if(abs(fl_qdq + fl_twiss_ip_all + fl_xing_ip_all + fl_knob_ip_all -4) <1.e-6){
+    assign,echo=temp/check_opt_ok;
+    printf,text="opt_%g_presqueeze_thin.madx",value=bbbb;
+  };
+  else{
+    assign,echo=temp/check_opt_failed;
+    printf,text="opt_%g_presqueeze_thin.madx",value=bbbb;
+  };
+  assign,echo=terminal ;
+  iii=iii+5;
+};
+

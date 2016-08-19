@@ -1,0 +1,176 @@
+!--- check x-scheme and beta*  ---
+set,format=28.16g;
+option,-echo,-info,-warn;
+assign,echo=terminal ;
+print,text="set output to terminal";
+print,text="... get optics to be checked";
+exec,check_opt(b1);
+exec,check_opt(b2);
+print,text="set output to file temp/check_opt";
+assign, echo=temp/check_opt;
+print,text="... start optics check, tolerance for diff =1.e-6";
+exec,diff_qdq;
+if(fl_qdq==1){
+  print,text="- Q and dQ ok!";
+};
+fl_twiss_ip_all=1;!flag to check that twiss parameters are ok in all IRs
+fl_xing_ip_all =1;!flag to check that xing in all IRs is ok
+fl_knob_ip_all    =1;!falg to check that knob check in all IRs is ok
+fl_twiss_ip=1;
+exec,diff_twiss_ip(mu,1);
+exec,diff_twiss_ip(bet,1);
+exec,diff_twiss_ip(alf,1);
+exec,diff_ddp_ip(d,1);
+exec,diff_ddp_ip(dp,1);
+if(fl_twiss_ip==1){
+  print,text="- mu[xy], bet[xy], alf[xy],dx and dpx at IP1 ok!";
+};
+!auxfl_twiss_ip_all=fl_twiss_ip_all;
+exec,diff_mu_lr_ip(1);
+if(fl_mu_lr_ip==1){
+  print,text="- mu[xy]_[lr] at IP1 ok!";
+};
+!fl_twiss_ip_all=auxfl_twiss_ip_all;
+fl_twiss_ip=1;
+exec,diff_twiss_ip(mu,5);
+exec,diff_twiss_ip(bet,5);
+exec,diff_twiss_ip(alf,5);
+exec,diff_ddp_ip(d,5);
+exec,diff_ddp_ip(dp,5);
+if(fl_twiss_ip==1){
+  print,text="- mu[xy], bet[xy], alf[xy],dx and dpx at IP5 ok!";
+};
+!auxfl_twiss_ip_all=fl_twiss_ip_all;
+exec,diff_mu_lr_ip(5);
+if(fl_mu_lr_ip==1){
+  print,text="- mu[xy]_[lr] at IP5 ok!";
+};
+!fl_twiss_ip_all=auxfl_twiss_ip_all;
+fl_twiss_ip=1;
+exec,diff_twiss_ip(mu,2);
+exec,diff_twiss_ip(bet,2);
+exec,diff_twiss_ip(alf,2);
+exec,diff_ddp_ip(d,2);
+exec,diff_ddp_ip(dp,2);
+if(fl_twiss_ip==1){
+  print,text="- mu[xy], bet[xy], alf[xy],dx and dpx at IP2 ok!";
+};
+fl_twiss_ip=1;
+exec,diff_twiss_ip(mu,8);
+exec,diff_twiss_ip(bet,8);
+exec,diff_twiss_ip(alf,8);
+!auxfl_twiss_ip_all=fl_twiss_ip_all;
+exec,diff_ddp_ip(d,8);
+exec,diff_ddp_ip(dp,8);
+!fl_twiss_ip_all=auxfl_twiss_ip_all;
+if(fl_twiss_ip==1){
+  print,text="- mu[xy], bet[xy], alf[xy],dx and dpx at IP8 ok!";
+};
+fl_twiss_ip=1;
+exec,diff_twiss_ip(mu,4);
+exec,diff_twiss_ip(bet,4);
+exec,diff_twiss_ip(alf,4);
+exec,diff_ddp_ip(d,4);
+exec,diff_ddp_ip(dp,4);
+if(fl_twiss_ip==1){
+  print,text="- mu[xy], bet[xy], alf[xy],dx and dpx at IP4 ok!";
+};
+!auxfl_twiss_ip_all=fl_twiss_ip_all;
+fl_twiss_ip=1;
+exec,diff_twiss_ip(mu,6);
+exec,diff_twiss_ip(bet,6);
+exec,diff_twiss_ip(alf,6);
+exec,diff_ddp_ip(d,6);
+exec,diff_ddp_ip(dp,6);
+!fl_twiss_ip_all=auxfl_twiss_ip_all;
+if(fl_twiss_ip==1){
+  print,text="- mu[xy], bet[xy], alf[xy],dx and dpx at IP6 ok!";
+};
+fl_twiss_ip=1;
+exec,diff_twiss_ip(mu,3);
+exec,diff_twiss_ip(bet,3);
+exec,diff_twiss_ip(alf,3);
+exec,diff_ddp_ip(d,3);
+exec,diff_ddp_ip(dp,3);
+if(fl_twiss_ip==1){
+  print,text="- mu[xy], bet[xy], alf[xy],dx and dpx at IP3 ok!";
+};
+fl_twiss_ip=1;
+exec,diff_twiss_ip(mu,7);
+exec,diff_twiss_ip(bet,7);
+exec,diff_twiss_ip(alf,7);
+exec,diff_ddp_ip(d,7);
+exec,diff_ddp_ip(dp,7);
+if(fl_twiss_ip==1){
+  print,text="- mu[xy], bet[xy], alf[xy],dx and dpx at IP7 ok!";
+};
+print,text="... check xing, tolerance for diff =1.e-10";
+exec,diff_xing_ip(1);
+if(fl_ip==1){
+  print,text="- [xy] and p[xy] IP1 ok!";
+};
+exec,diff_xing_ip(5);
+if(fl_ip==1){
+  print,text="- [xy] and p[xy] IP5 ok!";
+};
+exec,diff_xing_ip(2);
+if(fl_ip==1){
+  print,text="- [xy] and p[xy] IP2 ok!";
+};
+exec,diff_xing_ip(8);
+if(fl_ip==1){
+  print,text="- [xy] and p[xy] IP8 ok!";
+};
+exec,diff_xing_ip(4);
+if(fl_ip==1){
+  print,text="- [xy] and p[xy] IP4 ok!";
+};
+exec,diff_xing_ip(6);
+if(fl_ip==1){
+  print,text="- [xy] and p[xy] IP6 ok!";
+};
+exec,diff_xing_ip(3);
+if(fl_ip==1){
+  print,text="- [xy] and p[xy] IP3 ok!";
+};
+exec,diff_xing_ip(7);
+if(fl_ip==1){
+  print,text="- [xy] and p[xy] IP7 ok!";
+};
+print,text="... finished optics check";
+!value, fl_qdq,fl_twiss_ip_all,fl_xing_ip_all;
+!more than one && does not work
+if(abs((fl_qdq+fl_twiss_ip_all+fl_xing_ip_all)-3)<1.e-6){
+  print,text="-> all optics parameters ok!";
+};
+else{
+  print,text="-> optics parameter differ!!!";
+};
+print,text="... start crossing scheme check, tolerance for diff =1.e-10";
+exec,check_knob_ip_ref(1);
+exec,check_knob_ip(1);
+exec,check_knob_ip_ref(5);
+exec,check_knob_ip(5);
+!exec,check_knob_ip(2);
+!exec,check_knob_ip(8);
+print,text="... finished crossing scheme check";
+if(fl_knob_ip_all == 1){
+  print,text="-> all crossing scheme knobs ok!";
+};
+else{
+  print,text="-> crossing scheme knobs failed!!!";
+};
+print,text="---- Summary of test ----";
+if(fl_qdq == 1){  print,text="-> q/dq check ok!";};
+else{  print,text="-> q/dq check failed!!!";};
+if(fl_twiss_ip_all == 1){  print,text="-> optics parameter check ok!";};
+else{  print,text="-> !!! optics parameter check failed";};
+if(fl_xing_ip_all == 1){  print,text="-> xing parameter check ok!";};
+else{  print,text="-> !!! xing parameter check failed";};
+if(fl_knob_ip_all == 1){  print,text="-> crossing scheme knob check ok!";};
+else{  print,text="-> !!! crossing scheme knob check failed";};
+
+assign,echo=terminal ;
+print,text="set output to terminal";
+
+return;

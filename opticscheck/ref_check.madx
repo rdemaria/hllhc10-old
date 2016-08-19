@@ -1,0 +1,392 @@
+!--- check x-scheme and beta*  ---
+set,format=28.16g;
+
+REF_OPT_INJ: macro = {
+ !***Exp. configuration in IR1, IR2, IR5 and IR8***
+on_sep1ref:=0;on_x1ref:=0;phi_IR1ref :=   90.000; on_sol_atlasref:=0;on_crab1ref:=0;
+on_sep5ref:=0;on_x5ref:=0;phi_IR5ref :=    0.000; on_sol_cmsref  :=0;on_crab5ref:=0;
+on_sep2ref:=0;on_x2ref:=0;on_aliceref:=0;on_sol_aliceref:=0;
+on_sep8ref:=0;on_x8ref:=0;on_lhcbref :=0;
+
+ !Tune and Chroma
+Qxb1ref =  62.280000;  Qyb1ref =  60.310000;  Qpxb1ref=   2.000000;  Qpyb1ref=   2.000000;
+Qxb2ref =  62.280000;  Qyb2ref =  60.310000;  Qpxb2ref=   2.000000;  Qpyb2ref=   2.000000;
+
+ !IR Optics summary (phase, twiss param., dispersion)
+muxIP1b1ref= 2.6277000;  muyIP1b1ref= 2.6370000;  muxIP1b1ref_L= 1.2776854;  muyIP1b1ref_L= 1.2958738;  muxIP1b1ref_R= 1.3500146;  muyIP1b1ref_R= 1.3411262;  betxIP1b1ref=    6.000000;  betyIP1b1ref=    6.000000;  alfxIP1b1ref=   -0.000000;  alfyIP1b1ref=   -0.000000;    dxIP1b1ref=    0.000000;   dpxIP1b1ref=   -0.000000; 
+muxIP1b2ref= 2.6277000;  muyIP1b2ref= 2.6370000;  muxIP1b2ref_L= 1.3817934;  muyIP1b2ref_L= 1.2732546;  muxIP1b2ref_R= 1.2459066;  muyIP1b2ref_R= 1.3637454;  betxIP1b2ref=    6.000000;  betyIP1b2ref=    6.000000;  alfxIP1b2ref=   -0.000000;  alfyIP1b2ref=    0.000000;    dxIP1b2ref=    0.000000;   dpxIP1b2ref=    0.000000; 
+muxIP5b1ref= 2.6277000;  muyIP5b1ref= 2.6370000;  muxIP5b1ref_L= 1.2776854;  muyIP5b1ref_L= 1.2958738;  muxIP5b1ref_R= 1.3500146;  muyIP5b1ref_R= 1.3411262;  betxIP5b1ref=    6.000000;  betyIP5b1ref=    6.000000;  alfxIP5b1ref=    0.000000;  alfyIP5b1ref=    0.000000;    dxIP5b1ref=    0.000000;   dpxIP5b1ref=    0.000000; 
+muxIP5b2ref= 2.6277000;  muyIP5b2ref= 2.6370000;  muxIP5b2ref_L= 1.3817934;  muyIP5b2ref_L= 1.2732546;  muxIP5b2ref_R= 1.2459066;  muyIP5b2ref_R= 1.3637454;  betxIP5b2ref=    6.000000;  betyIP5b2ref=    6.000000;  alfxIP5b2ref=   -0.000000;  alfyIP5b2ref=   -0.000000;    dxIP5b2ref=    0.000000;   dpxIP5b2ref=    0.000000; 
+muxIP2b1ref= 2.9500000;  muyIP2b1ref= 2.7000000;  betxIP2b1ref=   10.000000;  betyIP2b1ref=   10.000000;  alfxIP2b1ref=    0.000000;  alfyIP2b1ref=    0.000000;    dxIP2b1ref=    0.000000;   dpxIP2b1ref=   -0.000000;
+muxIP2b2ref= 2.9500000;  muyIP2b2ref= 2.7000000;  betxIP2b2ref=   10.000000;  betyIP2b2ref=   10.000000;  alfxIP2b2ref=   -0.000000;  alfyIP2b2ref=    0.000000;    dxIP2b2ref=   -0.000000;   dpxIP2b2ref=   -0.000000;
+muxIP8b1ref= 3.0200000;  muyIP8b1ref= 2.8000000;  betxIP8b1ref=   10.000000;  betyIP8b1ref=   10.000000;  alfxIP8b1ref=    0.000000;  alfyIP8b1ref=   -0.000000;    dxIP8b1ref=    0.000000;   dpxIP8b1ref=   -0.000000;
+muxIP8b2ref= 3.0200000;  muyIP8b2ref= 2.8000000;  betxIP8b2ref=   10.000000;  betyIP8b2ref=   10.000000;  alfxIP8b2ref=   -0.000000;  alfyIP8b2ref=   -0.000000;    dxIP8b2ref=    0.000000;   dpxIP8b2ref=    0.000000;
+muxIP4b1ref= 2.1600000;  muyIP4b1ref= 1.7200000;  betxIP4b1ref=  172.807960;  betyIP4b1ref=  230.297901;  alfxIP4b1ref=    0.580679;  alfyIP4b1ref=   -0.325498;    dxIP4b1ref=    0.000000;   dpxIP4b1ref=   -0.000000;
+muxIP4b2ref= 2.1600000;  muyIP4b2ref= 1.7200000;  betxIP4b2ref=  228.562579;  betyIP4b2ref=  302.565988;  alfxIP4b2ref=   -0.537702;  alfyIP4b2ref=    0.588783;    dxIP4b2ref=   -0.000000;   dpxIP4b2ref=   -0.000000;
+muxIP6b1ref= 2.0000000;  muyIP6b1ref= 2.0300000;  betxIP6b1ref=  187.297499;  betyIP6b1ref=  168.122917;  alfxIP6b1ref=   -0.541994;  alfyIP6b1ref=    0.605891;    dxIP6b1ref=    0.140000;   dpxIP6b1ref=   -0.000000;
+muxIP6b2ref= 2.0000000;  muyIP6b2ref= 2.0300000;  betxIP6b2ref=  187.749224;  betyIP6b2ref=  178.368556;  alfxIP6b2ref=    0.551968;  alfyIP6b2ref=   -0.607183;    dxIP6b2ref=    0.186000;   dpxIP6b2ref=   -0.000256;
+muxIP3b1ref= 2.2550000;  muyIP3b1ref= 1.9550000;  betxIP3b1ref=  121.566844;  betyIP3b1ref=  218.585060;  alfxIP3b1ref=    2.295731;  alfyIP3b1ref=   -2.642890;    dxIP3b1ref=   -0.510508;   dpxIP3b1ref=   -0.006525;
+muxIP3b2ref= 2.2550000;  muyIP3b2ref= 1.9550000;  betxIP3b2ref=  121.567284;  betyIP3b2ref=  218.584477;  alfxIP3b2ref=   -2.295728;  alfyIP3b2ref=    2.642905;    dxIP3b2ref=   -0.423000;   dpxIP3b2ref=    0.008312;
+muxIP7b1ref= 2.4550000;  muyIP7b1ref= 1.9700000;  betxIP7b1ref=  120.813252;  betyIP7b1ref=  149.430470;  alfxIP7b1ref=    1.276977;  alfyIP7b1ref=   -1.385146;    dxIP7b1ref=   -0.203847;   dpxIP7b1ref=   -0.000000;
+muxIP7b2ref= 2.4550000;  muyIP7b2ref= 1.9700000;  betxIP7b2ref=  120.813252;  betyIP7b2ref=  149.430471;  alfxIP7b2ref=   -1.276977;  alfyIP7b2ref=    1.385146;    dxIP7b2ref=   -0.011973;   dpxIP7b2ref=    0.000000;
+
+xIP1b1ref= 0.0020000000;  yIP1b1ref= 0.0000000000;  pxIP1b1ref= 0.0000000000;  pyIP1b1ref= 0.0002950000;
+xIP1b2ref=-0.0020000000;  yIP1b2ref=-0.0000000000;  pxIP1b2ref= 0.0000000000;  pyIP1b2ref=-0.0002950000;
+xIP2b1ref= 0.0020000000;  yIP2b1ref=-0.0000000000;  pxIP2b1ref= 0.0000002919;  pyIP2b1ref= 0.0002399994;
+xIP2b2ref=-0.0020000000;  yIP2b2ref= 0.0000000000;  pxIP2b2ref=-0.0000002919;  pyIP2b2ref=-0.0002399994;
+xIP5b1ref=-0.0000000000;  yIP5b1ref= 0.0020000000;  pxIP5b1ref= 0.0002950000;  pyIP5b1ref= 0.0000000000;
+xIP5b2ref=-0.0000000000;  yIP5b2ref=-0.0020000000;  pxIP5b2ref=-0.0002950000;  pyIP5b2ref= 0.0000000000;
+xIP8b1ref=-0.0000000000;  yIP8b1ref=-0.0020000000;  pxIP8b1ref=-0.0003049879;  pyIP8b1ref=-0.0000018097;
+xIP8b2ref=-0.0000000000;  yIP8b2ref= 0.0020000000;  pxIP8b2ref= 0.0003049879;  pyIP8b2ref= 0.0000018097;
+};
+
+REF_OPT_PRESQUEEZE: macro = {
+ !***Exp. configuration in IR1, IR2, IR5 and IR8***
+on_sep1ref:=0;on_x1ref:=0;phi_IR1ref :=   90.000; on_sol_atlasref:=0;on_crab1ref:=0;
+on_sep5ref:=0;on_x5ref:=0;phi_IR5ref :=    0.000; on_sol_cmsref  :=0;on_crab5ref:=0;
+on_sep2ref:=0;on_x2ref:=0;on_aliceref:=0;on_sol_aliceref:=0;
+on_sep8ref:=0;on_x8ref:=0;on_lhcbref :=0;
+
+ !Tune and Chroma
+Qxb1ref =  62.310000;  Qyb1ref =  60.320000;  Qpxb1ref=   2.000000;  Qpyb1ref=   2.000000;
+Qxb2ref =  62.310000;  Qyb2ref =  60.320000;  Qpxb2ref=   2.000000;  Qpyb2ref=   2.000000;
+
+ !IR Optics summary (phase, twiss param., dispersion)
+muxIP1b1ref= 2.6427000;  muyIP1b1ref= 2.6420000;  muxIP1b1ref_L= 1.1569000;  muyIP1b1ref_L= 1.4867000;  muxIP1b1ref_R= 1.4858000;  muyIP1b1ref_R= 1.1553000;  betxIP1b1ref=    0.440000;  betyIP1b1ref=    0.440000;  alfxIP1b1ref=    0.000000;  alfyIP1b1ref=    0.000000;    dxIP1b1ref=   -0.000000;   dpxIP1b1ref=    0.000000;
+muxIP1b2ref= 2.6427000;  muyIP1b2ref= 2.6420000;  muxIP1b2ref_L= 1.4884000;  muyIP1b2ref_L= 1.1563000;  muxIP1b2ref_R= 1.1543000;  muyIP1b2ref_R= 1.4857000;  betxIP1b2ref=    0.440000;  betyIP1b2ref=    0.440000;  alfxIP1b2ref=    0.000000;  alfyIP1b2ref=    0.000000;    dxIP1b2ref=    0.000000;   dpxIP1b2ref=    0.000000;
+muxIP5b1ref= 2.6427000;  muyIP5b1ref= 2.6420000;  muxIP5b1ref_L= 1.1569000;  muyIP5b1ref_L= 1.4867000;  muxIP5b1ref_R= 1.4858000;  muyIP5b1ref_R= 1.1553000;  betxIP5b1ref=    0.440000;  betyIP5b1ref=    0.440000;  alfxIP5b1ref=   -0.000000;  alfyIP5b1ref=   -0.000000;    dxIP5b1ref=   -0.000000;   dpxIP5b1ref=    0.000000;
+muxIP5b2ref= 2.6427000;  muyIP5b2ref= 2.6420000;  muxIP5b2ref_L= 1.4884000;  muyIP5b2ref_L= 1.1563000;  muxIP5b2ref_R= 1.1543000;  muyIP5b2ref_R= 1.4857000;  betxIP5b2ref=    0.440000;  betyIP5b2ref=    0.440000;  alfxIP5b2ref=   -0.000000;  alfyIP5b2ref=   -0.000000;    dxIP5b2ref=    0.000000;   dpxIP5b2ref=    0.000000;
+muxIP2b1ref= 2.9500000;  muyIP2b1ref= 2.7000000;  betxIP2b1ref=   10.000000;  betyIP2b1ref=   10.000000;  alfxIP2b1ref=    0.000000;  alfyIP2b1ref=   -0.000000;    dxIP2b1ref=    0.000000;   dpxIP2b1ref=   -0.000000;
+muxIP2b2ref= 2.9500000;  muyIP2b2ref= 2.7000000;  betxIP2b2ref=   10.000000;  betyIP2b2ref=   10.000000;  alfxIP2b2ref=    0.000000;  alfyIP2b2ref=   -0.000000;    dxIP2b2ref=   -0.000000;   dpxIP2b2ref=   -0.000000;
+muxIP8b1ref= 3.0200000;  muyIP8b1ref= 2.8000000;  betxIP8b1ref=    3.000000;  betyIP8b1ref=    3.000000;  alfxIP8b1ref=    0.000000;  alfyIP8b1ref=    0.000000;    dxIP8b1ref=    0.000000;   dpxIP8b1ref=    0.000000;
+muxIP8b2ref= 3.0200000;  muyIP8b2ref= 2.8000000;  betxIP8b2ref=    3.000000;  betyIP8b2ref=    3.000000;  alfxIP8b2ref=   -0.000000;  alfyIP8b2ref=    0.000000;    dxIP8b2ref=   -0.000000;   dpxIP8b2ref=    0.000000;
+muxIP4b1ref= 2.1600000;  muyIP4b1ref= 1.7200000;  betxIP4b1ref=  172.807960;  betyIP4b1ref=  230.297901;  alfxIP4b1ref=    0.580679;  alfyIP4b1ref=   -0.325498;    dxIP4b1ref=    0.000000;   dpxIP4b1ref=   -0.000000;
+muxIP4b2ref= 2.1600000;  muyIP4b2ref= 1.7200000;  betxIP4b2ref=  228.562579;  betyIP4b2ref=  302.565988;  alfxIP4b2ref=   -0.537702;  alfyIP4b2ref=    0.588783;    dxIP4b2ref=   -0.000000;   dpxIP4b2ref=   -0.000000;
+muxIP6b1ref= 2.0000000;  muyIP6b1ref= 2.0300000;  betxIP6b1ref=  187.297499;  betyIP6b1ref=  168.122917;  alfxIP6b1ref=   -0.541994;  alfyIP6b1ref=    0.605891;    dxIP6b1ref=    0.140000;   dpxIP6b1ref=   -0.000000;
+muxIP6b2ref= 2.0000000;  muyIP6b2ref= 2.0300000;  betxIP6b2ref=  187.749224;  betyIP6b2ref=  178.368556;  alfxIP6b2ref=    0.551968;  alfyIP6b2ref=   -0.607183;    dxIP6b2ref=    0.186000;   dpxIP6b2ref=   -0.000256;
+muxIP3b1ref= 2.2550000;  muyIP3b1ref= 1.9550000;  betxIP3b1ref=  121.566844;  betyIP3b1ref=  218.585060;  alfxIP3b1ref=    2.295731;  alfyIP3b1ref=   -2.642890;    dxIP3b1ref=   -0.510507;   dpxIP3b1ref=   -0.006525;
+muxIP3b2ref= 2.2550000;  muyIP3b2ref= 1.9550000;  betxIP3b2ref=  121.567284;  betyIP3b2ref=  218.584477;  alfxIP3b2ref=   -2.295728;  alfyIP3b2ref=    2.642905;    dxIP3b2ref=   -0.422999;   dpxIP3b2ref=    0.008312;
+muxIP7b1ref= 2.4550000;  muyIP7b1ref= 1.9700000;  betxIP7b1ref=  120.813252;  betyIP7b1ref=  149.430470;  alfxIP7b1ref=    1.276977;  alfyIP7b1ref=   -1.385146;    dxIP7b1ref=   -0.203847;   dpxIP7b1ref=   -0.000000;
+muxIP7b2ref= 2.4550000;  muyIP7b2ref= 1.9700000;  betxIP7b2ref=  120.813252;  betyIP7b2ref=  149.430471;  alfxIP7b2ref=   -1.276977;  alfyIP7b2ref=    1.385146;    dxIP7b2ref=   -0.011973;   dpxIP7b2ref=   -0.000000;
+
+ !Xscheme summary in IR1, IR2,IR5 and IR8
+xIP1b1ref= 0.0007500000;  yIP1b1ref=-0.0000000000;  pxIP1b1ref=-0.0000000000;  pyIP1b1ref= 0.0002950000;
+xIP1b2ref=-0.0007500000;  yIP1b2ref= 0.0000000000;  pxIP1b2ref= 0.0000000000;  pyIP1b2ref=-0.0002950000;
+xIP2b1ref= 0.0020000000;  yIP2b1ref=-0.0000000000;  pxIP2b1ref= 0.0000002919;  pyIP2b1ref= 0.0002399994;
+xIP2b2ref=-0.0020000000;  yIP2b2ref= 0.0000000000;  pxIP2b2ref=-0.0000002919;  pyIP2b2ref=-0.0002399994;
+xIP5b1ref= 0.0000000000;  yIP5b1ref= 0.0007500000;  pxIP5b1ref= 0.0002950000;  pyIP5b1ref=-0.0000000000;
+xIP5b2ref= 0.0000000000;  yIP5b2ref=-0.0007500000;  pxIP5b2ref=-0.0002950000;  pyIP5b2ref= 0.0000000000;
+xIP8b1ref=-0.0000000000;  yIP8b1ref=-0.0020000000;  pxIP8b1ref=-0.0003049879;  pyIP8b1ref=-0.0000018097;
+xIP8b2ref=-0.0000000000;  yIP8b2ref= 0.0020000000;  pxIP8b2ref= 0.0003049879;  pyIP8b2ref= 0.0000018097;
+};
+
+REF_OPT_ROUND: macro = {
+ !***Exp. configuration in IR1, IR2, IR5 and IR8***
+on_sep1ref:=0;on_x1ref:=0;phi_IR1ref :=   90.000; on_sol_atlasref:=0;on_crab1ref:=0;
+on_sep5ref:=0;on_x5ref:=0;phi_IR5ref :=    0.000; on_sol_cmsref  :=0;on_crab5ref:=0;
+on_sep2ref:=0;on_x2ref:=0;on_aliceref:=0;on_sol_aliceref:=0;
+on_sep8ref:=0;on_x8ref:=0;on_lhcbref :=0;
+
+ !Tune and Chroma
+Qxb1ref =  62.310000;  Qyb1ref =  60.320000;  Qpxb1ref=   2.000000;  Qpyb1ref=   2.000000;
+Qxb2ref =  62.310000;  Qyb2ref =  60.320000;  Qpxb2ref=   2.000000;  Qpyb2ref=   2.000000;
+
+ !IR Optics summary (phase, twiss param., dispersion)
+muxIP1b1ref= 2.6427000;  muyIP1b1ref= 2.6420000;  muxIP1b1ref_L= 1.1569000;  muyIP1b1ref_L= 1.4867000;  muxIP1b1ref_R= 1.4858000;  muyIP1b1ref_R= 1.1553000;  betxIP1b1ref=    0.150000;  betyIP1b1ref=    0.150000;  alfxIP1b1ref=    0.000000;  alfyIP1b1ref=    0.000000;    dxIP1b1ref=    0.000000;   dpxIP1b1ref=    0.000000;
+muxIP1b2ref= 2.6427000;  muyIP1b2ref= 2.6420000;  muxIP1b2ref_L= 1.4884000;  muyIP1b2ref_L= 1.1563000;  muxIP1b2ref_R= 1.1543000;  muyIP1b2ref_R= 1.4857000;  betxIP1b2ref=    0.150000;  betyIP1b2ref=    0.150000;  alfxIP1b2ref=    0.000000;  alfyIP1b2ref=    0.000000;    dxIP1b2ref=   -0.000000;   dpxIP1b2ref=   -0.000000;
+muxIP5b1ref= 2.6427000;  muyIP5b1ref= 2.6420000;  muxIP5b1ref_L= 1.1569000;  muyIP5b1ref_L= 1.4867000;  muxIP5b1ref_R= 1.4858000;  muyIP5b1ref_R= 1.1553000;  betxIP5b1ref=    0.150000;  betyIP5b1ref=    0.150000;  alfxIP5b1ref=   -0.000000;  alfyIP5b1ref=    0.000000;    dxIP5b1ref=   -0.000000;   dpxIP5b1ref=    0.000000;
+muxIP5b2ref= 2.6427000;  muyIP5b2ref= 2.6420000;  muxIP5b2ref_L= 1.4884000;  muyIP5b2ref_L= 1.1563000;  muxIP5b2ref_R= 1.1543000;  muyIP5b2ref_R= 1.4857000;  betxIP5b2ref=    0.150000;  betyIP5b2ref=    0.150000;  alfxIP5b2ref=    0.000000;  alfyIP5b2ref=    0.000000;    dxIP5b2ref=   -0.000000;   dpxIP5b2ref=   -0.000000;
+muxIP2b1ref= 2.9500000;  muyIP2b1ref= 2.7000000;  betxIP2b1ref=   10.000000;  betyIP2b1ref=   10.000000;  alfxIP2b1ref=   -0.000000;  alfyIP2b1ref=   -0.000000;    dxIP2b1ref=    0.000000;   dpxIP2b1ref=   -0.000000;
+muxIP2b2ref= 2.9500000;  muyIP2b2ref= 2.7000000;  betxIP2b2ref=   10.000000;  betyIP2b2ref=   10.000000;  alfxIP2b2ref=    0.000000;  alfyIP2b2ref=   -0.000000;    dxIP2b2ref=    0.000000;   dpxIP2b2ref=    0.000000;
+muxIP8b1ref= 3.0200000;  muyIP8b1ref= 2.8000000;  betxIP8b1ref=    3.000000;  betyIP8b1ref=    3.000000;  alfxIP8b1ref=    0.000000;  alfyIP8b1ref=    0.000000;    dxIP8b1ref=    0.000000;   dpxIP8b1ref=    0.000000;
+muxIP8b2ref= 3.0200000;  muyIP8b2ref= 2.8000000;  betxIP8b2ref=    3.000000;  betyIP8b2ref=    3.000000;  alfxIP8b2ref=   -0.000000;  alfyIP8b2ref=   -0.000000;    dxIP8b2ref=    0.000000;   dpxIP8b2ref=   -0.000000;
+muxIP4b1ref= 2.1600000;  muyIP4b1ref= 1.7200000;  betxIP4b1ref=  172.807960;  betyIP4b1ref=  230.297901;  alfxIP4b1ref=    0.580679;  alfyIP4b1ref=   -0.325498;    dxIP4b1ref=    0.000000;   dpxIP4b1ref=   -0.000000;
+muxIP4b2ref= 2.1600000;  muyIP4b2ref= 1.7200000;  betxIP4b2ref=  228.562579;  betyIP4b2ref=  302.565988;  alfxIP4b2ref=   -0.537702;  alfyIP4b2ref=    0.588783;    dxIP4b2ref=   -0.000000;   dpxIP4b2ref=    0.000000;
+muxIP6b1ref= 2.0000000;  muyIP6b1ref= 2.0300000;  betxIP6b1ref=  324.272418;  betyIP6b1ref=  188.212824;  alfxIP6b1ref=   -1.464937;  alfyIP6b1ref=    0.918458;    dxIP6b1ref=   -0.000000;   dpxIP6b1ref=   -0.000000;
+muxIP6b2ref= 2.0000000;  muyIP6b2ref= 2.0300000;  betxIP6b2ref=  248.837768;  betyIP6b2ref=  176.745730;  alfxIP6b2ref=    0.950131;  alfyIP6b2ref=   -0.590886;    dxIP6b2ref=   -0.000000;   dpxIP6b2ref=    0.000000;
+muxIP3b1ref= 2.2550000;  muyIP3b1ref= 1.9550000;  betxIP3b1ref=  121.566844;  betyIP3b1ref=  218.585060;  alfxIP3b1ref=    2.295731;  alfyIP3b1ref=   -2.642890;    dxIP3b1ref=   -0.510507;   dpxIP3b1ref=   -0.006525;
+muxIP3b2ref= 2.2550000;  muyIP3b2ref= 1.9550000;  betxIP3b2ref=  121.567284;  betyIP3b2ref=  218.584477;  alfxIP3b2ref=   -2.295728;  alfyIP3b2ref=    2.642905;    dxIP3b2ref=   -0.422999;   dpxIP3b2ref=    0.008312;
+muxIP7b1ref= 2.4550000;  muyIP7b1ref= 1.9700000;  betxIP7b1ref=  120.813252;  betyIP7b1ref=  149.430470;  alfxIP7b1ref=    1.276977;  alfyIP7b1ref=   -1.385146;    dxIP7b1ref=   -0.203847;   dpxIP7b1ref=   -0.000000;
+muxIP7b2ref= 2.4550000;  muyIP7b2ref= 1.9700000;  betxIP7b2ref=  120.813252;  betyIP7b2ref=  149.430471;  alfxIP7b2ref=   -1.276977;  alfyIP7b2ref=    1.385146;    dxIP7b2ref=   -0.011973;   dpxIP7b2ref=   -0.000000;
+
+ !Xscheme summary in IR1, IR2,IR5 and IR8
+xIP1b1ref= 0.0007500000;  yIP1b1ref=-0.0000000000;  pxIP1b1ref=-0.0000000000;  pyIP1b1ref= 0.0002950000;
+xIP1b2ref=-0.0007500000;  yIP1b2ref=-0.0000000000;  pxIP1b2ref= 0.0000000000;  pyIP1b2ref=-0.0002950000;
+xIP2b1ref= 0.0020000000;  yIP2b1ref=-0.0000000000;  pxIP2b1ref= 0.0000002919;  pyIP2b1ref= 0.0002399994;
+xIP2b2ref=-0.0020000000;  yIP2b2ref=-0.0000000000;  pxIP2b2ref=-0.0000002919;  pyIP2b2ref=-0.0002399994;
+xIP5b1ref= 0.0000000000;  yIP5b1ref= 0.0007500000;  pxIP5b1ref= 0.0002950000;  pyIP5b1ref= 0.0000000000;
+xIP5b2ref= 0.0000000000;  yIP5b2ref=-0.0007500000;  pxIP5b2ref=-0.0002950000;  pyIP5b2ref=-0.0000000000;
+xIP8b1ref=-0.0000000000;  yIP8b1ref=-0.0020000000;  pxIP8b1ref=-0.0003049879;  pyIP8b1ref=-0.0000018097;
+xIP8b2ref=-0.0000000000;  yIP8b2ref= 0.0020000000;  pxIP8b2ref= 0.0003049879;  pyIP8b2ref= 0.0000018097;
+};
+
+REF_OPT_FLAT: macro = {
+ !***Exp. configuration in IR1, IR2, IR5 and IR8***
+on_sep1ref:=0;on_x1ref:=0;phi_IR1ref :=   90.000; on_sol_atlasref:=0;on_crab1ref:=0;
+on_sep5ref:=0;on_x5ref:=0;phi_IR5ref :=    0.000; on_sol_cmsref  :=0;on_crab5ref:=0;
+on_sep2ref:=0;on_x2ref:=0;on_aliceref:=0;on_sol_aliceref:=0;
+on_sep8ref:=0;on_x8ref:=0;on_lhcbref :=0;
+
+ !Tune and Chroma
+Qxb1ref =  62.310000;  Qyb1ref =  60.320000;  Qpxb1ref=   2.000000;  Qpyb1ref=   2.000000;
+Qxb2ref =  62.310000;  Qyb2ref =  60.320000;  Qpxb2ref=   2.000000;  Qpyb2ref=   2.000000;
+
+ !IR Optics summary (phase, twiss param., dispersion)
+muxIP1b1ref= 2.6427000;  muyIP1b1ref= 2.6420000;  muxIP1b1ref_L= 1.1569000;  muyIP1b1ref_L= 1.4867000;  muxIP1b1ref_R= 1.4858000;  muyIP1b1ref_R= 1.1553000;  betxIP1b1ref=    0.075000;  betyIP1b1ref=    0.300000;  alfxIP1b1ref=   -0.000000;  alfyIP1b1ref=    0.000000;    dxIP1b1ref=    0.000000;   dpxIP1b1ref=    0.000000;
+muxIP1b2ref= 2.6427000;  muyIP1b2ref= 2.6420000;  muxIP1b2ref_L= 1.4884000;  muyIP1b2ref_L= 1.1563000;  muxIP1b2ref_R= 1.1543000;  muyIP1b2ref_R= 1.4857000;  betxIP1b2ref=    0.075000;  betyIP1b2ref=    0.300000;  alfxIP1b2ref=   -0.000000;  alfyIP1b2ref=    0.000000;    dxIP1b2ref=   -0.000000;   dpxIP1b2ref=    0.000000;
+muxIP5b1ref= 2.6427000;  muyIP5b1ref= 2.6420000;  muxIP5b1ref_L= 1.1569000;  muyIP5b1ref_L= 1.4867000;  muxIP5b1ref_R= 1.4858000;  muyIP5b1ref_R= 1.1553000;  betxIP5b1ref=    0.300000;  betyIP5b1ref=    0.075000;  alfxIP5b1ref=    0.000000;  alfyIP5b1ref=    0.000000;    dxIP5b1ref=    0.000000;   dpxIP5b1ref=    0.000000;
+muxIP5b2ref= 2.6427000;  muyIP5b2ref= 2.6420000;  muxIP5b2ref_L= 1.4884000;  muyIP5b2ref_L= 1.1563000;  muxIP5b2ref_R= 1.1543000;  muyIP5b2ref_R= 1.4857000;  betxIP5b2ref=    0.300000;  betyIP5b2ref=    0.075000;  alfxIP5b2ref=    0.000000;  alfyIP5b2ref=   -0.000000;    dxIP5b2ref=   -0.000000;   dpxIP5b2ref=    0.000000;
+muxIP2b1ref= 2.9500000;  muyIP2b1ref= 2.7000000;  betxIP2b1ref=   10.000000;  betyIP2b1ref=   10.000000;  alfxIP2b1ref=   -0.000000;  alfyIP2b1ref=   -0.000000;    dxIP2b1ref=    0.000000;   dpxIP2b1ref=   -0.000000;
+muxIP2b2ref= 2.9500000;  muyIP2b2ref= 2.7000000;  betxIP2b2ref=   10.000000;  betyIP2b2ref=   10.000000;  alfxIP2b2ref=   -0.000000;  alfyIP2b2ref=   -0.000000;    dxIP2b2ref=    0.000000;   dpxIP2b2ref=   -0.000000;
+muxIP8b1ref= 3.0200000;  muyIP8b1ref= 2.8000000;  betxIP8b1ref=    3.000000;  betyIP8b1ref=    3.000000;  alfxIP8b1ref=   -0.000000;  alfyIP8b1ref=   -0.000000;    dxIP8b1ref=    0.000000;   dpxIP8b1ref=    0.000000;
+muxIP8b2ref= 3.0200000;  muyIP8b2ref= 2.8000000;  betxIP8b2ref=    3.000000;  betyIP8b2ref=    3.000000;  alfxIP8b2ref=    0.000000;  alfyIP8b2ref=   -0.000000;    dxIP8b2ref=    0.000004;   dpxIP8b2ref=    0.000001;
+muxIP4b1ref= 2.1600000;  muyIP4b1ref= 1.7200000;  betxIP4b1ref=  172.807960;  betyIP4b1ref=  230.297901;  alfxIP4b1ref=    0.580679;  alfyIP4b1ref=   -0.325498;    dxIP4b1ref=    0.000000;   dpxIP4b1ref=   -0.000000;
+muxIP4b2ref= 2.1600000;  muyIP4b2ref= 1.7200000;  betxIP4b2ref=  228.562579;  betyIP4b2ref=  302.565988;  alfxIP4b2ref=   -0.537702;  alfyIP4b2ref=    0.588783;    dxIP4b2ref=   -0.000000;   dpxIP4b2ref=    0.000000;
+muxIP6b1ref= 2.0000000;  muyIP6b1ref= 2.0300000;  betxIP6b1ref=  212.168294;  betyIP6b1ref=  156.322385;  alfxIP6b1ref=   -0.646646;  alfyIP6b1ref=    0.708699;    dxIP6b1ref=   -0.000000;   dpxIP6b1ref=   -0.000000;
+muxIP6b2ref= 2.0000000;  muyIP6b2ref= 2.0300000;  betxIP6b2ref=  217.579933;  betyIP6b2ref=  238.456288;  alfxIP6b2ref=    0.697959;  alfyIP6b2ref=   -1.187766;    dxIP6b2ref=    0.000000;   dpxIP6b2ref=   -0.000000;
+muxIP3b1ref= 2.2550000;  muyIP3b1ref= 1.9550000;  betxIP3b1ref=  121.566844;  betyIP3b1ref=  218.585060;  alfxIP3b1ref=    2.295731;  alfyIP3b1ref=   -2.642890;    dxIP3b1ref=   -0.510507;   dpxIP3b1ref=   -0.006525;
+muxIP3b2ref= 2.2550000;  muyIP3b2ref= 1.9550000;  betxIP3b2ref=  121.567284;  betyIP3b2ref=  218.584477;  alfxIP3b2ref=   -2.295728;  alfyIP3b2ref=    2.642905;    dxIP3b2ref=   -0.422999;   dpxIP3b2ref=    0.008312;
+muxIP7b1ref= 2.4550000;  muyIP7b1ref= 1.9700000;  betxIP7b1ref=  120.813252;  betyIP7b1ref=  149.430470;  alfxIP7b1ref=    1.276977;  alfyIP7b1ref=   -1.385146;    dxIP7b1ref=   -0.203847;   dpxIP7b1ref=   -0.000000;
+muxIP7b2ref= 2.4550000;  muyIP7b2ref= 1.9700000;  betxIP7b2ref=  120.813252;  betyIP7b2ref=  149.430471;  alfxIP7b2ref=   -1.276977;  alfyIP7b2ref=    1.385146;    dxIP7b2ref=   -0.011973;   dpxIP7b2ref=   -0.000000;
+
+ !Xscheme summary in IR1, IR2,IR5 and IR8
+xIP1b1ref= 0.0007500000;  yIP1b1ref= 0.0000000000;  pxIP1b1ref=-0.0000000000;  pyIP1b1ref= 0.0002750000;
+xIP1b2ref=-0.0007500000;  yIP1b2ref=-0.0000000000;  pxIP1b2ref= 0.0000000000;  pyIP1b2ref=-0.0002750000;
+xIP2b1ref= 0.0020000000;  yIP2b1ref= 0.0000000000;  pxIP2b1ref= 0.0000002919;  pyIP2b1ref= 0.0002399994;
+xIP2b2ref=-0.0020000000;  yIP2b2ref=-0.0000000000;  pxIP2b2ref=-0.0000002919;  pyIP2b2ref=-0.0002399994;
+xIP5b1ref=-0.0000000000;  yIP5b1ref= 0.0007500000;  pxIP5b1ref= 0.0002750000;  pyIP5b1ref=-0.0000000000;
+xIP5b2ref= 0.0000000000;  yIP5b2ref=-0.0007500000;  pxIP5b2ref=-0.0002750000;  pyIP5b2ref=-0.0000000000;
+xIP8b1ref=-0.0000000000;  yIP8b1ref=-0.0020000000;  pxIP8b1ref=-0.0003049879;  pyIP8b1ref=-0.0000018097;
+xIP8b2ref=-0.0000000000;  yIP8b2ref= 0.0020000000;  pxIP8b2ref= 0.0003049879;  pyIP8b2ref= 0.0000018097;
+};
+
+REF_OPT_SROUND: macro = {
+ !***Exp. configuration in IR1, IR2, IR5 and IR8***
+on_sep1ref:=0;on_x1ref:=0;phi_IR1ref :=   90.000; on_sol_atlasref:=0;on_crab1ref:=0;
+on_sep5ref:=0;on_x5ref:=0;phi_IR5ref :=    0.000; on_sol_cmsref  :=0;on_crab5ref:=0;
+on_sep2ref:=0;on_x2ref:=0;on_aliceref:=0;on_sol_aliceref:=0;
+on_sep8ref:=0;on_x8ref:=0;on_lhcbref :=0;
+
+ !Tune and Chroma
+Qxb1ref =  62.310000;  Qyb1ref =  60.320000;  Qpxb1ref=   2.000000;  Qpyb1ref=   2.000000;
+Qxb2ref =  62.310000;  Qyb2ref =  60.320000;  Qpxb2ref=   2.000000;  Qpyb2ref=   2.000000;
+
+ !IR Optics summary (phase, twiss param., dispersion)
+muxIP1b1ref= 2.6427000;  muyIP1b1ref= 2.6420000;  muxIP1b1ref_L= 1.1569000;  muyIP1b1ref_L= 1.4867000;  muxIP1b1ref_R= 1.4858000;  muyIP1b1ref_R= 1.1
+553000;  betxIP1b1ref=    0.100000;  betyIP1b1ref=    0.100000;  alfxIP1b1ref=    0.000000;  alfyIP1b1ref=    0.000000;    dxIP1b1ref=    0.000000
+;   dpxIP1b1ref=   -0.000000;
+muxIP1b2ref= 2.6427000;  muyIP1b2ref= 2.6420000;  muxIP1b2ref_L= 1.4884000;  muyIP1b2ref_L= 1.1563000;  muxIP1b2ref_R= 1.1543000;  muyIP1b2ref_R= 1.4
+857000;  betxIP1b2ref=    0.100000;  betyIP1b2ref=    0.100000;  alfxIP1b2ref=    0.000000;  alfyIP1b2ref=    0.000000;    dxIP1b2ref=   -0.000000
+;   dpxIP1b2ref=   -0.000000;
+muxIP5b1ref= 2.6427000;  muyIP5b1ref= 2.6420000;  muxIP5b1ref_L= 1.1569000;  muyIP5b1ref_L= 1.4867000;  muxIP5b1ref_R= 1.4858000;  muyIP5b1ref_R= 1.1
+553000;  betxIP5b1ref=    0.100000;  betyIP5b1ref=    0.100000;  alfxIP5b1ref=   -0.000000;  alfyIP5b1ref=    0.000000;    dxIP5b1ref=    0.000000
+;   dpxIP5b1ref=   -0.000000;
+muxIP5b2ref= 2.6427000;  muyIP5b2ref= 2.6420000;  muxIP5b2ref_L= 1.4884000;  muyIP5b2ref_L= 1.1563000;  muxIP5b2ref_R= 1.1543000;  muyIP5b2ref_R= 1.4
+857000;  betxIP5b2ref=    0.100000;  betyIP5b2ref=    0.100000;  alfxIP5b2ref=    0.000000;  alfyIP5b2ref=    0.000000;    dxIP5b2ref=    0.000000
+;   dpxIP5b2ref=   -0.000000;
+muxIP2b1ref= 2.9500000;  muyIP2b1ref= 2.7000000;  betxIP2b1ref=   10.000000;  betyIP2b1ref=   10.000000;  alfxIP2b1ref=   -0.000000;  alfyIP2b1ref=  
+ -0.000000;    dxIP2b1ref=    0.000000;   dpxIP2b1ref=   -0.000000;
+muxIP2b2ref= 2.9500000;  muyIP2b2ref= 2.7000000;  betxIP2b2ref=   10.000000;  betyIP2b2ref=   10.000000;  alfxIP2b2ref=   -0.000000;  alfyIP2b2ref=  
+  0.000000;    dxIP2b2ref=    0.000000;   dpxIP2b2ref=    0.000000;
+muxIP8b1ref= 3.0200000;  muyIP8b1ref= 2.8000000;  betxIP8b1ref=    3.000000;  betyIP8b1ref=    3.000000;  alfxIP8b1ref=    0.000000;  alfyIP8b1ref=  
+  0.000000;    dxIP8b1ref=    0.000000;   dpxIP8b1ref=   -0.000000;
+muxIP8b2ref= 3.0200000;  muyIP8b2ref= 2.8000000;  betxIP8b2ref=    3.000000;  betyIP8b2ref=    3.000000;  alfxIP8b2ref=   -0.000000;  alfyIP8b2ref=  
+ -0.000000;    dxIP8b2ref=    0.000000;   dpxIP8b2ref=   -0.000000;
+muxIP4b1ref= 2.1600000;  muyIP4b1ref= 1.7200000;  betxIP4b1ref=  172.807960;  betyIP4b1ref=  230.297901;  alfxIP4b1ref=    0.580679;  alfyIP4b1ref=  
+ -0.325498;    dxIP4b1ref=    0.000000;   dpxIP4b1ref=   -0.000000;
+muxIP4b2ref= 2.1600000;  muyIP4b2ref= 1.7200000;  betxIP4b2ref=  228.562579;  betyIP4b2ref=  302.565988;  alfxIP4b2ref=   -0.537702;  alfyIP4b2ref=  
+  0.588783;    dxIP4b2ref=   -0.000000;   dpxIP4b2ref=   -0.000000;
+muxIP6b1ref= 2.0000000;  muyIP6b1ref= 2.0300000;  betxIP6b1ref=  241.192330;  betyIP6b1ref=  185.037496;  alfxIP6b1ref=   -0.890149;  alfyIP6b1ref=  
+  0.756652;    dxIP6b1ref=    0.000000;   dpxIP6b1ref=    0.000000;
+muxIP6b2ref= 2.0000000;  muyIP6b2ref= 2.0300000;  betxIP6b2ref=  252.467421;  betyIP6b2ref=  167.212058;  alfxIP6b2ref=    0.977201;  alfyIP6b2ref=  
+ -0.494546;    dxIP6b2ref=   -0.000000;   dpxIP6b2ref=    0.000000;
+muxIP3b1ref= 2.2550000;  muyIP3b1ref= 1.9550000;  betxIP3b1ref=  121.566844;  betyIP3b1ref=  218.585060;  alfxIP3b1ref=    2.295731;  alfyIP3b1ref=  
+ -2.642890;    dxIP3b1ref=   -0.510507;   dpxIP3b1ref=   -0.006525;
+muxIP3b2ref= 2.2550000;  muyIP3b2ref= 1.9550000;  betxIP3b2ref=  121.567284;  betyIP3b2ref=  218.584477;  alfxIP3b2ref=   -2.295728;  alfyIP3b2ref=  
+  2.642905;    dxIP3b2ref=   -0.422999;   dpxIP3b2ref=    0.008312;
+muxIP7b1ref= 2.4550000;  muyIP7b1ref= 1.9700000;  betxIP7b1ref=  120.813252;  betyIP7b1ref=  149.430470;  alfxIP7b1ref=    1.276977;  alfyIP7b1ref=   -1.385146;    dxIP7b1ref=   -0.203847;   dpxIP7b1ref=   -0.000000;
+muxIP7b2ref= 2.4550000;  muyIP7b2ref= 1.9700000;  betxIP7b2ref=  120.813252;  betyIP7b2ref=  149.430471;  alfxIP7b2ref=   -1.276977;  alfyIP7b2ref=    1.385146;    dxIP7b2ref=   -0.011973;   dpxIP7b2ref=    0.000000;
+
+ !Xscheme summary in IR1, IR2,IR5 and IR8
+xIP1b1ref= 0.0007500000;  yIP1b1ref=-0.0000000000;  pxIP1b1ref=-0.0000000000;  pyIP1b1ref= 0.0003600000;
+xIP1b2ref=-0.0007500000;  yIP1b2ref= 0.0000000000;  pxIP1b2ref= 0.0000000000;  pyIP1b2ref=-0.0003600000;
+xIP2b1ref= 0.0020000000;  yIP2b1ref=-0.0000000000;  pxIP2b1ref= 0.0000002919;  pyIP2b1ref= 0.0002399994;
+xIP2b2ref=-0.0020000000;  yIP2b2ref=-0.0000000000;  pxIP2b2ref=-0.0000002919;  pyIP2b2ref=-0.0002399994;
+xIP5b1ref= 0.0000000000;  yIP5b1ref= 0.0007500000;  pxIP5b1ref= 0.0003600000;  pyIP5b1ref= 0.0000000000;
+xIP5b2ref=-0.0000000000;  yIP5b2ref=-0.0007500000;  pxIP5b2ref=-0.0003600000;  pyIP5b2ref=-0.0000000000;
+xIP8b1ref=-0.0000000000;  yIP8b1ref=-0.0020000000;  pxIP8b1ref=-0.0003049879;  pyIP8b1ref=-0.0000018097;
+xIP8b2ref=-0.0000000000;  yIP8b2ref= 0.0020000000;  pxIP8b2ref= 0.0003049879;  pyIP8b2ref= 0.0000018097;
+};
+
+REF_OPT_SFLAT: macro = {
+ !***Exp. configuration in IR1, IR2, IR5 and IR8***
+on_sep1ref:=0;on_x1ref:=0;phi_IR1ref :=   90.000; on_sol_atlasref:=0;on_crab1ref:=0;
+on_sep5ref:=0;on_x5ref:=0;phi_IR5ref :=    0.000; on_sol_cmsref  :=0;on_crab5ref:=0;
+on_sep2ref:=0;on_x2ref:=0;on_aliceref:=0;on_sol_aliceref:=0;
+on_sep8ref:=0;on_x8ref:=0;on_lhcbref :=0;
+
+ !Tune and Chroma
+Qxb1ref =  62.310000;  Qyb1ref =  60.320000;  Qpxb1ref=   2.000000;  Qpyb1ref=   2.000000;
+Qxb2ref =  62.310000;  Qyb2ref =  60.320000;  Qpxb2ref=   2.000000;  Qpyb2ref=   2.000000;
+
+ !IR Optics summary (phase, twiss param., dispersion)
+muxIP1b1ref= 2.6427000;  muyIP1b1ref= 2.6420000;  muxIP1b1ref_L= 1.1569000;  muyIP1b1ref_L= 1.4867000;  muxIP1b1ref_R= 1.4858000;  muyIP1b1ref_R= 1.1
+553000;  betxIP1b1ref=    0.050000;  betyIP1b1ref=    0.200000;  alfxIP1b1ref=   -0.000000;  alfyIP1b1ref=    0.000000;    dxIP1b1ref=    0.000000
+;   dpxIP1b1ref=    0.000000;
+muxIP1b2ref= 2.6427000;  muyIP1b2ref= 2.6420000;  muxIP1b2ref_L= 1.4884000;  muyIP1b2ref_L= 1.1563000;  muxIP1b2ref_R= 1.1543000;  muyIP1b2ref_R= 1.4
+857000;  betxIP1b2ref=    0.050000;  betyIP1b2ref=    0.200000;  alfxIP1b2ref=   -0.000000;  alfyIP1b2ref=    0.000000;    dxIP1b2ref=   -0.000000
+;   dpxIP1b2ref=    0.000000;
+muxIP5b1ref= 2.6427000;  muyIP5b1ref= 2.6420000;  muxIP5b1ref_L= 1.1569000;  muyIP5b1ref_L= 1.4867000;  muxIP5b1ref_R= 1.4858000;  muyIP5b1ref_R= 1.1
+553000;  betxIP5b1ref=    0.200000;  betyIP5b1ref=    0.050000;  alfxIP5b1ref=    0.000000;  alfyIP5b1ref=    0.000000;    dxIP5b1ref=   -0.000000
+;   dpxIP5b1ref=    0.000000;
+muxIP5b2ref= 2.6427000;  muyIP5b2ref= 2.6420000;  muxIP5b2ref_L= 1.4884000;  muyIP5b2ref_L= 1.1563000;  muxIP5b2ref_R= 1.1543000;  muyIP5b2ref_R= 1.4
+857000;  betxIP5b2ref=    0.200000;  betyIP5b2ref=    0.050000;  alfxIP5b2ref=    0.000000;  alfyIP5b2ref=   -0.000000;    dxIP5b2ref=   -0.000000
+;   dpxIP5b2ref=   -0.000000;
+muxIP2b1ref= 2.9500000;  muyIP2b1ref= 2.7000000;  betxIP2b1ref=   10.000000;  betyIP2b1ref=   10.000000;  alfxIP2b1ref=   -0.000000;  alfyIP2b1ref=  
+ -0.000000;    dxIP2b1ref=    0.000000;   dpxIP2b1ref=   -0.000000;
+muxIP2b2ref= 2.9500000;  muyIP2b2ref= 2.7000000;  betxIP2b2ref=   10.000000;  betyIP2b2ref=   10.000000;  alfxIP2b2ref=   -0.000000;  alfyIP2b2ref=  
+  0.000000;    dxIP2b2ref=    0.000000;   dpxIP2b2ref=   -0.000000;
+muxIP8b1ref= 3.0200000;  muyIP8b1ref= 2.8000000;  betxIP8b1ref=    3.000000;  betyIP8b1ref=    3.000000;  alfxIP8b1ref=   -0.000000;  alfyIP8b1ref=  
+ -0.000000;    dxIP8b1ref=    0.000000;   dpxIP8b1ref=    0.000000;
+muxIP8b2ref= 3.0200000;  muyIP8b2ref= 2.8000000;  betxIP8b2ref=    3.000000;  betyIP8b2ref=    3.000000;  alfxIP8b2ref=    0.000000;  alfyIP8b2ref=  
+ -0.000000;    dxIP8b2ref=    0.000004;   dpxIP8b2ref=    0.000001;
+muxIP4b1ref= 2.1600000;  muyIP4b1ref= 1.7200000;  betxIP4b1ref=  172.807960;  betyIP4b1ref=  230.297901;  alfxIP4b1ref=    0.580679;  alfyIP4b1ref=  
+ -0.325498;    dxIP4b1ref=    0.000000;   dpxIP4b1ref=   -0.000000;
+muxIP4b2ref= 2.1600000;  muyIP4b2ref= 1.7200000;  betxIP4b2ref=  228.562579;  betyIP4b2ref=  302.565988;  alfxIP4b2ref=   -0.537702;  alfyIP4b2ref=  
+  0.588783;    dxIP4b2ref=   -0.000000;   dpxIP4b2ref=   -0.000000;
+muxIP6b1ref= 2.0000000;  muyIP6b1ref= 2.0300000;  betxIP6b1ref=  236.858792;  betyIP6b1ref=  190.591520;  alfxIP6b1ref=   -0.856222;  alfyIP6b1ref=  
+  1.358730;    dxIP6b1ref=   -0.000000;   dpxIP6b1ref=   -0.000000;
+muxIP6b2ref= 2.0000000;  muyIP6b2ref= 2.0300000;  betxIP6b2ref=  248.710819;  betyIP6b2ref=  237.136630;  alfxIP6b2ref=    0.949178;  alfyIP6b2ref=  
+ -1.037252;    dxIP6b2ref=   -0.000000;   dpxIP6b2ref=    0.000000;
+muxIP3b1ref= 2.2550000;  muyIP3b1ref= 1.9550000;  betxIP3b1ref=  121.566844;  betyIP3b1ref=  218.585060;  alfxIP3b1ref=    2.295731;  alfyIP3b1ref=  
+ -2.642890;    dxIP3b1ref=   -0.510507;   dpxIP3b1ref=   -0.006525;
+muxIP3b2ref= 2.2550000;  muyIP3b2ref= 1.9550000;  betxIP3b2ref=  121.567284;  betyIP3b2ref=  218.584477;  alfxIP3b2ref=   -2.295728;  alfyIP3b2ref=  
+  2.642905;    dxIP3b2ref=   -0.422999;   dpxIP3b2ref=    0.008312;
+muxIP7b1ref= 2.4550000;  muyIP7b1ref= 1.9700000;  betxIP7b1ref=  120.813252;  betyIP7b1ref=  149.430470;  alfxIP7b1ref=    1.276977;  alfyIP7b1ref=   -1.385146;    dxIP7b1ref=   -0.203847;   dpxIP7b1ref=   -0.000000;
+muxIP7b2ref= 2.4550000;  muyIP7b2ref= 1.9700000;  betxIP7b2ref=  120.813252;  betyIP7b2ref=  149.430471;  alfxIP7b2ref=   -1.276977;  alfyIP7b2ref=    1.385146;    dxIP7b2ref=   -0.011973;   dpxIP7b2ref=   -0.000000;
+
+ !Xscheme summary in IR1, IR2,IR5 and IR8
+xIP1b1ref= 0.0007500000;  yIP1b1ref= 0.0000000000;  pxIP1b1ref=-0.0000000000;  pyIP1b1ref= 0.0003350000;
+xIP1b2ref=-0.0007500000;  yIP1b2ref=-0.0000000000;  pxIP1b2ref= 0.0000000000;  pyIP1b2ref=-0.0003350000;
+xIP2b1ref= 0.0020000000;  yIP2b1ref= 0.0000000000;  pxIP2b1ref= 0.0000002919;  pyIP2b1ref= 0.0002399994;
+xIP2b2ref=-0.0020000000;  yIP2b2ref=-0.0000000000;  pxIP2b2ref=-0.0000002919;  pyIP2b2ref=-0.0002399994;
+xIP5b1ref= 0.0000000000;  yIP5b1ref= 0.0007500000;  pxIP5b1ref= 0.0003350000;  pyIP5b1ref= 0.0000000000;
+xIP5b2ref=-0.0000000000;  yIP5b2ref=-0.0007500000;  pxIP5b2ref=-0.0003350000;  pyIP5b2ref=-0.0000000000;
+xIP8b1ref=-0.0000000000;  yIP8b1ref=-0.0020000000;  pxIP8b1ref=-0.0003049879;  pyIP8b1ref=-0.0000018097;
+xIP8b2ref=-0.0000000000;  yIP8b2ref= 0.0020000000;  pxIP8b2ref= 0.0003049879;  pyIP8b2ref= 0.0000018097;
+};
+
+
+REF_OPT_FLATHV: macro = {
+ !***Exp. configuration in IR1, IR2, IR5 and IR8***
+on_sep1ref:=0;on_x1ref:=0;phi_IR1ref :=    0.000; on_sol_atlasref:=0;on_crab1refref:=0;
+on_sep5ref:=0;on_x5ref:=0;phi_IR5ref :=   90.000; on_sol_cmsref  :=0;on_crab5ref:=0;
+on_sep2ref:=0;on_x2ref:=0;on_aliceref:=0;on_sol_aliceref:=0;
+on_sep8ref:=0;on_x8ref:=0;on_lhcbref :=0;
+
+ !Tune and Chroma
+Qxb1ref =  62.310000;  Qyb1ref =  60.320000;  Qpxb1ref=   2.000000;  Qpyb1ref=   2.000000;
+Qxb2ref =  62.310000;  Qyb2ref =  60.320000;  Qpxb2ref=   2.000000;  Qpyb2ref=   2.000000;
+ !IR Optics summary (phase, twiss param., dispersion)
+muxIP1b1ref= 2.6427000;  muyIP1b1ref= 2.6420000;  muxIP1b1ref_L= 1.1569000;  muyIP1b1ref_L= 1.4867000;  muxIP1b1ref_R= 1.4858000;  muyIP1b1ref_R= 1.1
+553000;  betxIP1b1ref=    0.300000;  betyIP1b1ref=    0.075000;  alfxIP1b1ref=    0.000000;  alfyIP1b1ref=    0.000000;    dxIP1b1ref=    0.000000
+;   dpxIP1b1ref=    0.000000;
+muxIP1b2ref= 2.6427000;  muyIP1b2ref= 2.6420000;  muxIP1b2ref_L= 1.4884000;  muyIP1b2ref_L= 1.1563000;  muxIP1b2ref_R= 1.1543000;  muyIP1b2ref_R= 1.4
+857000;  betxIP1b2ref=    0.300000;  betyIP1b2ref=    0.075000;  alfxIP1b2ref=    0.000000;  alfyIP1b2ref=   -0.000000;    dxIP1b2ref=   -0.000000
+;   dpxIP1b2ref=   -0.000000;
+muxIP5b1ref= 2.6427000;  muyIP5b1ref= 2.6420000;  muxIP5b1ref_L= 1.1569000;  muyIP5b1ref_L= 1.4867000;  muxIP5b1ref_R= 1.4858000;  muyIP5b1ref_R= 1.1
+553000;  betxIP5b1ref=    0.075000;  betyIP5b1ref=    0.300000;  alfxIP5b1ref=   -0.000000;  alfyIP5b1ref=    0.000000;    dxIP5b1ref=   -0.000000
+;   dpxIP5b1ref=    0.000000;
+muxIP5b2ref= 2.6427000;  muyIP5b2ref= 2.6420000;  muxIP5b2ref_L= 1.4884000;  muyIP5b2ref_L= 1.1563000;  muxIP5b2ref_R= 1.1543000;  muyIP5b2ref_R= 1.4
+857000;  betxIP5b2ref=    0.075000;  betyIP5b2ref=    0.300000;  alfxIP5b2ref=    0.000000;  alfyIP5b2ref=    0.000000;    dxIP5b2ref=   -0.000000
+;   dpxIP5b2ref=   -0.000000;
+muxIP2b1ref= 2.9500000;  muyIP2b1ref= 2.7000000;  betxIP2b1ref=   10.000000;  betyIP2b1ref=   10.000000;  alfxIP2b1ref=   -0.000000;  alfyIP2b1ref=  
+ -0.000000;    dxIP2b1ref=    0.000000;   dpxIP2b1ref=   -0.000000;
+muxIP2b2ref= 2.9500000;  muyIP2b2ref= 2.7000000;  betxIP2b2ref=   10.000000;  betyIP2b2ref=   10.000000;  alfxIP2b2ref=   -0.000000;  alfyIP2b2ref=  
+ -0.000000;    dxIP2b2ref=    0.000000;   dpxIP2b2ref=   -0.000000;
+muxIP8b1ref= 3.0200000;  muyIP8b1ref= 2.8000000;  betxIP8b1ref=    3.000000;  betyIP8b1ref=    3.000000;  alfxIP8b1ref=    0.000000;  alfyIP8b1ref=  
+  0.000000;    dxIP8b1ref=    0.000000;   dpxIP8b1ref=    0.000000;
+muxIP8b2ref= 3.0200000;  muyIP8b2ref= 2.8000000;  betxIP8b2ref=    3.000000;  betyIP8b2ref=    3.000000;  alfxIP8b2ref=   -0.000000;  alfyIP8b2ref=  
+  0.000000;    dxIP8b2ref=    0.000000;   dpxIP8b2ref=   -0.000000;
+muxIP4b1ref= 2.1600000;  muyIP4b1ref= 1.7200000;  betxIP4b1ref=  172.807960;  betyIP4b1ref=  230.297901;  alfxIP4b1ref=    0.580679;  alfyIP4b1ref=  
+ -0.325498;    dxIP4b1ref=    0.000000;   dpxIP4b1ref=   -0.000000;
+muxIP4b2ref= 2.1600000;  muyIP4b2ref= 1.7200000;  betxIP4b2ref=  228.562579;  betyIP4b2ref=  302.565988;  alfxIP4b2ref=   -0.537702;  alfyIP4b2ref=  
+  0.588783;    dxIP4b2ref=   -0.000000;   dpxIP4b2ref=    0.000000;
+muxIP6b1ref= 2.0000000;  muyIP6b1ref= 2.0300000;  betxIP6b1ref=  298.094709;  betyIP6b1ref=  236.321184;  alfxIP6b1ref=   -1.294376;  alfyIP6b1ref=  
+  1.213002;    dxIP6b1ref=   -0.000000;   dpxIP6b1ref=   -0.000000;
+muxIP6b2ref= 2.0000000;  muyIP6b2ref= 2.0300000;  betxIP6b2ref=  272.800552;  betyIP6b2ref=  205.899401;  alfxIP6b2ref=    1.123329;  alfyIP6b2ref=  
+ -0.837597;    dxIP6b2ref=   -0.000000;   dpxIP6b2ref=    0.000000;
+muxIP3b1ref= 2.2550000;  muyIP3b1ref= 1.9550000;  betxIP3b1ref=  121.566844;  betyIP3b1ref=  218.585060;  alfxIP3b1ref=    2.295731;  alfyIP3b1ref=  
+ -2.642890;    dxIP3b1ref=   -0.510507;   dpxIP3b1ref=   -0.006525;
+muxIP3b2ref= 2.2550000;  muyIP3b2ref= 1.9550000;  betxIP3b2ref=  121.567284;  betyIP3b2ref=  218.584477;  alfxIP3b2ref=   -2.295728;  alfyIP3b2ref=  
+  2.642905;    dxIP3b2ref=   -0.422999;   dpxIP3b2ref=    0.008312;
+muxIP7b1ref= 2.4550000;  muyIP7b1ref= 1.9700000;  betxIP7b1ref=  120.813252;  betyIP7b1ref=  149.430470;  alfxIP7b1ref=    1.276977;  alfyIP7b1ref=   -1.385146;    dxIP7b1ref=   -0.203847;   dpxIP7b1ref=   -0.000000;
+muxIP7b2ref= 2.4550000;  muyIP7b2ref= 1.9700000;  betxIP7b2ref=  120.813252;  betyIP7b2ref=  149.430471;  alfxIP7b2ref=   -1.276977;  alfyIP7b2ref=    1.385146;    dxIP7b2ref=   -0.011973;   dpxIP7b2ref=    0.000000;
+
+ !Xscheme summary in IR1, IR2,IR5 and IR8
+xIP1b1ref=-0.0000000000;  yIP1b1ref= 0.0007500000;  pxIP1b1ref= 0.0002750000;  pyIP1b1ref=-0.0000000000;
+xIP1b2ref= 0.0000000000;  yIP1b2ref=-0.0007500000;  pxIP1b2ref=-0.0002750000;  pyIP1b2ref= 0.0000000000;
+xIP2b1ref= 0.0020000000;  yIP2b1ref= 0.0000000000;  pxIP2b1ref= 0.0000002919;  pyIP2b1ref= 0.0002399994;
+xIP2b2ref=-0.0020000000;  yIP2b2ref= 0.0000000000;  pxIP2b2ref=-0.0000002919;  pyIP2b2ref=-0.0002399994;
+xIP5b1ref= 0.0007500000;  yIP5b1ref=-0.0000000000;  pxIP5b1ref=-0.0000000000;  pyIP5b1ref= 0.0002750000;
+xIP5b2ref=-0.0007500000;  yIP5b2ref=-0.0000000000;  pxIP5b2ref=-0.0000000000;  pyIP5b2ref=-0.0002750000;
+xIP8b1ref=-0.0000000000;  yIP8b1ref=-0.0020000000;  pxIP8b1ref=-0.0003049879;  pyIP8b1ref=-0.0000018097;
+xIP8b2ref= 0.0000000000;  yIP8b2ref= 0.0020000000;  pxIP8b2ref= 0.0003049879;  pyIP8b2ref= 0.0000018097;
+};
+
+REF_OPT_SFLATHV: macro = {
+ !***Exp. configuration in IR1, IR2, IR5 and IR8***
+on_sep1ref:=0;on_x1ref:=0;phi_IR1ref :=    0.000; on_sol_atlasref:=0;on_crab1refref:=0;
+on_sep5ref:=0;on_x5ref:=0;phi_IR5ref :=   90.000; on_sol_cmsref  :=0;on_crab5ref:=0;
+on_sep2ref:=0;on_x2ref:=0;on_aliceref:=0;on_sol_aliceref:=0;
+on_sep8ref:=0;on_x8ref:=0;on_lhcbref :=0;
+
+ !Tune and Chroma
+Qxb1ref =  62.310000;  Qyb1ref =  60.320000;  Qpxb1ref=   2.000000;  Qpyb1ref=   2.000000;
+Qxb2ref =  62.310000;  Qyb2ref =  60.320000;  Qpxb2ref=   2.000000;  Qpyb2ref=   2.000000;
+ !IR Optics summary (phase, twiss param., dispersion)
+muxIP1b1ref= 2.6427000;  muyIP1b1ref= 2.6420000;  muxIP1b1ref_L= 1.1569000;  muyIP1b1ref_L= 1.4867000;  muxIP1b1ref_R= 1.4858000;  muyIP1b1ref_R= 1.1
+553000;  betxIP1b1ref=    0.200000;  betyIP1b1ref=    0.050000;  alfxIP1b1ref=    0.000000;  alfyIP1b1ref=    0.000000;    dxIP1b1ref=    0.000000
+;   dpxIP1b1ref=    0.000000;
+muxIP1b2ref= 2.6427000;  muyIP1b2ref= 2.6420000;  muxIP1b2ref_L= 1.4884000;  muyIP1b2ref_L= 1.1563000;  muxIP1b2ref_R= 1.1543000;  muyIP1b2ref_R= 1.4
+857000;  betxIP1b2ref=    0.200000;  betyIP1b2ref=    0.050000;  alfxIP1b2ref=    0.000000;  alfyIP1b2ref=   -0.000000;    dxIP1b2ref=    0.000000
+;   dpxIP1b2ref=   -0.000000;
+muxIP5b1ref= 2.6427000;  muyIP5b1ref= 2.6420000;  muxIP5b1ref_L= 1.1569000;  muyIP5b1ref_L= 1.4867000;  muxIP5b1ref_R= 1.4858000;  muyIP5b1ref_R= 1.1
+553000;  betxIP5b1ref=    0.050000;  betyIP5b1ref=    0.200000;  alfxIP5b1ref=   -0.000000;  alfyIP5b1ref=    0.000000;    dxIP5b1ref=   -0.000000
+;   dpxIP5b1ref=    0.000000;
+muxIP5b2ref= 2.6427000;  muyIP5b2ref= 2.6420000;  muxIP5b2ref_L= 1.4884000;  muyIP5b2ref_L= 1.1563000;  muxIP5b2ref_R= 1.1543000;  muyIP5b2ref_R= 1.4
+857000;  betxIP5b2ref=    0.050000;  betyIP5b2ref=    0.200000;  alfxIP5b2ref=    0.000000;  alfyIP5b2ref=    0.000000;    dxIP5b2ref=   -0.000000
+;   dpxIP5b2ref=   -0.000000;
+muxIP2b1ref= 2.9500000;  muyIP2b1ref= 2.7000000;  betxIP2b1ref=   10.000000;  betyIP2b1ref=   10.000000;  alfxIP2b1ref=   -0.000000;  alfyIP2b1ref=  
+ -0.000000;    dxIP2b1ref=    0.000000;   dpxIP2b1ref=   -0.000000;
+muxIP2b2ref= 2.9500000;  muyIP2b2ref= 2.7000000;  betxIP2b2ref=   10.000000;  betyIP2b2ref=   10.000000;  alfxIP2b2ref=   -0.000000;  alfyIP2b2ref=  
+ -0.000000;    dxIP2b2ref=    0.000000;   dpxIP2b2ref=   -0.000000;
+muxIP8b1ref= 3.0200000;  muyIP8b1ref= 2.8000000;  betxIP8b1ref=    3.000000;  betyIP8b1ref=    3.000000;  alfxIP8b1ref=    0.000000;  alfyIP8b1ref=  
+  0.000000;    dxIP8b1ref=    0.000000;   dpxIP8b1ref=    0.000000;
+muxIP8b2ref= 3.0200000;  muyIP8b2ref= 2.8000000;  betxIP8b2ref=    3.000000;  betyIP8b2ref=    3.000000;  alfxIP8b2ref=   -0.000000;  alfyIP8b2ref=  
+  0.000000;    dxIP8b2ref=    0.000000;   dpxIP8b2ref=   -0.000000;
+muxIP4b1ref= 2.1600000;  muyIP4b1ref= 1.7200000;  betxIP4b1ref=  172.807960;  betyIP4b1ref=  230.297901;  alfxIP4b1ref=    0.580679;  alfyIP4b1ref=  
+ -0.325498;    dxIP4b1ref=    0.000000;   dpxIP4b1ref=   -0.000000;
+muxIP4b2ref= 2.1600000;  muyIP4b2ref= 1.7200000;  betxIP4b2ref=  228.562579;  betyIP4b2ref=  302.565988;  alfxIP4b2ref=   -0.537702;  alfyIP4b2ref=  
+  0.588783;    dxIP4b2ref=    0.000000;   dpxIP4b2ref=    0.000000;
+muxIP6b1ref= 2.0000000;  muyIP6b1ref= 2.0300000;  betxIP6b1ref=  313.960869;  betyIP6b1ref=  176.778894;  alfxIP6b1ref=   -1.398519;  alfyIP6b1ref=  
+  0.687840;    dxIP6b1ref=   -0.000000;   dpxIP6b1ref=   -0.000000;
+muxIP6b2ref= 2.0000000;  muyIP6b2ref= 2.0300000;  betxIP6b2ref=  277.697069;  betyIP6b2ref=  216.885099;  alfxIP6b2ref=    1.157358;  alfyIP6b2ref=  
+ -0.912531;    dxIP6b2ref=    0.000000;   dpxIP6b2ref=    0.000000;
+muxIP3b1ref= 2.2550000;  muyIP3b1ref= 1.9550000;  betxIP3b1ref=  121.566844;  betyIP3b1ref=  218.585060;  alfxIP3b1ref=    2.295731;  alfyIP3b1ref=  
+ -2.642890;    dxIP3b1ref=   -0.510507;   dpxIP3b1ref=   -0.006525;
+muxIP3b2ref= 2.2550000;  muyIP3b2ref= 1.9550000;  betxIP3b2ref=  121.567284;  betyIP3b2ref=  218.584477;  alfxIP3b2ref=   -2.295728;  alfyIP3b2ref=  
+  2.642905;    dxIP3b2ref=   -0.422999;   dpxIP3b2ref=    0.008312;
+muxIP7b1ref= 2.4550000;  muyIP7b1ref= 1.9700000;  betxIP7b1ref=  120.813252;  betyIP7b1ref=  149.430470;  alfxIP7b1ref=    1.276977;  alfyIP7b1ref=   -1.385146;    dxIP7b1ref=   -0.203847;   dpxIP7b1ref=   -0.000000;
+muxIP7b2ref= 2.4550000;  muyIP7b2ref= 1.9700000;  betxIP7b2ref=  120.813252;  betyIP7b2ref=  149.430471;  alfxIP7b2ref=   -1.276977;  alfyIP7b2ref=    1.385146;    dxIP7b2ref=   -0.011973;   dpxIP7b2ref=   -0.000000;
+
+ !Xscheme summary in IR1, IR2,IR5 and IR8
+xIP1b1ref=-0.0000000000;  yIP1b1ref= 0.0007500000;  pxIP1b1ref= 0.0003350000;  pyIP1b1ref=-0.0000000000;
+xIP1b2ref=-0.0000000000;  yIP1b2ref=-0.0007500000;  pxIP1b2ref=-0.0003350000;  pyIP1b2ref=-0.0000000000;
+xIP2b1ref= 0.0020000000;  yIP2b1ref= 0.0000000000;  pxIP2b1ref= 0.0000002919;  pyIP2b1ref= 0.0002399994;
+xIP2b2ref=-0.0020000000;  yIP2b2ref=-0.0000000000;  pxIP2b2ref=-0.0000002919;  pyIP2b2ref=-0.0002399994;
+xIP5b1ref= 0.0007500000;  yIP5b1ref= 0.0000000000;  pxIP5b1ref=-0.0000000000;  pyIP5b1ref= 0.0003350000;
+xIP5b2ref=-0.0007500000;  yIP5b2ref= 0.0000000000;  pxIP5b2ref=-0.0000000000;  pyIP5b2ref=-0.0003350000;
+xIP8b1ref=-0.0000000000;  yIP8b1ref=-0.0020000000;  pxIP8b1ref=-0.0003049879;  pyIP8b1ref=-0.0000018097;
+xIP8b2ref=-0.0000000000;  yIP8b2ref= 0.0020000000;  pxIP8b2ref= 0.0003049879;  pyIP8b2ref= 0.0000018097;
+};

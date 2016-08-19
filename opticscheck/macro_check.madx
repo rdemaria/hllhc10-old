@@ -1,0 +1,268 @@
+!--- check x-scheme and beta*  ---
+set,format=28.16g;
+
+diff_qdq: macro = {
+fl_qdq=1;
+if(abs(Qxb1ref -  Qxb1) > 1.e-6){
+  fl_qdq=0;
+  print,text="   !!! Qxb1 differs";
+};
+if(abs(Qyb1ref -  Qyb1) > 1.e-6){
+  fl_qdq=0;
+  print,text="   !!! Qyb1 differs";
+};
+if(abs(Qpxb1ref -  Qpxb1) > 1.e-6){
+  fl_qdq=0;
+  print,text="   !!! Qpxb1 differs";
+};
+if(abs(Qpyb1ref -  Qpyb1) > 1.e-6){
+  fl_qdq=0;
+  print,text="   !!! Qpyb1 differs";
+};
+
+if(abs(Qxb2ref -  Qxb2) > 1.e-6){
+  fl_qdq=0;
+  print,text="   !!! Qxb2 differs";
+};
+if(abs(Qyb2ref -  Qyb2) > 1.e-6){
+  fl_qdq=0;
+  print,text="   !!! Qyb2 differs";
+};
+if(abs(Qpxb2ref -  Qpxb2) > 1.e-6){
+  fl_qdq=0;
+  print,text="   !!! Qpxb2 differs";
+};
+if(abs(Qpyb2ref -  Qpyb2) > 1.e-6){
+  fl_qdq=0;
+  print,text="   !!! Qpyb2 differs";
+};
+};
+
+diff_twiss_ip(param,irn): macro = {
+fl_ip=1;
+if(abs(paramxIPirnb1ref - paramxIPirnb1) > 1.e-6){
+  fl_ip=0;
+  printf,text="   !!! paramxIPirnb1 differ: paramxIPirnb1ref=%11.6f; paramxIPirnb1=%11.6f",value=paramxIPirnb1ref,paramxIPirnb1;
+};
+if(abs(paramyIPirnb1ref - paramyIPirnb1) > 1.e-6){
+  fl_ip_ip=0;
+  printf,text="   !!! paramyIPirnb1 differ: paramyIPirnb1ref=%11.6f; paramyIPirnb1=%11.6f",value=paramyIPirnb1ref,paramyIPirnb1;
+};
+if(abs(paramxIPirnb2ref - paramxIPirnb2) > 1.e-6){
+  fl_ip=0;
+  printf,text="   !!! paramxIPirnb2 differ: paramxIPirnb2ref=%11.6f; paramxIPirnb2=%11.6f",value=paramxIPirnb2ref,paramxIPirnb2;
+};
+if(abs(paramyIPirnb2ref - paramyIPirnb2) > 1.e-6){
+  fl_ip=0;
+  printf,text="   !!! paramyIPirnb2 differ: paramyIPirnb2ref=%11.6f; paramyIPirnb2=%11.6f",value=paramyIPirnb2ref,paramyIPirnb2;
+};
+!set fl_twiss_ip_all=0 if one of the checks fails for any of the IP=IPirn
+if(fl_twiss_ip == 1){
+  fl_twiss_ip=fl_ip;
+};
+!set fl_twiss_ip_all=0 if one of the checks fails for any of the IPs
+if(fl_twiss_ip_all == 1){
+  fl_twiss_ip_all=fl_ip;
+};
+};
+
+diff_mu_lr_ip(irn): macro = {
+!check phase advance left and right for IR1 and IR5
+fl_mu_lr_ip=1;
+if(abs(muxIPirnb1ref_l - muxIPirnb1_l) > 1.e-6){
+  fl_mu_lr_ip=0;
+  printf,text="   !!! muxIPirnb1_l differ: muxIPirnb1ref_l=%11.6f; muxIPirnb1_l=%11.6f",value=muxIPirnb1ref_l,muxIPirnb1_l;
+};
+if(abs(muxIPirnb1ref_r - muxIPirnb1_r) > 1.e-6){
+  fl_mu_lr_ip=0;
+  printf,text="   !!! muxIPirnb1_r differ: muxIPirnb1ref_r=%11.6f; muxIPirnb1_r=%11.6f",value=muxIPirnb1ref_r,muxIPirnb1_r;
+};
+if(abs(muyIPirnb1ref_l - muyIPirnb1_l) > 1.e-6){
+  fl_mu_lr_ip=0;
+  printf,text="   !!! muyIPirnb1_l differ: muyIPirnb1ref_l=%11.6f; muyIPirnb1_l=%11.6f",value=muyIPirnb1ref_l,muyIPirnb1_l;
+};
+if(abs(muyIPirnb1ref_r - muyIPirnb1_r) > 1.e-6){
+  fl_mu_lr_ip=0;
+  printf,text="   !!! muyIPirnb1_r differ: muyIPirnb1ref_r=%11.6f; muyIPirnb1_r=%11.6f",value=muyIPirnb1ref_r,muyIPirnb1_r;
+};
+if(abs(muxIPirnb2ref_l - muxIPirnb2_l) > 1.e-6){
+  fl_mu_lr_ip=0;
+  printf,text="   !!! muxIPirnb2_l differ: muxIPirnb2ref_l=%11.6f; muxIPirnb2_l=%11.6f",value=muxIPirnb2ref_l,muxIPirnb2_l;
+};
+if(abs(muxIPirnb2ref_r - muxIPirnb2_r) > 1.e-6){
+  fl_mu_lr_ip=0;
+  printf,text="   !!! muxIPirnb2_r differ: muxIPirnb2ref_r=%11.6f; muxIPirnb2_r=%11.6f",value=muxIPirnb2ref_r,muxIPirnb2_r;
+};
+if(abs(muyIPirnb2ref_l - muyIPirnb2_l) > 1.e-6){
+  fl_mu_lr_ip=0;
+  printf,text="   !!! muyIPirnb2_l differ: muyIPirnb2ref_l=%11.6f; muyIPirnb2_l=%11.6f",value=muyIPirnb2ref_l,muyIPirnb2_l;
+};
+if(abs(muyIPirnb2ref_r - muyIPirnb2_r) > 1.e-6){
+  fl_mu_lr_ip=0;
+  printf,text="   !!! muyIPirnb2_r differ: muyIPirnb2ref_r=%11.6f; muyIPirnb2_r=%11.6f",value=muyIPirnb2ref_r,muyIPirnb2_r;
+};
+!set fl_twiss_ip_all=0 if one of the checks fails for any of the IPs
+if(fl_twiss_ip_all == 1){
+  fl_twiss_ip_all=fl_mu_lr_ip;
+};
+};
+
+diff_ddp_ip(param,irn): macro = {
+fl_ip=1;
+if(abs(paramxIPirnb1ref - paramxIPirnb1) > 1.e-6){
+  fl_ip=0;
+  printf,text="   !!! paramxIPirnb1 differ: paramxIPirnb1ref=%11.6f; paramxIPirnb1=%11.6f",value=paramxIPirnb1ref,paramxIPirnb1;
+};
+if(abs(paramxIPirnb2ref - paramxIPirnb2) > 1.e-6){
+  fl_ip=0;
+  printf,text="   !!! paramxIPirnb2 differ: paramxIPirnb2ref=%11.6f; paramxIPirnb2=%11.6f",value=paramxIPirnb2ref,paramxIPirnb2;
+};
+!set fl_twiss_ip_all=0 if one of the checks fails for any of the IP=IPirn
+if(fl_twiss_ip == 1){
+  fl_twiss_ip=fl_ip;
+};
+!set fl_twiss_ip_all=0 if one of the checks fails for any of the IPs
+if(fl_twiss_ip_all == 1){
+  fl_twiss_ip_all=fl_ip;
+};
+};
+
+diff_xing_ip(irn): macro = {
+fl_ip=1;
+if(abs(xIPirnb1ref - xIPirnb1) > 1.e-10){
+  fl_ip=0;
+  printf,text="   !!! xIPirnb1 differ: xIPirnb1ref=%12.9f; xIPirnb1=%12.9f",value=xIPirnb1ref,xIPirnb1;
+};
+if(abs(yIPirnb1ref - yIPirnb1) > 1.e-10){
+  fl_ip_ip=0;
+  printf,text="   !!! yIPirnb1 differ: yIPirnb1ref=%12.9f; yIPirnb1=%12.9f",value=yIPirnb1ref,yIPirnb1;
+};
+if(abs(xIPirnb2ref - xIPirnb2) > 1.e-10){
+  fl_ip=0;
+  printf,text="   !!! xIPirnb2 differ: xIPirnb2ref=%12.9f; xIPirnb2=%12.9f",value=xIPirnb2ref,xIPirnb2;
+};
+if(abs(yIPirnb2ref - yIPirnb2) > 1.e-10){
+  fl_ip=0;
+  printf,text="   !!! yIPirnb2 differ: yIPirnb2ref=%12.9f; yIPirnb2=%12.9f",value=yIPirnb2ref,yIPirnb2;
+};
+if(abs(pxIPirnb1ref - pxIPirnb1) > 1.e-10){
+  fl_ip=0;
+  printf,text="   !!! pxIPirnb1 differ: pxIPirnb1ref=%12.9f; pxIPirnb1=%12.9f",value=pxIPirnb1ref,pxIPirnb1;
+};
+if(abs(pyIPirnb1ref - pyIPirnb1) > 1.e-10){
+  fl_ip_ip=0;
+  printf,text="   !!! pyIPirnb1 differ: pyIPirnb1ref=%12.9f; pyIPirnb1=%12.9f",value=pyIPirnb1ref,pyIPirnb1;
+};
+if(abs(pxIPirnb2ref - pxIPirnb2) > 1.e-10){
+  fl_ip=0;
+  printf,text="   !!! pxIPirnb2 differ: pxIPirnb2ref=%12.9f; pxIPirnb2=%12.9f",value=pxIPirnb2ref,pxIPirnb2;
+};
+if(abs(pyIPirnb2ref - pyIPirnb2) > 1.e-10){
+  fl_ip=0;
+  printf,text="   !!! yIPirnb2 differ: pyIPirnb2ref=%12.9f; pyIPirnb2=%12.9f",value=pyIPirnb2ref,pyIPirnb2;
+};
+!set fl_twiss_ip_all=0 if one of the checks fails for any of the IPs
+if(fl_xing_ip_all == 1){
+  fl_xing_ip_all=fl_ip;
+};
+};
+
+check_knob_ip_ref(irn) : macro ={
+!compare knobs with reference optics values
+print,text="... check xing knobs for irn";
+fl_knob_ip=1;
+if(phi_IRirnref <> phi_IRirn){
+  fl_knob_ip=0;
+  printf,text="   !!! phiIRirn differs: phi_IRirnref=%g; phi_IRirn=%g",value=phi_IRirnref,phi_IRirn;
+};
+if(on_xirnref   <> on_xirn  ){ 
+  fl_knob_ip=0;
+  printf,text="   !!! on_xirn differs: on_xirnref=%g; on_xirn=%g",value=on_xirnref,on_xirn;
+};
+if(on_sepirnref <> on_sepirn){ 
+  fl_knob_ip=0;
+  printf,text="   !!! on_sepirn differs: on_sepirnref=%g; on_sepirn=%g",value=on_sepirnref,on_sepirn;
+};
+if(on_dispref   <> on_disp  ){ 
+  fl_knob_ip=0;
+  printf,text="   !!! on_disp differs: on_dispref=%g; on_disp=%g",value=on_dispref,on_disp;
+};
+if(on_sol_atlasref <> on_sol_atlas){
+  fl_knob_ip=0;
+  printf,text="   !!! on_sol_atlas differs: on_sol_atlasref=%g; on_sol_atlas=%g",value=on_sol_atlasref,on_sol_atlas;
+};
+if(on_sol_cmsref   <> on_sol_cms  ){
+  fl_knob_ip=0;
+  printf,text="   !!! on_sol_cms differs: on_sol_cmsref=%g; on_sol_cms=%g",value=on_sol_cmsref,on_sol_cms;
+};
+if(0 <> on_oirn){
+  fl_knob_ip=0;
+  printf,text="   !!! on_oirn!=0: on_oirnref=%g; on_oirn=%g",value=on_oirnref,on_oirn;
+};
+if(fl_knob_ip ==1){print,text="- on_* as in opt_*.madx file ok!";};
+if(fl_knob_ip_all ==1){fl_knob_ip_all = fl_knob_ip;};!flag for knob check for all IRs
+};
+
+check_knob_ip(irn) : macro ={
+!check polarity of knobs
+auxon_x1  =on_x1  ;auxon_x5  =on_x5  ;auxon_sep1=on_sep1;auxon_sep5=on_sep5;auxon_sol_atlas = on_sol_atlas;auxon_sol_cms = on_sol_cms;
+auxon_x2  =on_x2  ;auxon_x8  =on_x8  ;auxon_sep2=on_sep2;auxon_sep8=on_sep8;auxon_lhcb      = on_lhcb     ;auxon_alice   = on_alice  ;
+auxon_disp=on_disp;
+!set all values to 0
+on_x1=0;on_x5=0;on_sep1=0;on_sep5=0;on_o1=0;on_o5=0;on_sol_atlas=0;on_sol_cms=0;
+on_x2=0;on_x8=0;on_sep2=0;on_sep8=0;on_lhcb=0;on_alice=0;
+on_disp=0;
+!on_xirn=1 an on_sepirn=1 already tested in diff_xing_ip
+!check scaling and polarity by setting on_sep and on_x to -2.5 or 1.7 depending on x and sep plane
+sclx=-2.5;scly=-1.7;
+if(abs(phi_irirn - 0)  < 1.e-6){on_xirn=sclx;on_sepirn=scly;}!horizontal crossing, vertical separation
+if(abs(phi_irirn - 90) < 1.e-6){on_sepirn=sclx;on_xirn=scly;}!vertical crossing, horizontal separation
+printf,text="... check scaling with on_xirn and on_sepirn by setting on_xirn=%.2g; on_sepirn=%.2g",value=on_xirn,on_sepirn;
+assign,echo=terminal ;
+value,on_xirn;value,on_sepirn;
+print,text="set output to terminal";
+exec, check_ip(b1);
+exec, check_ip(b2);
+print,text="set output to file temp/check_opt";
+option,-echo, -info ;assign, echo=temp/check_opt;
+fl_knob_ip=1;
+!b1
+if(abs(refxipirnb1-sclx*xIPirnb1ref) > 1.e-10){
+  fl_knob_ip=0;
+  printf,text="   !!! xipirnb1 differs: %.2g*xIPirnb1ref=%12.9f; xipirnb1=%12.9f",value=sclx,sclx*xIPirnb1ref,refxipirnb1;
+};
+if(abs(refyipirnb1-scly*yIPirnb1ref) > 1.e-10){
+  fl_knob_ip=0;
+  printf,text="   !!! yipirnb1 differs: %2.g*yipirnb1ref=%12.9f; yipirnb1=%12.9f",value=scly,scly*yipirnb1ref,refyipirnb1;
+};
+if(abs(refpxipirnb1-sclx*pxIPirnb1ref) > 1.e-10){
+  fl_knob_ip=0;
+  printf,text="   !!! pxipirnb1 differs: %.2g*pxipirnb1ref=%12.9f; pxipirnb1=%12.9f",value=sclx,sclx*pxipirnb1ref,refpxipirnb1;
+};
+if(abs(refpyipirnb1-scly*pyIPirnb1ref) > 1.e-10){
+  fl_knob_ip=0;
+  printf,text="   !!! pyipirnb1 differs: %.2g*pyipirnb1ref=%12.9f; pyipirnb1=%12.9f",value=scly,scly*pyipirnb1ref,refpyipirnb1;
+};
+!b2
+if(abs(refxipirnb2-sclx*xIPirnb2ref) > 1.e-10){
+  fl_knob_ip=0;
+  printf,text="   !!! xipirnb2 differs: %.2g*xIPirnb2ref=%12.9f; xipirnb2=%12.9f",value=sclx,sclx*xIPirnb2ref,refxipirnb2;
+};
+if(abs(refyipirnb2-scly*yIPirnb2ref) > 1.e-10){
+  fl_knob_ip=0;
+  printf,text="   !!! yipirnb2 differs: %2.g*yipirnb2ref=%12.9f; yipirnb2=%12.9f",value=scly,scly*yipirnb2ref,refyipirnb2;
+};
+if(abs(refpxipirnb2-sclx*pxIPirnb2ref) > 1.e-10){
+  fl_knob_ip=0;
+  printf,text="   !!! pxipirnb2 differs: %.2g*pxipirnb2ref=%12.9f; pxipirnb2=%12.9f",value=sclx,sclx*pxipirnb2ref,refpxipirnb2;
+};
+if(abs(refpyipirnb2-scly*pyIPirnb2ref) > 1.e-10){
+  fl_knob_ip=0;
+  printf,text="   !!! pyipirnb2 differs: %.2g*pyipirnb2ref=%12.9f; pyipirnb2=%12.9f",value=scly,scly*pyipirnb2ref,refpyipirnb2;
+};
+if(fl_knob_ip ==1){print,text="- scaling of on_xirn and on_pxirn ok!";};
+if(fl_knob_ip_all ==1){fl_knob_ip_all = fl_knob_ip;};!flag for knob check for all IRs
+on_x1  =auxon_x1  ;on_x5  =auxon_x5  ;on_sep1=auxon_sep1;on_sep5=auxon_sep5;on_sol_atlas = auxon_sol_atlas;on_sol_cms = auxon_sol_cms;
+on_x2  =auxon_x2  ;on_x8  =auxon_x8  ;on_sep2=auxon_sep2;on_sep8=auxon_sep8;on_lhcb      = auxon_lhcb     ;on_alice   = auxon_alice  ;
+on_disp=auxon_disp;
+};

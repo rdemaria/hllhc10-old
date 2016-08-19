@@ -167,7 +167,17 @@ acbrdh4.rIRNb2:=acbrdh4.rIRNb2x*on_xIRN*xcosirIRN +
 
 
 
-
+!----- matchXscheme -------
+!rotation in wrong direction
+!change to (see HLLHCV1.1/toolkit/rematch_xing_ir15.madx
+! constraint, sequence=lhcb1,range=IPIRN, x  = -Psep*xsinirIRN,
+!                                         y  =  Psep*xcosirIRN,
+!                                         py =  Xang*xsinirIRN,
+!                                         px =  Xang*xcosirIRN;
+! constraint, sequence=lhcb2,range=IPIRN, x  =  Psep*xsinirIRN,
+!                                         y  = -Psep*xcosirIRN,
+!                                         py = -Xang*xsinirIRN,
+!                                         px = -Xang*xcosirIRN;
 matchXscheme(IRN,VAR1,VAR2,VPHI): macro={
   auxon_xIRN  =on_xIRN  ;
   auxon_sepIRN=on_sepIRN;
@@ -249,8 +259,6 @@ exec,crossing_disable;
 
 exec,selectIR15(5,45,56,b1); exec,selectIR15(5,45,56,b2);
 
-set,format="22.3f";
-
 exec,resetXscheme(1);
 exec,resetXscheme(5);
 exec,cableXscheme(1);
@@ -263,7 +271,6 @@ exec,valueXscheme(5);
 value,tarir1xing90,tarir1xing0,tarir5xing90,tarir5xing0;
 
 exec,crossing_restore;
-set,format="22.18e";
 
 !xing=170e-6;
 !xsep=2.5e-3;
